@@ -24,16 +24,9 @@ public class Demo {
 		
 //		System.out.println(dao.add(person)); 
 		
-		person.setDateofbirth(date);
-//				
+		person.setDateofbirth(date);			
 		System.out.println(dao.update(person)); 
 	}
 
-	
-}
-
-abstract class test{
-	public static void foo()
-	{}
 	
 }

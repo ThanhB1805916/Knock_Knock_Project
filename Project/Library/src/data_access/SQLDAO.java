@@ -1,6 +1,5 @@
 package data_access;
 
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,15 +14,14 @@ import connection.ConnectionString;
 
 public class SQLDAO implements ISQLDAO {
 
-	// Convert a resultset to a hash list
+	private ConnectionString connectionString = new ConnectionString();
+
 	@Override
 	public List<HashMap<String, Object>> convertResultSetToList(ResultSet resultSet) {
 
-		// Create a list store columns and their values
-		List<HashMap<String, Object>> resultSetList = new ArrayList<HashMap<String, Object>>();
+		List<HashMap<String, Object>> tableData = new ArrayList<HashMap<String, Object>>();
 
 		try {
-			// Get result metadata
 			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
 			// Get the number of columns
@@ -40,23 +38,20 @@ public class SQLDAO implements ISQLDAO {
 				}
 
 				// Add row to list
-				resultSetList.add(row);
+				tableData.add(row);
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return resultSetList;
+		return tableData;
 
 	}
 
-	// Create a callable statement base on connection, query and parameters
 	@Override
 	public CallableStatement createCallableStatement(Connection connection, String query, Object[] parameters) {
 
-		// Create callablestatement
 		CallableStatement callableStatement = null;
 		try {
 			callableStatement = connection.prepareCall(query);
@@ -72,24 +67,16 @@ public class SQLDAO implements ISQLDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return callableStatement;
 	}
 
-	// ExecuteQuery return a list of hashmap<column, values> by query and parameters
-	// Use for SELECT query
 	@Override
 	public List<HashMap<String, Object>> executeQuery(String query, Object[] parameters) {
 
-		// Create a connection String
-		ConnectionString connectionString = new ConnectionString();
-
-		// Create a list
-		List<HashMap<String, Object>> resultSetList = null;
-
+		List<HashMap<String, Object>> tableData = null;
 		try {
 			// Try connect to database
 			Connection connection = DriverManager.getConnection(connectionString.getUrl(),
@@ -97,100 +84,61 @@ public class SQLDAO implements ISQLDAO {
 
 			// Get callableSatement
 			CallableStatement callableStatement = createCallableStatement(connection, query, parameters);
-
-			// Create result set
 			ResultSet resultSet = callableStatement.executeQuery();
+			tableData = convertResultSetToList(resultSet);
 
-			// Convert to hash list
-			resultSetList = convertResultSetToList(resultSet);
-
-			// Close result
 			resultSet.close();
-
-			// Close statement
 			callableStatement.close();
-
-			// Close connection
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return resultSetList;
+		return tableData;
 	}
 
-	// ExecuteNonQuery return numbers of rows effect
-	// Use for DELETE, UPDATE
 	@Override
 	public int executeNonQuery(String query, Object[] parameters) {
-		// Create a connection String
-		ConnectionString connectionString = new ConnectionString();
 
 		// Store effected rows
-		int cnt = 0;
-
+		int cntRow = 0;
 		try {
 			// Try connect to database
 			Connection connection = DriverManager.getConnection(connectionString.getUrl(),
 					connectionString.getUsername(), connectionString.getPassword());
 
-			// Get callableSatement
 			CallableStatement callableStatement = createCallableStatement(connection, query, parameters);
+			cntRow = callableStatement.executeUpdate();
 
-			// Get effected rows
-			cnt = callableStatement.executeUpdate();
-
-			// Close statement
 			callableStatement.close();
-
-			// Close connection
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return cnt;
+		return cntRow;
 	}
 
-	// ExecuteScalar return 1 object
-	// Use for SELECT COUNT (*)
 	@Override
 	public Object executeScalar(String query, Object[] parameters) {
-		// Create a connection String
-		ConnectionString connectionString = new ConnectionString();
 
-		// Store 1 output value
 		Object output = null;
-
 		try {
 			// Try connect to database
 			Connection connection = DriverManager.getConnection(connectionString.getUrl(),
 					connectionString.getUsername(), connectionString.getPassword());
 
-			// Get callableSatement
 			CallableStatement callableStatement = createCallableStatement(connection, query, parameters);
-
-			// Create result set
 			ResultSet resultSet = callableStatement.executeQuery();
 
-			// Go to first row
+			// Get the only value
 			resultSet.next();
-
-			// Get the object
 			output = resultSet.getObject(1);
 
-			// Close result
 			resultSet.close();
-
-			// Close statement
 			callableStatement.close();
-
-			// Close connection
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

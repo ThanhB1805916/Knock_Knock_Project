@@ -13,7 +13,6 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 
 	public PersonDAO(ISQLDAO dao) {
 		super(dao);
-		// TODO Auto-generated constructor stub
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,13 +24,12 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 	public PersonTable get(int id) {
 		String query = "CALL spPerson_GetPerson_Byid(?);";
 
-		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query, new Object[] { id });
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(query, new Object[] { id });
 
 		PersonTable person = null;
-
-		// if exist
-		if (Hash_List.isEmpty() == false) {
-			person = new PersonTable(Hash_List.get(0));
+		// If exist
+		if (dataTable.isEmpty() == false) {
+			person = new PersonTable(dataTable.get(0));
 		}
 
 		return person;
@@ -42,14 +40,12 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 	public PersonTable getByUsername(String username) {
 		String query = "CALL spPerson_GetPerson_ByUsername (?);";
 
-		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query,
-				new Object[] { username });
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(query, new Object[] { username });
 
 		PersonTable person = null;
-
-		// if exist
-		if (Hash_List.isEmpty() == false) {
-			person = new PersonTable(Hash_List.get(0));
+		// If exist
+		if (dataTable.isEmpty() == false) {
+			person = new PersonTable(dataTable.get(0));
 		}
 
 		return person;
@@ -60,13 +56,12 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 	public PersonTable getByPhonenumber(String phonenumber) {
 		String query = "CALL spPerson_GetPerson_ByPhonenumber (?);";
 
-		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query, new Object[] { phonenumber });
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(query, new Object[] { phonenumber });
 
 		PersonTable person = null;
-
-		// if exist
-		if (Hash_List.isEmpty() == false) {
-			person = new PersonTable(Hash_List.get(0));
+		// If exist
+		if (dataTable.isEmpty() == false) {
+			person = new PersonTable(dataTable.get(0));
 		}
 
 		return person;
@@ -78,16 +73,15 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 	public List<PersonTable> getListByID_Room(int id_room) {
 		String query = "CALL spPerson_GetPersonList_ByID_Room(?);";
 
-		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query, new Object[] { id_room });
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(query, new Object[] { id_room });
 
 		List<PersonTable> Person_List = null;
-
-		// if exist
-		if (Hash_List.isEmpty() == false) {
+		// If exist
+		if (dataTable.isEmpty() == false) {
 			Person_List = new ArrayList<PersonTable>();
 
-			for (HashMap<String, Object> hashMap : Hash_List) {
-				Person_List.add(new PersonTable(hashMap));
+			for (HashMap<String, Object> row : dataTable) {
+				Person_List.add(new PersonTable(row));
 			}
 		}
 
