@@ -1,12 +1,12 @@
-package communication_standard.converter;
+package converter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import communication_standard.model.FileInfo;
-import communication_standard.model.Person;
 import data_model.PersonTable;
+import model.FileInfo;
+import model.Person;
 
 // Convert PeronTable to Person
 

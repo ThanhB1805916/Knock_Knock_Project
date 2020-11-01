@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import communication_standard.CommandType;
 import communication_standard.CommunicationPackage;
-import communication_standard.model.Person;
+import model.Person;
 import socket.IClient;
 import socket.Server;
 

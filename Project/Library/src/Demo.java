@@ -15,6 +15,7 @@ public class Demo {
 
 		PersonDAO dao = new PersonDAO(new SQLDAO());
 	
+		@SuppressWarnings("deprecation")
 		Date date = new Date("10/05/2013");
 		
 		PersonTable person = new PersonTable(0, "user200", "1234", "User200", true, "1123456798", date, null);
@@ -23,10 +24,16 @@ public class Demo {
 		
 //		System.out.println(dao.add(person)); 
 		
-//		person.setDateofbirth(date);
+		person.setDateofbirth(date);
 //				
-//		System.out.println(dao.update(person)); 
+		System.out.println(dao.update(person)); 
 	}
 
+	
+}
+
+abstract class test{
+	public static void foo()
+	{}
 	
 }

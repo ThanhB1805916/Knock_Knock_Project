@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import communication_standard.model.Person;
 import connection.ServerConnection;
+import model.Person;
 
 //Singleton
 public class Server implements Runnable {

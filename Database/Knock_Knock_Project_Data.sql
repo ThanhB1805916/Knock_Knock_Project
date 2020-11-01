@@ -6,83 +6,83 @@ USE Knock_Knock_Project;
 -- --------------------------------------- Giá trị cho bảng Person
 -- ----------------------------------------------------------------------------------------------
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('admin', '1234', 'Administrator', '1', '0000000000', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('admin', '1234', 'Administrator', '1', '0000000000', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user1', '1234', 'User1', '1', '0000000001', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user1', '1234', 'User1', '1', '0000000001', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user2', '1234', 'User2', '0', '0000000002', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user2', '1234', 'User2', '0', '0000000002', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user3', '1234', 'User3', '0', '0000000003', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user3', '1234', 'User3', '0', '0000000003', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user4', '1234', 'User4', '0', '0000000004', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user4', '1234', 'User4', '0', '0000000004', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user5', '1234', 'User5', '0', '0000000005', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user5', '1234', 'User5', '0', '0000000005', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user6', '1234', 'User6', '0', '0000000006', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user6', '1234', 'User6', '0', '0000000006', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user7', '1234', 'User7', '0', '0000000007', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user7', '1234', 'User7', '0', '0000000007', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user8', '1234', 'User8', '0', '0000000008', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user8', '1234', 'User8', '0', '0000000008', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user9', '1234', 'User9', '0', '0000000009', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user9', '1234', 'User9', '0', '0000000009', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('user10', '1234', 'User10 WTF', '0', '0000000010', '2020-10-04');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('user10', '1234', 'User10 WTF', '0', '0000000010', '2020-10-04', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('legiao', '1234', 'Lê Giao', '0', '0987072222', '2000-11-05');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('legiao', '1234', 'Lê Giao', '0', '0987072222', '2000-11-05', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('firefly', '1234', 'Thạch Chí Tâm', '1', '0907070422', '2000-07-09');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('firefly', '1234', 'Thạch Chí Tâm', '1', '0907070422', '2000-07-09', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('chaubathong', '1234', 'Minh Thông', '1', '0987654321', '1999-06-12');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('chaubathong', '1234', 'Minh Thông', '1', '0987654321', '1999-06-12', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('vovy', '1234', 'Vy Vy', '0', '6868685843', '2000-03-31');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('vovy', '1234', 'Vy Vy', '0', '6868685843', '2000-03-31', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('mathew', '1234', 'Thành Đạt', '1', '1246843333', '2000-08-15');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('mathew', '1234', 'Thành Đạt', '1', '1246843333', '2000-08-15', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('minhthu', '1234', 'Minh Thư', '0', '675849922', '2000-11-22');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('minhthu', '1234', 'Minh Thư', '0', '675849922', '2000-11-22', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('thambuoi', '1234', 'Nguyễn Thắm', '0', '3425165786', '2000-08-27');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('thambuoi', '1234', 'Nguyễn Thắm', '0', '3425165786', '2000-08-27', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('congle', '1234', 'Công Công', '1', '0909988767', '2000-02-28');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('congle', '1234', 'Công Công', '1', '0909988767', '2000-02-28', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('ducquynh', '1234', 'Quỳnh Đức', '1', '6733445533', '2000-08-30');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('ducquynh', '1234', 'Quỳnh Đức', '1', '6733445533', '2000-08-30', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('thotho', '1234', 'Văn Thọ', '1', '8584843828', '2001-02-27');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('thotho', '1234', 'Văn Thọ', '1', '8584843828', '2001-02-27', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('nhanduyen', '1234', 'Thành Nhân', '1', '8473625485', '1998-07-13');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('nhanduyen', '1234', 'Thành Nhân', '1', '8473625485', '1998-07-13', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('nguyenngoc', '1234', 'Khả Ái', '0', '9685473621', '2005-09-19');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('nguyenngoc', '1234', 'Khả Ái', '0', '9685473621', '2005-09-19', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('khoinguyen', '1234', 'Lê Khôi', '1', '4678362522', '2000-10-23');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('khoinguyen', '1234', 'Lê Khôi', '1', '4678362522', '2000-10-23', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('minhanh', '1234', 'Minh Ánh', '0', '0908070533', '2000-04-12');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('minhanh', '1234', 'Minh Ánh', '0', '0908070533', '2000-04-12', 'sources/default/avatars/default_avatars.png');
 
-INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth)
-VALUES('nguyetnga', '1234', 'Nguyệt Nga', '0', '573722222', '2000-01-15');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('nguyetnga', '1234', 'Nguyệt Nga', '0', '573722222', '2000-01-15', 'sources/default/avatars/default_avatars.png');
 
 
 SELECT * FROM Person;

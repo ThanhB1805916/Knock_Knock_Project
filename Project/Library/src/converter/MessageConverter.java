@@ -1,9 +1,9 @@
-package communication_standard.converter;
+package converter;
 
 import java.util.List;
 
-import communication_standard.model.Message;
 import data_model.MessageTable;
+import model.Message;
 
 //This class use to convert Person to ViewPerson and revert back
 public class MessageConverter implements IConverter<MessageTable, Message> {

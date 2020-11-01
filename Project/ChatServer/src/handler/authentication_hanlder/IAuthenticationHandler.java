@@ -1,16 +1,29 @@
 package handler.authentication_hanlder;
 
-import communication_standard.model.LoginModel;
-import communication_standard.model.Person;
+import model.LoginModel;
+import model.Person;
 
 public interface IAuthenticationHandler {
 
-	void signup(Person person);
-	
+	/*
+	 * Create new person and storing information in database If create successfully
+	 * call the setupUser(new person)
+	 */
+	boolean signup(Person person);
+
+	/*
+	 * Create a folder for storing new user's information like avatar
+	 */
 	void setupUser(Person person);
 
-	void login(LoginModel model);
+	/*
+	 * Get information in LoginModel (username, password) Check if exist in database
+	 */
+	boolean login(LoginModel model);
 
-	void logout(Object command);
+	boolean logout(Object command);
 
+	boolean existUsername(String username);
+
+	boolean existPhonenumber(String phonenumber);
 }

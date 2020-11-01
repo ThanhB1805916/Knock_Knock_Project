@@ -4,14 +4,14 @@ import java.io.File;
 
 import communication_standard.CommandType;
 import communication_standard.CommunicationPackage;
-import communication_standard.converter.PersonConverter;
 import communication_standard.manage_type.EManageType;
 import communication_standard.manage_type.type.EAuthentication;
-import communication_standard.model.LoginModel;
-import communication_standard.model.Person;
+import converter.PersonConverter;
 import data_access.person_access.IPersonDAO;
 import data_model.PersonTable;
 import handler.Handler;
+import model.LoginModel;
+import model.Person;
 import socket.IClient;
 import socket.Server;
 
@@ -40,20 +40,28 @@ public class AuthenticationHandler extends Handler implements IAuthenticationHan
 
 			EAuthentication command = (EAuthentication) request.getCommand();
 
+			CommandType commandType = null;
+
 			switch (command) {
 
 			case SIGNUP:
-				signup((Person) request.getContent());
+				commandType = new CommandType(EAuthentication.SIGNUP, signup((Person) request.getContent()));
 				break;
 
 			case LOGIN:
-				login((LoginModel) request.getContent());
+				commandType = new CommandType(EAuthentication.LOGIN, login((LoginModel) request.getContent()));
 				break;
 
 			case LOGOUT:
 				logout(request.getContent());
 				break;
 			}
+
+			// Send back to client
+			if (commandType != null)
+				packAndSend(commandType);
+			else
+				System.out.println("Not valid authentication commandType");
 		}
 
 	}
@@ -72,17 +80,14 @@ public class AuthenticationHandler extends Handler implements IAuthenticationHan
 	// ---------------------------------------------------------------- Signup
 
 	@Override
-	public void signup(Person person) {
+	public boolean signup(Person person) {
 
 		boolean success = false;
 
 		if (person.isValid()) {
 
-			boolean existUsername = dao.existUsername(person.getUsername());
-			boolean existPhonenumber = dao.existPhonenumber(person.getPhonenumber());
-
-			// If username not exist
-			if (existUsername == false && existPhonenumber == false) {
+			// If user name and phone number not exist
+			if (existUsername(person.getUsername()) == false && existPhonenumber(person.getPhonenumber()) == false) {
 				PersonConverter converter = new PersonConverter();
 
 				// Convert to personTable
@@ -95,17 +100,14 @@ public class AuthenticationHandler extends Handler implements IAuthenticationHan
 					// Set up new user
 					setupUser(person);
 				}
-				System.out.println(success);
 			}
 		}
 
-		// Send back to client
-		CommandType commandType = new CommandType(EAuthentication.SIGNUP, success);
-		packAndSend(commandType);
+		return success;
 	}
 
 	// Create folder for storing user's avatar
-	// Folder's name is username
+	// Folder's name is user name
 	@Override
 	public void setupUser(Person person) {
 
@@ -138,41 +140,53 @@ public class AuthenticationHandler extends Handler implements IAuthenticationHan
 	// ---------------------------------------------------------------- Login
 
 	@Override
-	public void login(LoginModel model) {
+	public boolean login(LoginModel model) {
 
+		boolean exist = false;
 		if (model.isValid()) {
 
 			// Get person from database
-			PersonTable personTable = dao.get(model.getUsername(), model.getPassword());
+			PersonTable personTable = dao.getByUsername(model.getUsername());
 
 			Person person = null;
 
-			boolean exist = false;
+			//Match password
+			if (personTable != null && model.getPassword().equals(personTable.getPassword())) {
 
-			if (personTable != null) {
 				PersonConverter converter = new PersonConverter();
 
 				person = converter.convert(personTable);
 
-				//Save login client
+				// Save login client
 				authorizedClient_List.put(client, person);
-				
+
 				exist = true;
+
 			}
 
-			// Send back to client
-			CommandType commandType = new CommandType(EAuthentication.LOGIN, exist);
-			packAndSend(commandType);
 		}
+
+		return exist;
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Logout
 
 	@Override
-	public void logout(Object command) {
+	public boolean logout(Object command) {
 		// Keep connection
 		// Remove user
 		Server.getInstance().getAuthorizedClient_List().remove(client);
+		return false;
+	}
+
+	@Override
+	public boolean existUsername(String username) {
+		return dao.getByUsername(username) != null;
+	}
+
+	@Override
+	public boolean existPhonenumber(String phonenumber) {
+		return dao.getByPhonenumber(phonenumber) != null;
 	}
 }

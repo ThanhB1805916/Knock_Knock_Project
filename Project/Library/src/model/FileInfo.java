@@ -1,4 +1,4 @@
-package communication_standard.model;
+package model;
 
 import java.io.File;
 import java.io.FileInputStream;

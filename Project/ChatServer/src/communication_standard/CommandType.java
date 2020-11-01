@@ -2,7 +2,7 @@ package communication_standard;
 
 import java.io.Serializable;
 
-import communication_standard.model.IValidModel;
+import model.IValidModel;
 
 
 public final class CommandType implements IValidModel, Serializable {

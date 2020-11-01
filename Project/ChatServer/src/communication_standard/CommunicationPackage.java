@@ -3,7 +3,7 @@ package communication_standard;
 import java.io.Serializable;
 
 import communication_standard.manage_type.EManageType;
-import communication_standard.model.IValidModel;
+import model.IValidModel;
 
 //Standard type will be send throught socket
 public final class CommunicationPackage implements IValidModel, Serializable {

@@ -17,29 +17,6 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Exist
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-
-	@Override
-	public boolean existUsername(String username) {
-
-		String query = "CALL spPerson_ExistPerson_ByUsername(?);";
-
-		long row = (long) dao.executeScalar(query, new Object[] { username });
-
-		return row > 0;
-	}
-
-	@Override
-	public boolean existPhonenumber(String phonenumber) {
-		String query = "CALL spPerson_ExistPerson_ByPhonenumber(?);";
-
-		long row = (long) dao.executeScalar(query, new Object[] { phonenumber });
-
-		return row > 0;
-	}
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Get
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -49,7 +26,7 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 		String query = "CALL spPerson_GetPerson_Byid(?);";
 
 		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query, new Object[] { id });
-	
+
 		PersonTable person = null;
 
 		// if exist
@@ -60,13 +37,13 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 		return person;
 	}
 
-	// Get person by personaccount and password
+	// Get person by username
 	@Override
-	public PersonTable get(String personaccount, String personpassword) {
-		String query = "CALL spPerson_GetPerson_ByAccountAndPassword (?, ?);";
+	public PersonTable getByUsername(String username) {
+		String query = "CALL spPerson_GetPerson_ByUsername (?);";
 
 		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query,
-				new Object[] { personaccount, personpassword });
+				new Object[] { username });
 
 		PersonTable person = null;
 
@@ -76,11 +53,29 @@ public class PersonDAO extends ModelDAO<PersonTable> implements IPersonDAO {
 		}
 
 		return person;
+	}
+
+	// Get person by phonenumber
+	@Override
+	public PersonTable getByPhonenumber(String phonenumber) {
+		String query = "CALL spPerson_GetPerson_ByPhonenumber (?);";
+
+		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query, new Object[] { phonenumber });
+
+		PersonTable person = null;
+
+		// if exist
+		if (Hash_List.isEmpty() == false) {
+			person = new PersonTable(Hash_List.get(0));
+		}
+
+		return person;
+
 	}
 
 	// Get person list by id room
 	@Override
-	public List<PersonTable> getList(int id_room) {
+	public List<PersonTable> getListByID_Room(int id_room) {
 		String query = "CALL spPerson_GetPersonList_ByID_Room(?);";
 
 		List<HashMap<String, Object>> Hash_List = dao.executeQuery(query, new Object[] { id_room });

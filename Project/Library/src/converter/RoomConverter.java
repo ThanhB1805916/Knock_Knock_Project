@@ -1,10 +1,10 @@
-package communication_standard.converter;
+package converter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import communication_standard.model.Room;
 import data_model.RoomTable;
+import model.Room;
 
 //Convert RoomTable to Room
 

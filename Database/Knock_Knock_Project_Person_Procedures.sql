@@ -4,33 +4,6 @@
 
 USE Knock_Knock_Project;
 
-
--- -----------------------------------------------------------------------------------------------------------------------------------------------------------
--- ---------------------------------------------------------------------- Exist
-
-
--- Kiểm tra tồn tại người dùng có tài khoản
-DELIMITER $$
-DROP PROCEDURE IF EXISTS spPerson_ExistPerson_ByUsername $$
-CREATE PROCEDURE spPerson_ExistPerson_ByUsername(username VARCHAR(20))
-BEGIN
-	SELECT COUNT(*) FROM Person AS p
-    WHERE username = p.username;
-END; $$
-
-CALL spPerson_ExistPerson_ByUsername('admin');
-
--- Kiểm tra tồn tại người dùng có số điện thoại
-DELIMITER $$
-DROP PROCEDURE IF EXISTS spPerson_ExistPerson_ByPhonenumber $$
-CREATE PROCEDURE spPerson_ExistPerson_ByPhonenumber(phonenumber CHAR(10))
-BEGIN
-	SELECT COUNT(*) FROM Person AS p
-    WHERE phonenumber = p.phonenumber;
-END; $$
-
-CALL spPerson_ExistPerson_ByPhonenumber('0000000000');
-SELECT * FROM PERSON;
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Get
 
@@ -45,18 +18,27 @@ END; $$
 
 CALL spPerson_GetPerson_ByID('1');
 
--- Lấy ra người dùng theo tài khoản và mật khẩu
+-- Lấy ra người dùng theo tài khoản
 DELIMITER $$
-DROP PROCEDURE IF EXISTS spPerson_GetPerson_ByAccountAndPassword $$
-CREATE PROCEDURE spPerson_GetPerson_ByAccountAndPassword(username VARCHAR(20), `password` VARCHAR(128))
+DROP PROCEDURE IF EXISTS spPerson_GetPerson_ByUsername $$
+CREATE PROCEDURE spPerson_GetPerson_ByUsername(username VARCHAR(20))
 BEGIN
 	SELECT * FROM Person AS p
-    WHERE username = p.username
-    AND `password` = p.`password`;
+    WHERE username = p.username;
 END; $$
 
-CALL spPerson_GetPerson_ByAccountAndPassword('admin', '1234');
+CALL spPerson_GetPerson_ByAccountAndPassword('admin');
 
+-- Lấy ra người dùng theo số điện thoại
+DELIMITER $$
+DROP PROCEDURE IF EXISTS spPerson_GetPerson_ByPhonenumber $$
+CREATE PROCEDURE spPerson_GetPerson_ByPhonenumber(phonenumber VARCHAR(20))
+BEGIN
+	SELECT * FROM Person AS p
+    WHERE phonenumber = p.phonenumber;
+END; $$
+
+CALL spPerson_GetPerson_ByAccountAndPassword('0000000001');
 
 -- Lấy ra người dùng theo id phòng
 DELIMITER $$

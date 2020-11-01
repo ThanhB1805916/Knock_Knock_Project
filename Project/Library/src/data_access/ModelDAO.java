@@ -3,7 +3,7 @@ package data_access;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class ModelDAO<T> {
+public abstract class ModelDAO<T>{
 
 	// SQL Data Access Object
 	protected ISQLDAO dao;

@@ -36,24 +36,32 @@ call spRoom_GetRoomList_ByID_Person(2);
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Insert
 
-DROP PROCEDURE IF EXISTS spRoom_InsertRoom;
-delimiter //
-CREATE PROCEDURE spRoom_InsertRoom(in `name` varchar(20), avatar VARCHAR(128))
-begin
-insert into room (`name`, avatar) 
-values (`name`, avatar);
-end//
-delimiter;
+-- Thêm phòng mới theo tên và avatar truyền vào
 
+use knock_knock_project;
+
+DROP PROCEDURE IF EXISTS spRoom_InsertRoom;
+
+delimiter //
+
+CREATE PROCEDURE spRoom_InsertRoom(in `name` varchar(20), in avatar varchar(128))
+
+begin
+
+insert into room (`name`, avatar) values (`name`, avatar);
+
+end//
+
+delimiter ;
 call spRoom_InsertRoom('hello' , 'a');
 
 -- select * from room;
 
-3. Sửa
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------- Update
 
-spRoom_UpdateRoom(id, roomname)
 
-Chỉ sửa tên phòng theo id phòng truyền vào
+-- Sửa tên phòng, avatar theo id phòng truyền vào
 
 use knock_knock_project;
 
@@ -61,21 +69,20 @@ DROP PROCEDURE IF EXISTS spRoom_UpdateRoom;
 
 delimiter //
 
-CREATE PROCEDURE spRoom_UpdateRoom(in id int,in roomname varchar(20))
+CREATE PROCEDURE spRoom_UpdateRoom(in id int, in `name` varchar(20), in avatar varchar(128))
 
 begin
 
-update room set room.roomname = roomname where room.id=id;
+update room set room.name = `name` where room.id=id;
 
 end//
 
 delimiter ;
 
-4. Xóa
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------- Delete
 
-spRoom_DeleteRoom(id)
-
-Xóa phòng theo id phòng
+-- Xóa phòng theo id phòng
 
 DROP PROCEDURE IF EXISTS spRoom_DeleteRoom;
 

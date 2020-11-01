@@ -69,8 +69,9 @@ CREATE TABLE Person_Room
 -- Bảng lưu tin nhắn của phòng đó từ người dùng
 CREATE TABLE Message
 (
-	id_room INT, -- ID phòng
-    id_person INT, -- ID người dùng
+	id INT AUTO_INCREMENT, -- ID
+	id_room INT NOT NULL, -- ID phòng
+    id_person INT NOT NULL, -- ID người dùng
 	messagecontent NVARCHAR(128) NOT NULL, -- Nội dung tin nhắn
     sendtime DATETIME NOT NULL DEFAULT NOW(), -- Thời gian gửi tin nhắn mặc định lấy giờ hệ thống
 
@@ -78,5 +79,8 @@ CREATE TABLE Message
 	-- Bảng Room
     CONSTRAINT Message_FK_Room FOREIGN KEY(id_room) REFERENCES Room(id) ON DELETE CASCADE,
     -- Bảng Person
-	CONSTRAINT Message_FK_Person FOREIGN KEY(id_person) REFERENCES Person(id) ON DELETE CASCADE
+	CONSTRAINT Message_FK_Person FOREIGN KEY(id_person) REFERENCES Person(id) ON DELETE CASCADE,
+    
+    -- Khóa chính
+    CONSTRAINT Message_PK PRIMARY KEY (id)
 );

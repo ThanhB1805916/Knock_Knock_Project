@@ -2,14 +2,14 @@ package handler.manage_account_handler;
 
 import communication_standard.CommandType;
 import communication_standard.CommunicationPackage;
-import communication_standard.converter.PersonConverter;
 import communication_standard.manage_type.EManageType;
 import communication_standard.manage_type.type.EManageAccount;
-import communication_standard.model.Person;
+import converter.PersonConverter;
 import data_access.SQLDAO;
 import data_access.person_access.PersonDAO;
 import data_model.PersonTable;
 import handler.Handler;
+import model.Person;
 import socket.IClient;
 
 public class ManageAccountHandler extends Handler {
