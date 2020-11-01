@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="80.0" minHeight="-Infinity" minWidth="60.0" prefHeight="600.0" prefWidth="60.0" style="-fx-background-color: #2c3e50;" stylesheets="@navStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="navigation.NavigationController">
+   <children>
+      <AnchorPane prefHeight="60.0" prefWidth="60.0">
+         <children>
+            <ImageView fx:id="myUser" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../img/oval.png" />
+               </image>
+            </ImageView>
+            <Button id="userBtn" fx:id="userBtn" mnemonicParsing="false" onMousePressed="#userEntry" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <Button id="navMessage" fx:id="messageBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#messageBtnCilcked" prefHeight="60.0" prefWidth="60.0" styleClass="navBtn" VBox.vgrow="NEVER">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button id="navRoom" fx:id="roomsBtn" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#roomBtnCilcked" prefHeight="60.0" prefWidth="60.0" styleClass="navBtn">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button id="navFriend" fx:id="friendsBtn" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#friendBtnCilcked" prefHeight="60.0" prefWidth="60.0" styleClass="navBtn">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button id="navExit" fx:id="exitBtn" mnemonicParsing="false" onMouseClicked="#exited" prefHeight="60.0" prefWidth="60.0" styleClass="navBtn">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+   </children>
+</VBox>

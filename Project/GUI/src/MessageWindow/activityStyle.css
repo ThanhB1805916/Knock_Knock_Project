@@ -1,0 +1,89 @@
+.textEdit{
+	-fx-background-color:white;
+	-fx-background-radius:30;
+	-fx-border-radius:30;
+	-fx-border-width:2;
+	-fx-border-color: #2c3e50;
+}
+
+.assistButton{
+	-fx-padding:0;
+	-fx-background-color:transparent;
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:25;
+	-fx-background-position: center;
+}
+.assistButton:hover{
+	-fx-background-color:#95a5a633;
+}
+
+#imageBtn{
+	-fx-background-image: url("../img/image.png");
+}
+#imageBtn:hover{
+	-fx-background-image: url("../img/image_flat.png");
+}
+
+#otherBtn{
+	-fx-background-image: url("../img/more.png");
+}
+#otherBtn:hover{
+	-fx-background-image: url("../img/more_flat.png");
+}
+
+#documentBtn{
+	-fx-background-image: url("../img/doc.png");
+}
+#documentBtn:hover{
+	-fx-background-image: url("../img/doc_flat.png");
+}
+
+#videoBtn{
+	-fx-background-image: url("../img/video.png");
+}
+
+#videoBtn:hover{
+	-fx-background-image: url("../img/video_flat.png");
+}
+
+#audioBtn{
+	-fx-background-image: url("../img/headset.png");
+}
+#audioBtn:hover{
+	-fx-background-image: url("../img/headset_flat.png");
+}
+
+.sendButton{
+	-fx-background-image: url("../img/paper_send.png");
+	-fx-background-color:transparent;
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:40;
+}
+
+.sendButton:hover{
+	-fx-background-image: url("../img/paper_send_flat.png");
+}
+
+.textEdit:hover{
+	-fx-border-color: #3498db;
+}
+
+#centerPane > .viewport{
+	-fx-background-color:transparent;
+}
+
+#centerPane{
+	-fx-background-color:transparent;
+}
+
+.informationBtn{
+	-fx-padding:0;
+	-fx-background-color:transparent;
+	-fx-background-image: url("../img/edit.png");
+	-fx-background-size: 90%;
+	-fx-background-repeat: no-repeat;
+}
+
+.informationBtn:hover{
+	-fx-background-image: url("../img/edit_flat.png");
+}

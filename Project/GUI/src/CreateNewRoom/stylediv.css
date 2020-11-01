@@ -1,0 +1,11 @@
+#fillBtn{
+	-fx-background-color:transparent;
+}
+
+#fillBtn:hover{
+	-fx-background-color:#74b9ff33;
+}
+
+#div{
+	-fx-background-color:white;
+}

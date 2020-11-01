@@ -1,0 +1,47 @@
+.navBtn{
+	-fx-background-color:transparent;
+	-fx-padding:0;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position:center;
+	-fx-background-size:30;
+}
+
+.navBtn:hover{
+	-fx-background-color:#0984e333;
+}
+
+.navBtn:focused{
+	-fx-background-color:#0984e333;
+}
+
+#navMessage{
+	-fx-background-image: url("../img/message_white.png");
+}
+
+#navFriend{
+	-fx-background-image: url("../img/friends_white.png");
+}
+
+#navRoom{
+	-fx-background-image: url("../img/room_white.png");
+}
+
+#navExit{
+	-fx-background-image: url("../img/logout.png");
+}
+
+#userBtn{
+	-fx-background-radius:50;
+	-fx-background-color:transparent;
+}
+
+#userBtn:hover{
+	-fx-border-width:2 0 2 0;
+	-fx-border-color:#3498db;
+}
+
+
+.comboBox {
+	-fx-font-size:18;
+	-fx-background-color:transparent;
+}

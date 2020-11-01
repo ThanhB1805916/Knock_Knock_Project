@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="frameActive" minHeight="0.0" prefHeight="600.0" prefWidth="497.0" style="-fx-background-color: white;" stylesheets="@activityStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="activity.ActivityController">
+   <children>
+      <AnchorPane layoutX="-7.0" layoutY="-86.0" prefHeight="68.0" prefWidth="497.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="roomName" layoutX="82.0" layoutY="7.0" prefHeight="30.0" prefWidth="300.0" style="-fx-label-padding: 0; -fx-padding: 0;" text="Label" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="roomAvatar" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="4.0">
+               <image>
+                  <Image url="@../../../../anh-avatar-dep.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="61.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="4.0">
+               <image>
+                  <Image url="@../img/oval_white.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="83.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/member.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="member" layoutX="105.0" layoutY="34.0" prefHeight="21.0" prefWidth="36.0" text="0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="informationBtn" layoutX="435.0" layoutY="15.0" mnemonicParsing="false" onMousePressed="#showRoomDetail" prefHeight="40.0" prefWidth="40.0" styleClass="informationBtn" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="15.0" />
+         </children>
+      </AnchorPane>
+      <ScrollPane fx:id="centerPane" layoutY="68.0" minHeight="0.0" prefHeight="445.0" prefWidth="497.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="68.0">
+         <content>
+            <FlowPane fx:id="flowPane" prefHeight="200.0" prefWidth="497.0" vgap="5.0" />
+         </content>
+      </ScrollPane>
+      <VBox maxHeight="153.0" minHeight="90.0" prefHeight="92.0" prefWidth="497.0" style="-fx-background-color: white; -fx-border-width: 1 0 0 0; -fx-border-color: #2c3e50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="7.0" prefWidth="497.0" />
+            <HBox fillHeight="false" prefHeight="29.0" prefWidth="497.0" style="-fx-background-color: transparent;">
+               <children>
+                  <Button id="imageBtn" mnemonicParsing="false" onMousePressed="#pickImage" prefHeight="30.0" prefWidth="95.0" styleClass="assistButton" />
+                  <Button id="audioBtn" mnemonicParsing="false" onMousePressed="#pickAudio" prefHeight="30.0" prefWidth="99.4" styleClass="assistButton" />
+                  <Button id="videoBtn" mnemonicParsing="false" onMousePressed="#pickVideo" prefHeight="30.0" prefWidth="99.4" styleClass="assistButton" />
+                  <Button id="documentBtn" mnemonicParsing="false" onMousePressed="#pickDocument" prefHeight="26.0" prefWidth="87.0" styleClass="assistButton" />
+                  <Button id="otherBtn" minWidth="60.0" mnemonicParsing="false" onMousePressed="#pickAnother" prefHeight="31.0" prefWidth="100.0" styleClass="assistButton" />
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="55.0" prefWidth="497.0">
+               <children>
+                  <TextField fx:id="editText" layoutX="6.0" layoutY="17.0" onKeyPressed="#editPressEnter" prefHeight="40.0" prefWidth="423.0" promptText="Nhập tin nhắn của bạn" styleClass="textEdit" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="68.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="sendBtn" layoutX="435.0" layoutY="8.0" mnemonicParsing="false" onMousePressed="#sendBtnPressed" prefHeight="38.0" prefWidth="56.0" styleClass="sendButton" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="6.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
