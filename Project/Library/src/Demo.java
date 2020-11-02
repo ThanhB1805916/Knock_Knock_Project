@@ -23,7 +23,7 @@ public class Demo {
 		
 		
 //		System.out.println(dao.add(person)); 
-		
+		//thanh
 		person.setDateofbirth(date);			
 		System.out.println(dao.update(person)); 
 	}
