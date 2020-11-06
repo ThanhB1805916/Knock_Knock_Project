@@ -1,6 +1,7 @@
 package data_model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 //Class represent for table in database
@@ -8,10 +9,11 @@ import java.util.HashMap;
 public class MessageTable {
 
 	// Attributes
+	private int id;
 	private int id_room;
 	private int id_person;
 	private String messagecontent;
-	private Date sendtime;
+	private LocalDateTime sendtime;
 
 	// ---------------------------------------------------------------------------
 	// -------------------------------
@@ -21,18 +23,26 @@ public class MessageTable {
 
 	// Ctor get hashmap type parameters
 	public MessageTable(HashMap<String, Object> parameters) {
+		id = (int) parameters.get("id");
 		id_room = (int) parameters.get("id_room");
 		id_person = (int) parameters.get("id_person");
 		messagecontent = (String) parameters.get("messagecontent");
-		sendtime = (Date) parameters.get("sendtime");
+		sendtime = LocalDateTime.parse(parameters.get("sendtime").toString(),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.S"));
 	}
 
 	// Ctor full parameters
-	public MessageTable(int id_room, int id_person, String messagecontent, Date sendtime) {
+	public MessageTable(int id, int id_room, int id_person, String messagecontent, LocalDateTime sendtime) {
+		this.id = id;
 		this.id_room = id_room;
 		this.id_person = id_person;
 		this.messagecontent = messagecontent;
 		this.sendtime = sendtime;
+	}
+
+	public boolean equals(MessageTable message) {
+		return id == message.getId() && id_room == message.getId_room() && id_person == message.getId_person()
+				&& messagecontent.equals(message.getMessagecontent()) && sendtime.equals(message.getSendtime());
 	}
 
 	// ---------------------------------------------------------------------------
@@ -40,6 +50,14 @@ public class MessageTable {
 	// ------------------------------- Setters - Getters
 	// -------------------------------
 	// ---------------------------------------------------------------------------
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getId_room() {
 		return id_room;
@@ -65,11 +83,11 @@ public class MessageTable {
 		this.messagecontent = messagecontent;
 	}
 
-	public Date getSendtime() {
+	public LocalDateTime getSendtime() {
 		return sendtime;
 	}
 
-	public void setSendtime(Date sendtime) {
+	public void setSendtime(LocalDateTime sendtime) {
 		this.sendtime = sendtime;
 	}
 }

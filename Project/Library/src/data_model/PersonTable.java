@@ -1,6 +1,7 @@
 package data_model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 //Class represent for table in database
@@ -13,7 +14,7 @@ public class PersonTable {
 	private String name;
 	private boolean gender;
 	private String phonenumber;
-	private Date dateofbirth;
+	private LocalDate dateofbirth;
 	private String avatar;
 	// ---------------------------------------------------------------------------
 	// -------------------------------
@@ -24,18 +25,19 @@ public class PersonTable {
 	// Ctor get hashmap type parameters
 	public PersonTable(HashMap<String, Object> parameters) {
 		id = (int) parameters.get("id");
-		setUsername((String) parameters.get("username"));
-		setPassword((String) parameters.get("password"));
-		setName((String) parameters.get("name"));
+		username = (String) parameters.get("username");
+		password = (String) parameters.get("password");
+		name = (String) parameters.get("name");
 		gender = (boolean) parameters.get("gender");
 		phonenumber = (String) parameters.get("phonenumber");
-		dateofbirth = (Date) parameters.get("dateofbirth");
+		dateofbirth = LocalDate.parse(parameters.get("dateofbirth").toString(),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		avatar = (String) parameters.get("avatar");
 	}
 
 	// Ctor full parameters
 	public PersonTable(int id, String username, String password, String name, boolean gender, String phonenumber,
-			Date dateofbirth, String avatar) {
+			LocalDate dateofbirth, String avatar) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -45,6 +47,12 @@ public class PersonTable {
 		this.phonenumber = phonenumber;
 		this.dateofbirth = dateofbirth;
 		this.avatar = avatar;
+	}
+
+	public boolean equals(PersonTable person) {
+		return id == person.getId() && username.equals(person.getUsername()) && password.equals(person.getPassword())
+				&& name.equals(person.getName()) && gender == person.getGender()
+				&& dateofbirth.equals(person.getDateofbirth()) && avatar.equals(person.getAvatar());
 	}
 
 	// ---------------------------------------------------------------------------
@@ -101,11 +109,11 @@ public class PersonTable {
 		this.phonenumber = phonenumber;
 	}
 
-	public Date getDateofbirth() {
+	public LocalDate getDateofbirth() {
 		return dateofbirth;
 	}
 
-	public void setDateofbirth(Date dateofbirth) {
+	public void setDateofbirth(LocalDate dateofbirth) {
 		this.dateofbirth = dateofbirth;
 	}
 

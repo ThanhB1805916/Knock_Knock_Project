@@ -1,6 +1,6 @@
 package socket;
 
-import communication_standard.CommunicationPackage;
+import model.communication.CPackage;
 
 public interface IClient extends Runnable {
 	
@@ -8,8 +8,8 @@ public interface IClient extends Runnable {
 
 	public void close();
 
-	public void send(CommunicationPackage CPackage);
+	public void send(CPackage CPackage);
 
-	public CommunicationPackage receive();
+	public CPackage receive();
 
 }

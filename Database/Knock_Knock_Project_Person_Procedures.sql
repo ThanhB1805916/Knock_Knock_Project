@@ -28,7 +28,6 @@ BEGIN
 END; $$
 
 CALL spPerson_GetPerson_ByAccountAndPassword('admin');
-
 -- Lấy ra người dùng theo số điện thoại
 DELIMITER $$
 DROP PROCEDURE IF EXISTS spPerson_GetPerson_ByPhonenumber $$
@@ -40,7 +39,7 @@ END; $$
 
 CALL spPerson_GetPerson_ByAccountAndPassword('0000000001');
 
--- Lấy ra người dùng theo id phòng
+-- Lấy ra theo id phòng
 DELIMITER $$
 DROP PROCEDURE IF EXISTS spPerson_GetPersonList_ByID_Room $$
 CREATE PROCEDURE spPerson_GetPersonList_ByID_Room(id_room INT)
@@ -50,7 +49,19 @@ BEGIN
     AND pr.id_room = id_room;
 END; $$
 
-CALL spPerson_GetPersonList_ByID_Room('2');
+CALL spPerson_GetPersonList_ByID_Room('1');
+
+-- Lấy ra theo id bạn
+DELIMITER $$
+DROP PROCEDURE IF EXISTS spPerson_GetPersonList_ByID_Friend $$
+CREATE PROCEDURE spPerson_GetPersonList_ByID_Friend(id_friend INT)
+BEGIN
+	SELECT p.* FROM Person AS p, Friend AS f
+    WHERE p.id = f.id_person
+    AND f.id_friend = id_friend;
+END; $$
+
+CALL  spPerson_GetPersonList_ByID_Friend(2);
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Insert

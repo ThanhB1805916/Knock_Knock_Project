@@ -1,14 +1,15 @@
 package handler;
 
-import communication_standard.CommunicationPackage;
-import handler.authentication_hanlder.AuthenticationHandler;
-import handler.manage_account_handler.ManageAccountHandler;
-import handler.manage_friend_handler.ManageFriendHandler;
-import handler.manage_message_handler.ManageMessageHandler;
+import handler.authentication_hanlder.AuthenticationHandlerImp;
+import handler.manage_account_handler.ManageAccountHandlerImp;
+import handler.manage_friend_handler.ManageFriendHandlerImp;
 import handler.manage_room_handler.ManageRoomHandler;
+import model.communication.CPackage;
 import socket.IClient;
 import data_access.SQLDAO;
-import data_access.person_access.PersonDAO;
+import data_access.SQLDAOImp;
+import data_access.person_access.PersonDAOImp;
+import data_access.room_access.RoomDAOImp;
 
 // Singleton
 public class HandlerFactory {
@@ -32,34 +33,36 @@ public class HandlerFactory {
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
 	// Create handler
-	public void createHanlder(IClient client, CommunicationPackage CPackage) {
+	public void createHanlder(IClient client, CPackage CPackage) {
 
 		if (CPackage.isValid()) {
 
-			Handler Handler;
+			Handler Handler = null;
 
+			SQLDAO dao = new SQLDAOImp(); 
+			
 			// Choose handler for request
 
-			switch (CPackage.getManageType()) {
+			switch (CPackage.getType()) {
 
 			case AUTHENTICATION:
-				Handler = new AuthenticationHandler(client, new PersonDAO(new SQLDAO()));
+				Handler = new AuthenticationHandlerImp(client, new PersonDAOImp(dao));
 				break;
 
-			case MANAGEACCOUNT:
-				Handler = new ManageAccountHandler(client);
+			case ACCOUNT:
+				Handler = new ManageAccountHandlerImp(client, new PersonDAOImp(dao));
 				break;
 
-			case MANAGEFRIENDS:
-				Handler = new ManageFriendHandler(client);
+			case FRIEND:
+				Handler = new ManageFriendHandlerImp(client, new PersonDAOImp(dao));
 				break;
 
-			case MANAGEROOMS:
-				Handler = new ManageRoomHandler(client);
+			case ROOM:
+				Handler = new ManageRoomHandler(client, new RoomDAOImp(dao));
 				break;
 
-			case MANAGEMESSAGES:
-				Handler = new ManageMessageHandler(client);
+			case MESSAGE:
+//				Handler = new ManageMessageHandler(client);
 				break;
 
 			default:
@@ -68,9 +71,9 @@ public class HandlerFactory {
 			}
 
 			if (Handler != null)
-				Handler.handleRequest(CPackage.getCommandType());
+				Handler.handleRequest(CPackage.getRequest());
 			else
-				System.out.println("Invalid ManageType no handler found");
+				System.out.println("No handler created");
 		}
 
 	}

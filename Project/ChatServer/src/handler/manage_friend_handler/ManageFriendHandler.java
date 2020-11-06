@@ -1,42 +1,20 @@
 package handler.manage_friend_handler;
 
-import communication_standard.CommandType;
-import communication_standard.CommunicationPackage;
-import communication_standard.manage_type.EManageType;
-import handler.Handler;
-import socket.IClient;
+import java.util.List;
 
-public class ManageFriendHandler extends Handler {
+import model.sendmodel.Person;
 
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Constructor
-	// --------------------------------------------------------------------------------------------------------------------------------------------
+public interface ManageFriendHandler {
 
-	public ManageFriendHandler(IClient client) {
-		super(client);
-		// TODO Auto-generated constructor stub
-	}
+	/*
+	 * Get friend list
+	 */
+	List<Person> get();
 
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Functions
-	// --------------------------------------------------------------------------------------------------------------------------------------------
+	Person find(String phonenumber);
 
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// -------------------------------------------------------------- Handle Request
-	@Override
-	public void handleRequest(CommandType request) {
-		// TODO Auto-generated method stub
-
-	}
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ------------------------------------------------------------ Pack And Send
-	@Override
-	public void packAndSend(CommandType commandType) {
-		if (commandType.isValid()) {
-			CommunicationPackage CPackage = new CommunicationPackage(EManageType.MANAGEFRIENDS, commandType);
-			send(CPackage);
-		}
-	}
-
+	/*
+	 * Remove a person from friend list
+	 */
+	boolean remove(Person person);
 }

@@ -6,9 +6,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import communication_standard.CommunicationPackage;
-import communication_standard.model.Person;
+import model.communication.CPackage;
 import connection.ServerConnection;
+import model.sendmodel.Person;
 
 public class Client implements IClient {
 
@@ -53,7 +53,7 @@ public class Client implements IClient {
 	@Override
 	public void connect() {
 		// When still receive message
-		CommunicationPackage CPackage = receive();
+		CPackage CPackage = receive();
 
 		while (CPackage != null) {
 			// Create Hanlder to handle client request
@@ -74,7 +74,7 @@ public class Client implements IClient {
 	}
 
 	@Override
-	public void send(CommunicationPackage CPackage) {
+	public void send(CPackage CPackage) {
 		try {
 			output.writeObject(CPackage);
 			output.flush();
@@ -85,10 +85,10 @@ public class Client implements IClient {
 	}
 
 	@Override
-	public CommunicationPackage receive() {
+	public CPackage receive() {
 		try {
 			Object obj = input.readObject();
-			CommunicationPackage CPackage = (CommunicationPackage) obj;
+			CPackage CPackage = (CPackage) obj;
 			return CPackage;
 		} catch (ClassNotFoundException | IOException e) {
 			System.out.println("Receive Error");

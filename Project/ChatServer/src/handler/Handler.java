@@ -2,9 +2,9 @@ package handler;
 
 import java.util.HashMap;
 
-import communication_standard.CommandType;
-import communication_standard.CommunicationPackage;
-import model.Person;
+import model.communication.CPackage;
+import model.communication.Request;
+import model.sendmodel.Person;
 import socket.IClient;
 import socket.Server;
 
@@ -19,13 +19,13 @@ public abstract class Handler {
 		this.client = client;
 	}
 
-	public void send(CommunicationPackage CPackage) {
+	public void send(CPackage CPackage) {
 		if (CPackage.isValid()) {
 			client.send(CPackage);
 		}
 	}
 
-	public abstract void packAndSend(CommandType commandType);
+	public abstract void packAndSend(Request request);
 
-	public abstract void handleRequest(CommandType request);
+	public abstract void handleRequest(Request request);
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import connection.ServerConnection;
-import model.Person;
+import model.sendmodel.Person;
 
 //Singleton
 public class Server implements Runnable {
@@ -65,10 +65,10 @@ public class Server implements Runnable {
 				Socket clientSocket = serverSocket.accept();
 
 				// Record connected socket
-				recordLog(clientSocket.toString());
+//				recordLog(clientSocket.toString());
 				System.out.println("Client connected: " + clientSocket.toString());
 
-				IClient client = new ClientProxy(clientSocket);
+				IClient client = new Client(clientSocket);
 
 				Thread receiver = new Thread(client);
 				receiver.start();
