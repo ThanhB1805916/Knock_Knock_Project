@@ -26,15 +26,18 @@ public interface ISQLDAO {
 	/*
 	 * Use for query that return a set of data like SELECT *
 	 */
+	//su dung cho SELECT *
 	public List<HashMap<String, Object>> executeQuery(String query, Object[] parameters);
 
 	/*
 	 * Use for query that return row effected like DELETE, UPDATE
+	  su dung cho DELETE, UPDATE
 	 */
 	public int executeNonQuery(String query, Object[] parameters);
 
 	/*
 	 * Use when return only 1 column and 1 row like SELECT COUNT (*)
+	  su dung cho SELECT COUNT (*)
 	 */
 	public Object executeScalar(String query, Object[] parameters);
 }

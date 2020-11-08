@@ -6,6 +6,7 @@ import java.util.List;
 
 import data_access.ISQLDAO;
 import data_access.ModelDAO;
+import data_model.PersonTable;
 import data_model.RoomTable;
 
 public class RoomDAO extends ModelDAO<RoomTable> implements IRoomDAO {
@@ -38,7 +39,23 @@ public class RoomDAO extends ModelDAO<RoomTable> implements IRoomDAO {
 
 		return Room_List;
 	}
-
+	// Insert room
+	public boolean InsertRoom(String roomname) {
+		String query = "CALL spRoom_InsertRoom(?);";
+		int a = dao.executeNonQuery(query, new Object[] {roomname} );
+		boolean text = false;
+		if(a != 0) return text = true;
+		return text;
+	}
+	
+	// Delete room
+	public boolean DeleteRoom(int id) {
+		String query = "CALL spRoom_DeleteRoom(?);";
+		int b = dao.executeNonQuery(query, new Object[] {id} );
+		boolean text = false;
+		if(b != 0) return text = true;
+		return text;
+	}
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Add
 	// --------------------------------------------------------------------------------------------------------------------------------------------
