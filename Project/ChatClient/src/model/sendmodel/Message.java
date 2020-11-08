@@ -13,7 +13,8 @@ public class Message implements ValidModel, Serializable {
 
 	private Person sender;
 	private Room room;
-	private String content;
+	private FileInfo content;
+	private boolean isFile;
 	private LocalDateTime sendDate;
 
 	// ---------------------------------------------------------------------------
@@ -23,16 +24,17 @@ public class Message implements ValidModel, Serializable {
 	// ---------------------------------------------------------------------------
 
 	// Ctor for create exist message
-	public Message(Person sender, Room room, String content, LocalDateTime sendDate) {
+	public Message(Person sender, Room room, FileInfo content, boolean isFile, LocalDateTime sendDate) {
 		this.sender = sender;
 		this.room = room;
 		this.content = content;
+		this.isFile = isFile;
 		this.sendDate = sendDate;
 	}
 
 	@Override
 	public boolean isValid() {
-		return sender.isValid() && room.isValid() && content.isEmpty() == false;
+		return sender.isValid() && room.isValid() && content != null && sendDate != null;
 	}
 
 	// ---------------------------------------------------------------------------
@@ -57,12 +59,20 @@ public class Message implements ValidModel, Serializable {
 		this.room = room;
 	}
 
-	public String getContent() {
+	public FileInfo getContent() {
 		return content;
 	}
 
-	public void setContent(String content) {
+	public void setContent(FileInfo content) {
 		this.content = content;
+	}
+
+	public boolean getIsFile() {
+		return isFile;
+	}
+
+	public void setIsFile(boolean isFile) {
+		this.isFile = isFile;
 	}
 
 	public LocalDateTime getSendDate() {
@@ -74,3 +84,4 @@ public class Message implements ValidModel, Serializable {
 	}
 
 }
+

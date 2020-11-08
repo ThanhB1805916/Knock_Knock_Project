@@ -9,20 +9,19 @@ import java.util.Date;
 import java.util.HashMap;
 
 import connection.ServerConnection;
-import model.sendmodel.Person;
 
 //Singleton
 public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
 
-	private HashMap<IClient, Person> authorizedClient_List;
+	private HashMap<Integer, Client> authorizedClientList;
 
 	// The only Instance
 	private static Server Instance = new Server();
 
-	public HashMap<IClient, Person> getAuthorizedClient_List() {
-		return authorizedClient_List;
+	public HashMap<Integer, Client> getAuthorizedClientList() {
+		return authorizedClientList;
 	}
 
 	public static Server getInstance() {
@@ -40,7 +39,7 @@ public class Server implements Runnable {
 			serverSocket = new ServerSocket(serverConenction.getPort());
 
 			// Initialize hashmap
-			authorizedClient_List = new HashMap<>();
+			authorizedClientList = new HashMap<>();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -68,7 +67,7 @@ public class Server implements Runnable {
 //				recordLog(clientSocket.toString());
 				System.out.println("Client connected: " + clientSocket.toString());
 
-				IClient client = new Client(clientSocket);
+				Client client = new ClientImp(clientSocket);
 
 				Thread receiver = new Thread(client);
 				receiver.start();

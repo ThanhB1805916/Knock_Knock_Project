@@ -3,6 +3,7 @@ package handler.manage_room_handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import data_access.DAOFactory;
 import data_access.SQLDAOImp;
 import data_access.person_access.PersonDAOImp;
 import data_access.room_access.RoomDAO;
@@ -16,17 +17,17 @@ import model.converter.PersonConverter;
 import model.converter.RoomConverter;
 import model.sendmodel.Person;
 import model.sendmodel.Room;
-import socket.IClient;
+import socket.Client;
 
-public class ManageRoomHandler extends Handler implements IManageRoomHandler{
+public class RoomHandlerImp extends Handler implements RoomHandler {
 
 	private RoomDAO dao;
-	
+
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public ManageRoomHandler(IClient client, RoomDAO dao) {
+	public RoomHandlerImp(Client client, RoomDAO dao) {
 		super(client);
 		this.dao = dao;
 	}
@@ -45,7 +46,7 @@ public class ManageRoomHandler extends Handler implements IManageRoomHandler{
 			Name command = request.getName();
 			switch (command) {
 			case GET:
-				responseCommandType = new Request(Name.GET, get());
+				responseCommandType = new Request(Name.GET, get(client));
 				break;
 
 			case UPDATE:
@@ -75,38 +76,37 @@ public class ManageRoomHandler extends Handler implements IManageRoomHandler{
 	// ------------------------------------------------------------ Get Room List
 
 	@Override
-	public List<Room> get() {
-		int id_person = authorizedClient_List.get(client).getId();
+	public List<Room> get(Client client) {
+		int id_person = client.getPerson().getId();
 
 		List<RoomTable> roomTable_List = dao.getList(id_person);
 
 		List<Room> Room_List = new ArrayList<>();
 
 		if (roomTable_List.size() > 0) {
-			
+
 			RoomConverter converter = new RoomConverter();
 
 			Room_List = converter.convert(roomTable_List);
-			
-			//Get rooms' members
+
+			// Get rooms' members
 			List<Thread> threadList = new ArrayList<>();
 
 			// Create memeber for room
 			for (Room room : Room_List) {
-				Thread build = new Thread(()->
-				{
-					List<Person> members = new PersonConverter().convert(new PersonDAOImp(new SQLDAOImp()).getListByID_Room(room.getId()));
+				Thread build = new Thread(() -> {
+					List<Person> members = new PersonConverter()
+							.convert(DAOFactory.getPersonDAO().getListByID_Room(room.getId()));
 					room.setMembers(members);
 				});
 				threadList.add(build);
 				build.start();
 			}
-			
+
 			for (Thread thread : threadList) {
 				try {
 					thread.join();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

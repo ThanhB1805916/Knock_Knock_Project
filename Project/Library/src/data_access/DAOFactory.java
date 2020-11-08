@@ -17,7 +17,7 @@ public class DAOFactory {
 	}
 
 	public static PersonDAO getPersonDAO() {
-		return new PersonDAOImp(getSQLDAO());
+		return new PersonDAO_MySQL(getSQLDAO());
 	}
 
 	public static RoomDAO getRoomDAO() {

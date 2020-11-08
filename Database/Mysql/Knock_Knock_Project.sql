@@ -39,11 +39,12 @@ CREATE TABLE Friend
 (
 	id_person INT NOT NULL,
 	id_friend INT NOT NULL,
+    isFriend BOOL NOT NULL DEFAULT 0, -- 0 Đang chờ kết bạn
 	adddate DATETIME NOT NULL DEFAULT NOW(), -- Ngày thêm bạn
     
     -- Khóa ngoại tham chiếu bảng Person
      CONSTRAINT Friend_FK1_Person FOREIGN KEY(id_person) REFERENCES Person(id) ON DELETE CASCADE,
-     CONSTRAINT Friend_FK2_Person FOREIGN KEY(id_friend) REFERENCES Person(id) ON DELETE CASCADE,
+     CONSTRAINT Friend_FK2_Person FOREIGN KEY(id_friend) REFERENCES Person(id),
      
      -- Khóa chính
      CONSTRAINT Friens_PK PRIMARY KEY(id_person, id_friend)
@@ -72,7 +73,8 @@ CREATE TABLE Message
 	id INT AUTO_INCREMENT, -- ID
 	id_room INT NOT NULL, -- ID phòng
     id_person INT NOT NULL, -- ID người dùng
-	messagecontent NVARCHAR(128) NOT NULL, -- Nội dung tin nhắn
+	messagecontent NVARCHAR(128) NOT NULL, -- Nội dung tin nhắn hoặc đường dẫn file
+    isFile BOOL NOT NULL DEFAULT FALSE, -- Kiểm tra file mặc định là tin nhắn
     sendtime DATETIME NOT NULL DEFAULT NOW(), -- Thời gian gửi tin nhắn mặc định lấy giờ hệ thống
 
 	-- Khóa ngoại
@@ -84,3 +86,4 @@ CREATE TABLE Message
     -- Khóa chính
     CONSTRAINT Message_PK PRIMARY KEY (id)
 );
+

@@ -32,6 +32,10 @@ public final class CPackage implements ValidModel, Serializable {
 		return type != null && request.isValid();
 	}
 
+	public Object unpack() {
+		return request.unpack();
+	}
+
 	// ---------------------------------------------------------------------------
 	// -------------------------------
 	// ------------------------------- Setters - Getters

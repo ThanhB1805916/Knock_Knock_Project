@@ -6,8 +6,8 @@ USE Knock_Knock_Project;
 -- --------------------------------------- Giá trị cho bảng Person
 -- ----------------------------------------------------------------------------------------------
 
-INSERT INTO Person(id, username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
-VALUES('1','admin', '1234', 'Administrator', '1', '0000000000', '2020-10-04', 'sources/default/avatars/default_avatar.png');
+INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
+VALUES('admin', '1234', 'Administrator', '1', '0000000000', '2020-10-04', 'sources/default/avatars/default_avatar.png');
 
 INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
 VALUES('user1', '1234', 'User1', '1', '0000000001', '2020-10-04', 'sources/default/avatars/default_avatar.png');
@@ -203,36 +203,36 @@ SELECT * FROM Person_Room;
 
 
 -- User 1 là bạn của User 2  => User 2 là bạn của User 1
-INSERT INTO Friend(id_person, id_friend)
-VALUES('1', '2');
-INSERT INTO Friend(id_person, id_friend)
-VALUES('2', '1');
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('1', '2', true);
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('2', '1', true);
 
 -- User 2 là bạn của User 3
-INSERT INTO Friend(id_person, id_friend)
-VALUES('2', '3');
-INSERT INTO Friend(id_person, id_friend)
-VALUES('3', '2');
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('2', '3', true);
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('3', '2', true);
 
--- User 2 là bạn của User 4
+-- User 2 gửi lời mời kết bạn tới user 4
 INSERT INTO Friend(id_person, id_friend)
 VALUES('2', '4');
 INSERT INTO Friend(id_person, id_friend)
 VALUES('4', '2');
 
--- User 2 là bạn của User 5
+-- User 2 gửi lời mời kết bạn tới user 5
 INSERT INTO Friend(id_person, id_friend)
 VALUES('2', '5');
 INSERT INTO Friend(id_person, id_friend)
 VALUES('5', '2');
 
 -- User 2 là bạn của User 6
-INSERT INTO Friend(id_person, id_friend)
-VALUES('2', '6');
-INSERT INTO Friend(id_person, id_friend)
-VALUES('6', '2');
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('2', '6', true);
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('6', '2', true);
 
--- User 11 là bạn của User 12
+-- User 11 gửi lời mời kết bạn tới user 12
 INSERT INTO Friend(id_person, id_friend)
 VALUES('11', '12');
 INSERT INTO Friend(id_person, id_friend)
@@ -245,16 +245,16 @@ INSERT INTO Friend(id_person, id_friend)
 VALUES('13', '11');
 
 -- User 11 là bạn của User 14
-INSERT INTO Friend(id_person, id_friend)
-VALUES('11', '14');
-INSERT INTO Friend(id_person, id_friend)
-VALUES('14', '11');
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('11', '14', true);
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('14', '11', true);
 
 -- User 11 là bạn của User 15
-INSERT INTO Friend(id_person, id_friend)
-VALUES('11', '15');
-INSERT INTO Friend(id_person, id_friend)
-VALUES('15', '11');
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('11', '15', true);
+INSERT INTO Friend(id_person, id_friend, isFriend)
+VALUES('15', '11', true);
 
 SELECT * FROM Friend;
 

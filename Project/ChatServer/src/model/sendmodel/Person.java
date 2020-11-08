@@ -57,7 +57,7 @@ public class Person implements ValidModel, Serializable {
 		return username.isEmpty() == false && password.isEmpty() == false && name.isEmpty() == false
 				&& phonenumber.isEmpty() == false;
 	}
-
+	
 	// ---------------------------------------------------------------------------
 	// -------------------------------
 	// ------------------------------- Setters - Getters

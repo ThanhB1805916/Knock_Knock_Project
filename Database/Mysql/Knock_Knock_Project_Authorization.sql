@@ -11,7 +11,7 @@ CREATE USER 'stdUser'@'localhost' IDENTIFIED BY 'std1234';
 
 -- Cấp role cho người dùng
 -- GRANT Role_StdUser TO stdUser;
-DROP user 'stdUser'@'localhost';
+-- DROP user 'stdUser'@'localhost';
 -- Hiện quyền
 SHOW GRANTS FOR 'stdUser'@'localhost';
 -- Thực thi procedure cố định

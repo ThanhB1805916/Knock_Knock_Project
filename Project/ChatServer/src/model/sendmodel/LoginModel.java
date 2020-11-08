@@ -26,7 +26,13 @@ public class LoginModel implements ValidModel, Serializable {
 
 	@Override
 	public boolean isValid() {
-		return username.isEmpty() == false && password.isEmpty() == false;
+		boolean valid = false;
+		try {
+			valid = username.isEmpty() == false && password.isEmpty() == false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return valid;
 	}
 
 	// ---------------------------------------------------------------------------

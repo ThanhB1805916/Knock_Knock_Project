@@ -6,17 +6,17 @@ import handler.Handler;
 import model.communication.*;
 import model.converter.PersonConverter;
 import model.sendmodel.Person;
-import socket.IClient;
+import socket.Client;
 
-public class ManageAccountHandlerImp extends Handler implements ManageAccountHandler {
+public class AccountHandlerImp extends Handler implements AccountHandler {
 
 	private PersonDAO dao;
-	
+
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public ManageAccountHandlerImp(IClient client, PersonDAO dao) {
+	public AccountHandlerImp(Client client, PersonDAO dao) {
 		super(client);
 		this.dao = dao;
 	}
@@ -67,7 +67,7 @@ public class ManageAccountHandlerImp extends Handler implements ManageAccountHan
 	@Override
 	public Person get() {
 		// Get after login
-		Person person = authorizedClient_List.get(client);
+		Person person = client.getPerson();
 		return person;
 	}
 
@@ -78,11 +78,13 @@ public class ManageAccountHandlerImp extends Handler implements ManageAccountHan
 	public boolean update(Person person) {
 		boolean success = false;
 		if (person.isValid()) {
-			// Cap nhat thong tin nguoi dung
+
 			PersonConverter converter = new PersonConverter();
 			PersonTable personTable = converter.revert(person);
 
 			if (dao.update(personTable)) {
+				authorizedClientList.remove(person.getId());
+				authorizedClientList.put(person.getId(), client);
 				success = true;
 			}
 		}

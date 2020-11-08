@@ -42,6 +42,11 @@ public class FileInfo implements Serializable {
 		return dataFile;
 	}
 
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
 	public String getName() {
 		return this.name;
 	}

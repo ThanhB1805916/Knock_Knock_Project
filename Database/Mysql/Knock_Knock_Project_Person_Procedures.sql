@@ -58,7 +58,7 @@ CREATE PROCEDURE spPerson_GetPersonList_ByID_Friend(id_friend INT)
 BEGIN
 	SELECT p.* FROM Person AS p, Friend AS f
     WHERE p.id = f.id_person
-    AND f.id_friend = id_friend;
+    AND f.id_friend = id_friend && f.isFriend = true;
 END; $$
 
 CALL  spPerson_GetPersonList_ByID_Friend(2);
@@ -109,6 +109,7 @@ BEGIN
     p.dateofbirth = dateofbirth
     WHERE p.username = username;
 END; $$
+SELECT * FROM PERSON;
 
 -- CALL spPerson_UpdatePerson('user1', '1234', 'User ONE' ,'0', '123456', '2020-10-22');
 

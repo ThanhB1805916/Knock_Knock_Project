@@ -2,7 +2,7 @@ package handler.manage_account_handler;
 
 import model.sendmodel.Person;
 
-public interface ManageAccountHandler {
+public interface AccountHandler {
 
 	/*
 	 * Get person after login the system

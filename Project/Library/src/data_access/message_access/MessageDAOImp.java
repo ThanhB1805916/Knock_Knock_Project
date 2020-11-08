@@ -2,8 +2,8 @@ package data_access.message_access;
 
 import java.util.List;
 
-import data_access.SQLDAO;
 import data_access.ModelDAOImp;
+import data_access.SQLDAO;
 import data_model.MessageTable;
 
 public class MessageDAOImp extends ModelDAOImp<MessageTable> implements MessageDAO {

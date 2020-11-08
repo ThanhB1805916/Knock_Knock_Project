@@ -9,8 +9,7 @@ import model.communication.*;
 import model.converter.PersonConverter;
 import model.sendmodel.LoginModel;
 import model.sendmodel.Person;
-import socket.IClient;
-import socket.Server;
+import socket.Client;
 
 public class AuthenticationHandlerImp extends Handler implements AuthenticationHandler {
 
@@ -20,7 +19,7 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public AuthenticationHandlerImp(IClient client, PersonDAO dao) {
+	public AuthenticationHandlerImp(Client client, PersonDAO dao) {
 		super(client);
 		this.dao = dao;
 	}
@@ -163,7 +162,8 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 				person = converter.convert(personTable);
 
 				// Save login client
-				authorizedClient_List.put(client, person);
+				client.setPerson(person);
+				authorizedClientList.put(person.getId(), client);
 
 				exist = true;
 			}
@@ -179,9 +179,9 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 	public boolean logout(Person person) {
 		// Keep connection
 		// Remove person
-		Person curPerson = Server.getInstance().getAuthorizedClient_List().get(client);
+		Person curPerson = client.getPerson();
 		if (curPerson.equals(person)) {
-			Server.getInstance().getAuthorizedClient_List().remove(client);
+			authorizedClientList.remove(person.getId());
 			return true;
 		}
 		return false;

@@ -10,6 +10,7 @@ import org.junit.Test;
 import data_access.DAOFactory;
 import data_access.person_access.PersonDAO;
 import data_model.PersonTable;
+import model.sendmodel.Person;
 
 public class PersonDAO_Test {
 
@@ -25,6 +26,14 @@ public class PersonDAO_Test {
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Get
+
+	public boolean isEqual(Person personA, Person personB) {
+
+		return personA.getId() == personB.getId() && personA.getUsername().equals(personB.getUsername())
+				&& personA.getPassword().equals(personB.getPassword()) && personA.equals(personB.getName())
+				&& personA.getMale() == personB.getMale() && personA.getDateofbirth().equals(personB.getDateofbirth())
+				&& personA.getAvatar().equals(personB.getAvatar());
+	}
 
 	@Test
 	public void getByID() {
@@ -45,19 +54,17 @@ public class PersonDAO_Test {
 	}
 
 	@Test
-	public void username_isNull_when_getByUsername()
-	{
+	public void username_isNull_when_getByUsername() {
 		PersonTable person = dao.getByUsername(null);
 		Assert.assertNull(person);
 	}
-	
+
 	@Test
-	public void username_isEmpty_when_getByUsername()
-	{
+	public void username_isEmpty_when_getByUsername() {
 		PersonTable person = dao.getByUsername("");
 		Assert.assertNull(person);
 	}
-	
+
 	@Test
 	public void getByUserNameEqualsGetByID() {
 		PersonTable personID = dao.get(1);
@@ -82,49 +89,4 @@ public class PersonDAO_Test {
 		List<PersonTable> person = dao.getListByID_Room(1);
 		Assert.assertNotNull(person);
 	}
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Insert
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-
-//	// Test Get by id
-//	@Test
-//	public void Insert_Test() {
-//		
-//		PersonTable person = new PersonTable(0, "User100", "12345", "User One", true, "111111111122", null, null);
-//
-//		boolean result = dao.add(person);
-//		
-//		System.out.println(result);
-//		
-//		// Exist person
-//		assertEquals(true, result);
-//	}
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Update
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-//
-//	// Test Update
-//	@Test
-//	public void UpdatePerson_Test() {
-//
-//		Date date = null;
-//
-////		try {
-////			date = new SimpleDateFormat("dd-MM-yyyy").parse("17-10-2020");
-////		} catch (ParseException e) {
-////			 TODO Auto-generated catch block
-////			e.printStackTrace();
-////		}
-//
-//		date = new Date(2020, 10, 22);
-//
-//		Person person = new Person(0, "User1", "12345", "User One", true, "1111111122", date);
-//
-//		boolean success = dao.Update(person);
-//
-//		// Exist person
-//		assertEquals(true, success);
-//	}
 }

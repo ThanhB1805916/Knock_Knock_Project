@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.sendmodel.Person;
 
-public interface ManageFriendHandler {
+public interface FriendHandler {
 
 	/*
 	 * Get friend list

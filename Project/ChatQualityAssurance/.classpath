@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Junit_Library"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Library"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ChatServer"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

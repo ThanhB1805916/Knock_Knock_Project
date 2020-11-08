@@ -18,11 +18,10 @@ public class Demo {
 
 	public static void main(String[] args) {
 
-		RoomDAO dao = DAOFactory.getRoomDAO();
-		
-		RoomTable room = dao.getList(2).get(0);
-		System.out.println(System.getProperty("user.dir"));
-		System.out.println(room.getDatecreate().toString());
+		PersonDAO dao = DAOFactory.getPersonDAO();
+//		PersonDAO dao = DAOFactory.getPersonDAO_Mysql();
+		PersonTable a = dao.get(1);
+		System.out.println(a.getUsername());
 	}
 
 	

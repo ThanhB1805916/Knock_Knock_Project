@@ -1,4 +1,3 @@
-
 package socket;
 
 import java.io.IOException;
@@ -6,49 +5,37 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import handler.HandlerFactory;
 import model.communication.CPackage;
-import connection.ServerConnection;
 import model.sendmodel.Person;
 
-public class Client implements IClient {
+public class ClientImp implements Client {
 
 	private Socket socket;
-	private ObjectInputStream input;
 	private ObjectOutputStream output;
-	private Person Person;
+	private ObjectInputStream input;
+	private Person person;
+	
+	@Override
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
+	@Override
 	public Person getPerson() {
-		return Person;
+		return person;
 	}
-
-	public void setPerson(Person viewPerson) {
-		Person = viewPerson;
-	}
-
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructors
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public Client() {
+	public ClientImp(Socket socket) {
 		try {
-			ServerConnection serverConenction = new ServerConnection();
-			socket = new Socket(serverConenction.getIP(), serverConenction.getPort());
-			input = new ObjectInputStream(socket.getInputStream());
+			this.socket = socket;
 			output = new ObjectOutputStream(socket.getOutputStream());
-		} catch (Exception e) {
-			System.out.println("Client constructor error");
-			e.printStackTrace();
-		}
-	}
-	
-	public Client(String IP, int port)
-	{
-		try {
-			socket = new Socket(IP, port);
 			input = new ObjectInputStream(socket.getInputStream());
-			output = new ObjectOutputStream(socket.getOutputStream());
-		} catch (Exception e) {
-			System.out.println("Client constructor error");
+		} catch (IOException e) {
+			System.out.println("Client constructor Error");
 			e.printStackTrace();
 		}
 	}
@@ -69,7 +56,7 @@ public class Client implements IClient {
 
 		while (CPackage != null) {
 			// Create Hanlder to handle client request
-//			HandlerFactory.getInstance().createHanlder(this, CPackage);
+			HandlerFactory.getInstance().createHanlder(this, CPackage);
 			// Receive new package
 			CPackage = receive();
 		}
@@ -79,6 +66,8 @@ public class Client implements IClient {
 	public void close() {
 		try {
 			socket.close();
+			// Remove this client from clientList
+			Server.getInstance().getAuthorizedClientList().remove(person);
 		} catch (IOException e) {
 			System.out.println("Close Error");
 			e.printStackTrace();
@@ -103,7 +92,8 @@ public class Client implements IClient {
 			CPackage CPackage = (CPackage) obj;
 			return CPackage;
 		} catch (ClassNotFoundException | IOException e) {
-			System.out.println("Receive Error");
+			System.out.println("Client receive Error");
+			close();
 			e.printStackTrace();
 		}
 		return null;

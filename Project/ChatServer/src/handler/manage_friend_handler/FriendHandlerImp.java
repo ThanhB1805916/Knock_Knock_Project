@@ -10,9 +10,10 @@ import model.communication.Request;
 import model.communication.Type;
 import model.converter.PersonConverter;
 import model.sendmodel.Person;
-import socket.IClient;
+import socket.Client;
 
-public class ManageFriendHandlerImp extends Handler implements ManageFriendHandler {
+
+public class FriendHandlerImp extends Handler implements FriendHandler {
 
 	private PersonDAO dao;
 
@@ -20,7 +21,7 @@ public class ManageFriendHandlerImp extends Handler implements ManageFriendHandl
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public ManageFriendHandlerImp(IClient client, PersonDAO dao) {
+	public FriendHandlerImp(Client client, PersonDAO dao) {
 		super(client);
 		this.dao = dao;
 	}
@@ -63,7 +64,7 @@ public class ManageFriendHandlerImp extends Handler implements ManageFriendHandl
 
 	@Override
 	public List<Person> get() {
-		List<Person> friendList = new PersonConverter().convert(dao.getListByID_Friend(authorizedClient_List.get(client).getId()));
+		List<Person> friendList = new PersonConverter().convert(dao.getListByID_Friend(client.getPerson().getId()));
 		return friendList;
 	}
 

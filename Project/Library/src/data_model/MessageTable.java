@@ -13,6 +13,7 @@ public class MessageTable {
 	private int id_room;
 	private int id_person;
 	private String messagecontent;
+	private boolean isFile;
 	private LocalDateTime sendtime;
 
 	// ---------------------------------------------------------------------------
@@ -27,16 +28,19 @@ public class MessageTable {
 		id_room = (int) parameters.get("id_room");
 		id_person = (int) parameters.get("id_person");
 		messagecontent = (String) parameters.get("messagecontent");
+		isFile = (boolean) parameters.get("isFile");
 		sendtime = LocalDateTime.parse(parameters.get("sendtime").toString(),
 				DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.S"));
 	}
 
 	// Ctor full parameters
-	public MessageTable(int id, int id_room, int id_person, String messagecontent, LocalDateTime sendtime) {
+	public MessageTable(int id, int id_room, int id_person, String messagecontent, boolean isFile,
+			LocalDateTime sendtime) {
 		this.id = id;
 		this.id_room = id_room;
 		this.id_person = id_person;
 		this.messagecontent = messagecontent;
+		this.isFile = isFile;
 		this.sendtime = sendtime;
 	}
 
@@ -81,6 +85,14 @@ public class MessageTable {
 
 	public void setMessagecontent(String messagecontent) {
 		this.messagecontent = messagecontent;
+	}
+
+	public boolean isFile() {
+		return isFile;
+	}
+
+	public void setFile(boolean isFile) {
+		this.isFile = isFile;
 	}
 
 	public LocalDateTime getSendtime() {
