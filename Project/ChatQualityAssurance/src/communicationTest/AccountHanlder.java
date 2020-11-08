@@ -21,7 +21,7 @@ import socket.ClientImp;
 import socket.Client;
 import socket.Server;
 
-public class Account {
+public class AccountHanlder {
 	Client client;
 
 	@Before
@@ -44,6 +44,15 @@ public class Account {
 		return success;
 	}
 
+	public boolean isEqual(Person personA, Person personB) {
+
+		return personA.getId() == personB.getId() && personA.getUsername().equals(personB.getUsername())
+				&& personA.getPassword().equals(personB.getPassword()) && personA.getName().equals(personB.getName())
+				&& personA.getMale() == personB.getMale() && personA.getDateofbirth().equals(personB.getDateofbirth());
+//				&& personA.getAvatar().getName().toString().equals(personB.getAvatar().getName().toString())
+//				&& personA.getAvatar().getData().toString().equals(personB.getAvatar().getData().toString());
+	}
+
 	@Test
 	public void getAccount_afterLogin() {
 		LoginModel model = new LoginModel("admin", "1234");
@@ -52,13 +61,17 @@ public class Account {
 			client.send(CPackage);
 			Person personvalid = new Person(1, "admin", "1234", "Administrator", true, "0000000000",
 					LocalDate.of(2020, 10, 04), new FileInfo("sources/default/avatars/default_avatar.png"));
-			
-			Person person = (Person)client.receive().unpack();
-			
+
+			Person person = (Person) client.receive().unpack();
+
 			assertNotNull(person);
-			System.out.println(person.equals(personvalid));
-//			assertTrue(person.equals(personvalid));
-			
+			System.out.println(person.getAvatar().getData());
+			System.out.println(personvalid.getAvatar().getData());
+			System.out.println(isEqual(person, personvalid));
+			System.out.println(person.getAvatar().getName().toString().equals(personvalid.getAvatar().getName().toString()));
+			System.out.println(person.getAvatar().equals(personvalid.getAvatar()));
+//			assertTrue(isEqual(person, personvalid));
+
 		}
 	}
 }

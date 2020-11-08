@@ -15,7 +15,7 @@ public class ClientImp implements Client {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private Person person;
-	
+
 	@Override
 	public void setPerson(Person person) {
 		this.person = person;
@@ -67,7 +67,8 @@ public class ClientImp implements Client {
 		try {
 			socket.close();
 			// Remove this client from clientList
-			Server.getInstance().getAuthorizedClientList().remove(person);
+			if (this.getPerson() != null)
+				Server.getInstance().getAuthorizedClientList().remove(this.getPerson().getId());
 		} catch (IOException e) {
 			System.out.println("Close Error");
 			e.printStackTrace();

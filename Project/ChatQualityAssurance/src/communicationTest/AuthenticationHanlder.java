@@ -17,7 +17,7 @@ import socket.ClientImp;
 import socket.Client;
 import socket.Server;
 
-public class Authentication {
+public class AuthenticationHanlder {
 
 	Client client;
 

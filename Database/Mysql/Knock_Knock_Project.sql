@@ -15,8 +15,8 @@ CREATE TABLE Person
     `name` NVARCHAR(128) NOT NULL, -- Họ tên
     gender BOOL NOT NULL DEFAULT FALSE, -- Giới tính 1 là nam 0 là nữ
     phonenumber CHAR(10) UNIQUE NOT NULL, -- Số điện thoại
-    dateofbirth DATE, -- Ngày sinh
-    avatar VARCHAR(128), -- Lưu đường dẫn ảnh đại diện người dùng
+    dateofbirth DATE NOT NULL DEFAULT '1970-01-01', -- Ngày sinh
+    avatar VARCHAR(128) NOT NULL DEFAULT 'DEFAULT', -- Lưu đường dẫn ảnh đại diện người dùng
     
     -- Khóa chính
     CONSTRAINT Person_PK PRIMARY KEY (id)
@@ -28,7 +28,7 @@ CREATE TABLE Room
 	id INT AUTO_INCREMENT, -- ID phòng tự tăng
     `name` NVARCHAR(20) NOT NULL, -- Tên phòng
     datecreate DATETIME NOT NULL DEFAULT NOW(), -- Ngày tạo phòng
-    avatar VARCHAR(128), -- Lưu đường dẫn ảnh đại diện phòng
+    avatar VARCHAR(128) NOT NULL DEFAULT 'DEFAULT', -- Lưu đường dẫn ảnh đại diện phòng
     
     -- Khóa chính
     CONSTRAINT Room_PK PRIMARY KEY(id)

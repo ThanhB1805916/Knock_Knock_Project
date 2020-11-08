@@ -31,6 +31,7 @@ public class Room implements ValidModel, Serializable {
 	public Room(int id, String name, FileInfo avatar, List<Person> members) {
 		this.id = id;
 		this.name = name;
+		this.avatar = avatar;
 		this.members = members;
 	}
 
@@ -41,14 +42,14 @@ public class Room implements ValidModel, Serializable {
 		this.id = id;
 		this.name = name;
 		this.dateCreate = dateCreate;
+		this.avatar = avatar;
 		this.messages = messages;
 		this.members = members;
-		this.avatar = avatar;
 	}
 
 	@Override
 	public boolean isValid() {
-		return name.isEmpty() == false && dateCreate != null;
+		return id > 0 && name.isEmpty() == false && dateCreate != null;
 	}
 
 	// ---------------------------------------------------------------------------

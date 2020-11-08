@@ -1,5 +1,6 @@
 package model.converter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +16,15 @@ public class PersonConverter implements Converter<PersonTable, Person> {
 	public Person convert(PersonTable personTable) {
 
 		// Get avatar
-		FileInfo avatar = new FileInfo(personTable.getAvatar());
+		FileInfo avatar = new FileInfo(
+				"sources/users/" + personTable.getUsername() + "/avatars/" + personTable.getAvatar());
+
+		// Date of birth if null will current date
+		LocalDate dateofbirth = personTable.getDateofbirth() == null ? LocalDate.now() : personTable.getDateofbirth();
+
 		// Ctor for table in database
 		Person person = new Person(personTable.getId(), personTable.getUsername(), personTable.getPassword(),
-				personTable.getName(), personTable.getGender(), personTable.getPhonenumber(),
-				personTable.getDateofbirth(), avatar);
+				personTable.getName(), personTable.getGender(), personTable.getPhonenumber(), dateofbirth, avatar);
 
 		return person;
 	}
@@ -39,14 +44,17 @@ public class PersonConverter implements Converter<PersonTable, Person> {
 	@Override
 	public PersonTable revert(Person person) {
 
-		// Default avatar
-		String avatar = "sources//default/avatars//default_avatar.png";
-		// Check exist avatar
-		if (person.getAvatar() != null)
-			avatar = "sources//users//" + person.getUsername() + person.getAvatar().getName();
+		// Date of birth if null will get current date
+		LocalDate dateofbirth = person.getDateofbirth() == null ? LocalDate.now() : person.getDateofbirth();
+
+		// Avatar
+		FileInfo avatar = person.getAvatar();
+		// Avatar will be default
+		avatar = new FileInfo("sources/default/avatars/default_avatar.png");
+		person.setAvatar(avatar);
 
 		PersonTable Person = new PersonTable(person.getId(), person.getUsername(), person.getPassword(),
-				person.getName(), person.getMale(), person.getPhonenumber(), person.getDateofbirth(), avatar);
+				person.getName(), person.getMale(), person.getPhonenumber(), dateofbirth, person.getAvatar().getName());
 
 		return Person;
 	}

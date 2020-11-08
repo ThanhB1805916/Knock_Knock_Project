@@ -54,8 +54,15 @@ public class Person implements ValidModel, Serializable {
 
 	@Override
 	public boolean isValid() {
-		return username.isEmpty() == false && password.isEmpty() == false && name.isEmpty() == false
-				&& phonenumber.isEmpty() == false;
+		
+		boolean isValid = false;
+		try {
+			isValid = username.isEmpty() == false && password.isEmpty() == false && name.isEmpty() == false
+					&& phonenumber.isEmpty() == false;
+		} catch (Exception e) {
+		}
+		
+		return isValid;
 	}
 	
 	// ---------------------------------------------------------------------------

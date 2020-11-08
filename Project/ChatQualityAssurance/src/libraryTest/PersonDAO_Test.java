@@ -10,7 +10,6 @@ import org.junit.Test;
 import data_access.DAOFactory;
 import data_access.person_access.PersonDAO;
 import data_model.PersonTable;
-import model.sendmodel.Person;
 
 public class PersonDAO_Test {
 
@@ -27,11 +26,12 @@ public class PersonDAO_Test {
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Get
 
-	public boolean isEqual(Person personA, Person personB) {
+	public boolean isEqual(PersonTable personA, PersonTable personB) {
 
 		return personA.getId() == personB.getId() && personA.getUsername().equals(personB.getUsername())
-				&& personA.getPassword().equals(personB.getPassword()) && personA.equals(personB.getName())
-				&& personA.getMale() == personB.getMale() && personA.getDateofbirth().equals(personB.getDateofbirth())
+				&& personA.getPassword().equals(personB.getPassword()) && personA.getName().equals(personB.getName())
+				&& personA.getGender() == personB.getGender()
+				&& personA.getDateofbirth().equals(personB.getDateofbirth())
 				&& personA.getAvatar().equals(personB.getAvatar());
 	}
 
@@ -69,19 +69,19 @@ public class PersonDAO_Test {
 	public void getByUserNameEqualsGetByID() {
 		PersonTable personID = dao.get(1);
 		PersonTable personUsername = dao.getByUsername("admin");
-		Assert.assertTrue(personID.equals(personUsername));
+		Assert.assertTrue(isEqual(personID, personUsername));
 	}
 
 	@Test
 	public void getByUserNameEqualsTrueValue() {
 		PersonTable person = dao.getByUsername("admin");
-		Assert.assertTrue(person.equals(personvalid));
+		Assert.assertTrue(isEqual(person, personvalid));
 	}
 
 	@Test
 	public void getByIDEqualsTrueValue() {
 		PersonTable person = dao.get(1);
-		Assert.assertTrue(person.equals(personvalid));
+		Assert.assertTrue(isEqual(person, personvalid));
 	}
 
 	@Test

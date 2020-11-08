@@ -44,11 +44,6 @@ public class MessageTable {
 		this.sendtime = sendtime;
 	}
 
-	public boolean equals(MessageTable message) {
-		return id == message.getId() && id_room == message.getId_room() && id_person == message.getId_person()
-				&& messagecontent.equals(message.getMessagecontent()) && sendtime.equals(message.getSendtime());
-	}
-
 	// ---------------------------------------------------------------------------
 	// -------------------------------
 	// ------------------------------- Setters - Getters

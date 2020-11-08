@@ -1,11 +1,15 @@
 package handler.manage_message_handler;
 
+import java.util.List;
+
 import model.communication.Request;
 import model.sendmodel.Message;
 import socket.Client;
 
 public interface MessageHandler {
 
+	List<Message> get();
+	
 	boolean add(Message message);
 
 	void send(Message message);

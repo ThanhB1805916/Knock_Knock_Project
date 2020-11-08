@@ -48,13 +48,7 @@ public class PersonTable {
 		this.dateofbirth = dateofbirth;
 		this.avatar = avatar;
 	}
-
-	public boolean equals(PersonTable person) {
-		return id == person.getId() && username.equals(person.getUsername()) && password.equals(person.getPassword())
-				&& name.equals(person.getName()) && gender == person.getGender()
-				&& dateofbirth.equals(person.getDateofbirth()) && avatar.equals(person.getAvatar());
-	}
-
+	
 	// ---------------------------------------------------------------------------
 	// -------------------------------
 	// ------------------------------- Setters - Getters

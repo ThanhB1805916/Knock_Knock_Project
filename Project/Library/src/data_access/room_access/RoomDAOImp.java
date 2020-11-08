@@ -8,7 +8,7 @@ import data_access.ModelDAOImp;
 import data_access.SQLDAO;
 import data_model.RoomTable;
 
-public class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomDAO {
+public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomDAO {
 
 	public RoomDAOImp(SQLDAO dao) {
 		super(dao);

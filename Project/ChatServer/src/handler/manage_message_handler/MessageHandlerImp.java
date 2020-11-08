@@ -13,7 +13,6 @@ import model.communication.Type;
 import model.converter.MessageConverter;
 import model.sendmodel.Message;
 import model.sendmodel.Person;
-import model.sendmodel.Room;
 import socket.Client;
 
 public class MessageHandlerImp extends Handler implements MessageHandler {
@@ -30,10 +29,6 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Functions
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Handle Request
 	@Override
 	public void handleRequest(Request request) {
@@ -44,10 +39,6 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 			switch (command) {
 			case ADD:
 				responseCommandType = new Request(Name.ADD, add((Message) request.getContent()));
-				break;
-
-			case UPDATE:
-//				responseCommandType = new Request(Name.UPDATE, update(client, (Person) request.getContent()));
 				break;
 
 			default:
@@ -76,6 +67,12 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 			CPackage CPack = new CPackage(Type.MESSAGE, request);
 			client.send(CPack);
 		}
+	}
+
+	@Override
+	public List<Message> get() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -109,7 +106,7 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 					e.printStackTrace();
 				}
 			}
-			
+
 			success = true;
 		}
 

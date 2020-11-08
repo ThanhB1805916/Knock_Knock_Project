@@ -13,6 +13,10 @@ public interface FriendHandler {
 
 	Person find(String phonenumber);
 
+	boolean add(Person person);
+	
+	boolean accept(Person person);
+	
 	/*
 	 * Remove a person from friend list
 	 */

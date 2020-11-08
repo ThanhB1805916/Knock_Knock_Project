@@ -1,6 +1,5 @@
 
-
-
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +12,6 @@ import data_access.room_access.RoomDAO;
 import data_model.PersonTable;
 import data_model.RoomTable;
 
-
 public class Demo {
 
 	public static void main(String[] args) {
@@ -22,8 +20,7 @@ public class Demo {
 //		PersonDAO dao = DAOFactory.getPersonDAO_Mysql();
 		PersonTable a = dao.get(1);
 		System.out.println(a.getUsername());
+
 	}
 
-	
 }
-

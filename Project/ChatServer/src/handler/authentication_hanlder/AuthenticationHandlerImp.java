@@ -7,6 +7,7 @@ import data_model.PersonTable;
 import handler.Handler;
 import model.communication.*;
 import model.converter.PersonConverter;
+import model.sendmodel.FileInfo;
 import model.sendmodel.LoginModel;
 import model.sendmodel.Person;
 import socket.Client;
@@ -23,10 +24,6 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 		super(client);
 		this.dao = dao;
 	}
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Functions
-	// --------------------------------------------------------------------------------------------------------------------------------------------
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Handle Request
@@ -92,18 +89,22 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 
 			// If user name and phone number not exist
 			if (existUsername(person.getUsername()) == false && existPhonenumber(person.getPhonenumber()) == false) {
-				PersonConverter converter = new PersonConverter();
+				// Set up new user
+				if (setupUser(person)) {
+					PersonConverter converter = new PersonConverter();
 
-				// Convert to personTable
-				PersonTable personTable = converter.revert(person);
+					// Convert to personTable
+					PersonTable personTable = converter.revert(person);
 
-				// Add to database
-				if (dao.add(personTable)) {
-					success = true;
-
-					// Set up new user
-					setupUser(person);
+					// Add to database
+					if (dao.add(personTable)) {
+						success = true;
+					} else {
+						// Remove directory
+						setUpUserUndo(person);
+					}
 				}
+
 			}
 		}
 
@@ -113,23 +114,28 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 	// Create folder for storing user's avatar
 	// Folder's name is user name
 	@Override
-	public void setupUser(Person person) {
+	public boolean setupUser(Person person) {
 
 		boolean success = false;
 
 		if (person.isValid()) {
 			String folderName = person.getUsername();
 
-			// Folder stored in sources/users/
-			File userDir = new File("sources/users/" + folderName);
-			if (userDir.mkdir())
-				success = true;
+			// Create folder for user and avatar
+			File userDir = new File("sources/users/" + folderName + "/avatars");
+			success = userDir.mkdir();
 
-			// Create avatars folder
-			userDir = new File("sources/users/" + folderName + "/avatars");
-			if (userDir.mkdir())
-				success = true;
-
+//			if (success) {
+//				FileInfo avatar = person.getAvatar();
+//				if (avatar == null) {
+//					// Avatar will be default
+//					avatar = new FileInfo("sources/default/avatars/default_avatar.png");
+//					person.setAvatar(avatar);
+//				}
+//
+//				// Create avatar in folder
+//				avatar.getFile("sources/users/" + folderName + "/avatars");
+//			}
 		}
 
 		if (success) {
@@ -138,6 +144,13 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 			System.out.println("Can't create " + person.getUsername() + "'s folder, folder exist");
 		}
 
+		return success;
+	}
+
+	public void setUpUserUndo(Person person) {
+		String folderName = person.getUsername();
+		File userDir = new File("sources/users/" + folderName);
+		userDir.delete();
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------

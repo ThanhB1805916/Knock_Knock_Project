@@ -35,12 +35,7 @@ public class RoomTable {
 		this.datecreate = datecreate;
 		this.avatar = avatar;
 	}
-
-	public boolean equals(RoomTable room) {
-		return id == room.getId() && name.equals(room.getName()) && datecreate.equals(room.getDatecreate())
-				&& avatar.equals(room.getAvatar());
-	}
-
+	
 	// ---------------------------------------------------------------------------
 	// -------------------------------
 	// ------------------------------- Setters - Getters

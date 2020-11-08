@@ -16,7 +16,7 @@ public interface AuthenticationHandler {
 	/*
 	 * Create a folder for storing new user's information like avatar
 	 */
-	void setupUser(Person person);
+	boolean setupUser(Person person);
 
 	/*
 	 * Get information in LoginModel (username, password) Check if exist in database

@@ -6,7 +6,7 @@ import data_access.ModelDAOImp;
 import data_access.SQLDAO;
 import data_model.MessageTable;
 
-public class MessageDAOImp extends ModelDAOImp<MessageTable> implements MessageDAO {
+public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements MessageDAO {
 
 	public MessageDAOImp(SQLDAO dao) {
 		super(dao);

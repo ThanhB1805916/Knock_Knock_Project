@@ -18,13 +18,14 @@ public class DAOFactory {
 
 	public static PersonDAO getPersonDAO() {
 		return new PersonDAO_MySQL(getSQLDAO());
+//		return new PersonDAO_SQLServer(getSQLDAO());
 	}
 
 	public static RoomDAO getRoomDAO() {
-		return new RoomDAOImp(getSQLDAO());
+		return new RoomDAO_MySQL(getSQLDAO());
 	}
 
 	public static MessageDAO getMessageDAO() {
-		return new MessageDAOImp(getSQLDAO());
+		return new MessageDAO_MySQL(getSQLDAO());
 	}
 }

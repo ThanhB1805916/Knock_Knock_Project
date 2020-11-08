@@ -1,18 +1,51 @@
-package data_access.person_access;
-
-import data_access.SQLDAO;
-
-public class PersonDAO_SQLServer extends PersonDAOImp {
-
-	public PersonDAO_SQLServer(SQLDAO dao) {
-		super(dao);
-
-		spPerson_GetPerson_Byid = "EXEC spPerson_GetPerson_Byid ?;";
-		spPerson_GetPerson_ByUsername = "EXEC spPerson_GetPerson_ByUsername ?;";
-		spPerson_GetPerson_ByPhonenumber = "EXEC spPerson_GetPerson_ByPhonenumber ?;";
-		spPerson_GetPersonList_ByID_Room = "EXEC spPerson_GetPersonList_ByID_Room ?;";
-		spPerson_GetPersonList_ByID_Friend = "EXEC  spPerson_GetPersonList_ByID_Friend ?;";
-		spPerson_InsertPerson = "EXEC spPerson_InsertPerson ?, ?, ?, ?, ?, ?;";
-		spPerson_UpdatePerson = "EXEC spPerson_UpdatePerson ?, ?, ?, ?, ?, ?;";
-	}
-}
+//package data_access.person_access;
+//
+//import data_access.SQLDAO;
+//
+//public class PersonDAO_SQLServer extends PersonDAOImp {
+//
+//	public PersonDAO_SQLServer(SQLDAO dao) {
+//		super(dao);
+//	}
+//
+//	@Override
+//	public String getQuery() {
+//		return "EXEC spPerson_GetPerson_Byid ?;";
+//	}
+//
+//	@Override
+//	public String addQuery() {
+//		return "EXEC spPerson_InsertPerson ?, ?, ?, ?, ?, ?, ?;";
+//	}
+//
+//	@Override
+//	public String updateQuery() {
+//		return "EXEC spPerson_UpdatePerson ?, ?, ?, ?, ?, ?, ?;";
+//	}
+//
+//	@Override
+//	public String getByUsernameQuery() {
+//		return "EXEC spPerson_GetPerson_ByUsername ?;";
+//	}
+//
+//	@Override
+//	public String getByPhonenumberQuery() {
+//		return "EXEC spPerson_GetPerson_ByPhonenumber ?;";
+//	}
+//
+//	@Override
+//	public String getListByID_RoomQuery() {
+//		return "EXEC spPerson_GetPersonList_ByID_Room ?;";
+//	}
+//
+//	@Override
+//	public String getListByID_FriendQuery() {
+//		return "EXEC  spPerson_GetPersonList_ByID_Friend ?;";
+//	}
+//
+//	@Override
+//	public String removeFriendQuery() {
+//		return "EXEC spPerson_RemoveFriend ?, ?;";
+//	}
+//
+//}

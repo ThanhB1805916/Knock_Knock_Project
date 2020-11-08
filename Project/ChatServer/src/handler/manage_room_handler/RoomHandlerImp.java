@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data_access.DAOFactory;
-import data_access.SQLDAOImp;
-import data_access.person_access.PersonDAOImp;
 import data_access.room_access.RoomDAO;
 import data_model.RoomTable;
 import handler.Handler;
@@ -33,10 +31,6 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Constructor
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Handle Request
 	@Override
 	public void handleRequest(Request request) {
@@ -46,7 +40,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 			Name command = request.getName();
 			switch (command) {
 			case GET:
-				responseCommandType = new Request(Name.GET, get(client));
+				responseCommandType = new Request(Name.GET, get());
 				break;
 
 			case UPDATE:
@@ -73,27 +67,27 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ------------------------------------------------------------ Get Room List
+	// -------------------------------------------------------------- Get
 
 	@Override
-	public List<Room> get(Client client) {
+	public List<Room> get() {
 		int id_person = client.getPerson().getId();
 
-		List<RoomTable> roomTable_List = dao.getList(id_person);
+		List<RoomTable> roomTableList = dao.getList(id_person);
 
-		List<Room> Room_List = new ArrayList<>();
+		List<Room> roomList = new ArrayList<>();
 
-		if (roomTable_List.size() > 0) {
+		if (roomTableList.size() > 0) {
 
 			RoomConverter converter = new RoomConverter();
 
-			Room_List = converter.convert(roomTable_List);
+			roomList = converter.convert(roomTableList);
 
 			// Get rooms' members
 			List<Thread> threadList = new ArrayList<>();
 
 			// Create memeber for room
-			for (Room room : Room_List) {
+			for (Room room : roomList) {
 				Thread build = new Thread(() -> {
 					List<Person> members = new PersonConverter()
 							.convert(DAOFactory.getPersonDAO().getListByID_Room(room.getId()));
@@ -111,8 +105,11 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 				}
 			}
 		}
-		return Room_List;
+		return roomList;
 	}
+
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// -------------------------------------------------------------- Add
 
 	@Override
 	public boolean add(Room room) {
@@ -121,10 +118,22 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	}
 
 	@Override
+	public boolean add(Person person) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// -------------------------------------------------------------- Remove
+
+	@Override
 	public boolean remove(Room room) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// -------------------------------------------------------------- Exit
 
 	@Override
 	public boolean exit(Room room) {

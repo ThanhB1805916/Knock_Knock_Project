@@ -11,6 +11,14 @@ import data_model.PersonTable;
 // Person Data Access Object
 public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements PersonDAO {
 
+	protected String spPerson_GetPerson_Byid;
+	protected String spPerson_GetPerson_ByUsername;
+	protected String spPerson_GetPerson_ByPhonenumber;
+	protected String spPerson_GetPersonList_ByID_Room;
+	protected String spPerson_GetPersonList_ByID_Friend;
+	protected String spPerson_InsertPerson;
+	protected String spPerson_UpdatePerson;
+
 	public PersonDAOImp(SQLDAO dao) {
 		super(dao);
 	}
@@ -22,7 +30,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	// Get person by id
 	@Override
 	public PersonTable get(int id) {
-		List<HashMap<String, Object>> dataTable = dao.executeQuery(getQuery(), new Object[] { id });
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(spPerson_GetPerson_Byid, new Object[] { id });
 
 		PersonTable person = null;
 		// If exist
@@ -36,7 +44,8 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	// Get person by username
 	@Override
 	public PersonTable getByUsername(String username) {
-		List<HashMap<String, Object>> dataTable = dao.executeQuery(getByUsernameQuery(), new Object[] { username });
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(spPerson_GetPerson_ByUsername,
+				new Object[] { username });
 
 		PersonTable person = null;
 		// If exist
@@ -50,7 +59,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	// Get person by phonenumber
 	@Override
 	public PersonTable getByPhonenumber(String phonenumber) {
-		List<HashMap<String, Object>> dataTable = dao.executeQuery(getByPhonenumberQuery(),
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(spPerson_GetPerson_ByPhonenumber,
 				new Object[] { phonenumber });
 
 		PersonTable person = null;
@@ -65,7 +74,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 
 	@Override
 	public List<PersonTable> getListByID_Room(int id_room) {
-		List<HashMap<String, Object>> dataTable = dao.executeQuery(getListByID_RoomQuery(), new Object[] { id_room });
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(spPerson_GetPersonList_ByID_Room, new Object[] { id_room });
 
 		List<PersonTable> personList = null;
 		// If exist
@@ -82,7 +91,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 
 	@Override
 	public List<PersonTable> getListByID_Friend(int id_friend) {
-		List<HashMap<String, Object>> dataTable = dao.executeQuery(getListByID_FriendQuery(),
+		List<HashMap<String, Object>> dataTable = dao.executeQuery(spPerson_GetPersonList_ByID_Friend,
 				new Object[] { id_friend });
 
 		List<PersonTable> personList = null;
@@ -105,28 +114,10 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	// Create new person
 	@Override
 	public boolean add(PersonTable person) {
-		int rows = dao.executeNonQuery(addQuery(),
-				new Object[] { person.getUsername(), person.getPassword(), person.getName(),
-						person.getGender() == true ? 1 : 0, person.getPhonenumber(), person.getDateofbirth(),
-						person.getAvatar()
+		int rows = dao.executeNonQuery(spPerson_InsertPerson, new Object[] { person.getUsername(), person.getPassword(),
+				person.getName(), person.getGender() == true ? 1 : 0, person.getPhonenumber(), person.getDateofbirth()
 
-				});
-
-		return rows > 0;
-	}
-
-	// Send request add friend
-	@Override
-	public boolean addFriend(int id_person, int id_friend) {
-		int rows = dao.executeNonQuery(addFriendQuery(), new Object[] { id_person, id_friend });
-
-		return rows > 0;
-	}
-
-	// Accept add friend
-	@Override
-	public boolean accept(int id_person, int id_friend) {
-		int rows = dao.executeNonQuery(acceptQuery(), new Object[] { id_person, id_friend });
+		});
 
 		return rows > 0;
 	}
@@ -138,23 +129,11 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	// Update person
 	@Override
 	public boolean update(PersonTable person) {
-		int rows = dao.executeNonQuery(updateQuery(),
+		int rows = dao.executeNonQuery(spPerson_UpdatePerson,
 				new Object[] { person.getUsername(), person.getPassword(), person.getName(),
 						person.getGender() == true ? 1 : 0, person.getPhonenumber(), person.getDateofbirth() });
 
 		return rows > 0;
-	}
-
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------- Remove
-	// --------------------------------------------------------------------------------------------------------------------------------------------
-
-	@Override
-	public boolean removeFriend(int id_person, int id_friend) {
-		int rows = dao.executeNonQuery(removeFriendQuery(), new Object[] { id_person, id_friend });
-
-		return rows > 0;
-
 	}
 
 }
