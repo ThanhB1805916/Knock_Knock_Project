@@ -30,7 +30,7 @@ public class MessageTable {
 		messagecontent = (String) parameters.get("messagecontent");
 		isFile = (boolean) parameters.get("isFile");
 		sendtime = LocalDateTime.parse(parameters.get("sendtime").toString(),
-				DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.S"));
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
 	}
 
 	// Ctor full parameters
@@ -82,11 +82,11 @@ public class MessageTable {
 		this.messagecontent = messagecontent;
 	}
 
-	public boolean isFile() {
+	public boolean getIsFile() {
 		return isFile;
 	}
 
-	public void setFile(boolean isFile) {
+	public void setIsFile(boolean isFile) {
 		this.isFile = isFile;
 	}
 

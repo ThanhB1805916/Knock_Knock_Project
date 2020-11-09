@@ -1,4 +1,6 @@
-package data_access;
+package data_access.model_access.imp;
+
+import data_access.SQLDAO;
 
 public abstract class ModelDAOImp<T> {
 

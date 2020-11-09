@@ -1,15 +1,17 @@
-package data_access.person_access;
+package data_access.person_access.imp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import data_access.ModelDAOImp;
 import data_access.SQLDAO;
+import data_access.model_access.imp.ModelDAOImp;
+import data_access.person_access.PersonDAO;
+import data_access.person_access.PersonDAO_Query;
 import data_model.PersonTable;
 
 // Person Data Access Object
-public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements PersonDAO {
+public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements PersonDAO, PersonDAO_Query {
 
 	public PersonDAOImp(SQLDAO dao) {
 		super(dao);
@@ -26,7 +28,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 
 		PersonTable person = null;
 		// If exist
-		if (dataTable.isEmpty() == false) {
+		if (dataTable != null) {
 			person = new PersonTable(dataTable.get(0));
 		}
 
@@ -40,7 +42,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 
 		PersonTable person = null;
 		// If exist
-		if (dataTable.isEmpty() == false) {
+		if (dataTable != null) {
 			person = new PersonTable(dataTable.get(0));
 		}
 
@@ -55,7 +57,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 
 		PersonTable person = null;
 		// If exist
-		if (dataTable.isEmpty() == false) {
+		if (dataTable != null) {
 			person = new PersonTable(dataTable.get(0));
 		}
 
@@ -69,7 +71,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 
 		List<PersonTable> personList = null;
 		// If exist
-		if (dataTable.isEmpty() == false) {
+		if (dataTable != null) {
 			personList = new ArrayList<PersonTable>();
 
 			for (HashMap<String, Object> row : dataTable) {
@@ -87,7 +89,7 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 
 		List<PersonTable> personList = null;
 		// If exist
-		if (dataTable.isEmpty() == false) {
+		if (dataTable != null) {
 			personList = new ArrayList<PersonTable>();
 
 			for (HashMap<String, Object> row : dataTable) {
@@ -140,7 +142,8 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	public boolean update(PersonTable person) {
 		int rows = dao.executeNonQuery(updateQuery(),
 				new Object[] { person.getUsername(), person.getPassword(), person.getName(),
-						person.getGender() == true ? 1 : 0, person.getPhonenumber(), person.getDateofbirth() });
+						person.getGender() == true ? 1 : 0, person.getPhonenumber(), person.getDateofbirth(),
+						person.getAvatar() });
 
 		return rows > 0;
 	}

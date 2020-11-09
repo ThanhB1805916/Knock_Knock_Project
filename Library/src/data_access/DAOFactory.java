@@ -1,8 +1,11 @@
 package data_access;
 
 import data_access.message_access.*;
+import data_access.message_access.imp.MessageDAO_MySQL;
 import data_access.person_access.*;
+import data_access.person_access.imp.PersonDAO_MySQL;
 import data_access.room_access.*;
+import data_access.room_access.imp.RoomDAO_MySQL;
 
 // Get DAO from this
 

@@ -1,4 +1,4 @@
-package data_access.person_access;
+package data_access.person_access.imp;
 
 import data_access.SQLDAO;
 
@@ -58,7 +58,7 @@ public class PersonDAO_MySQL extends PersonDAOImp {
 	// ---------------------------------------------------------------- Update
 	@Override
 	public String updateQuery() {
-		return "CALL spPerson_UpdatePerson(?, ?, ?, ?, ?, ?);";
+		return "CALL spPerson_UpdatePerson(?, ?, ?, ?, ?, ?, ?);";
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------

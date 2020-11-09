@@ -1,14 +1,16 @@
-package data_access.message_access;
+package data_access.message_access.imp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import data_access.ModelDAOImp;
 import data_access.SQLDAO;
+import data_access.message_access.MessageDAO;
+import data_access.message_access.MessageDAO_Query;
+import data_access.model_access.imp.ModelDAOImp;
 import data_model.MessageTable;
 
-public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements MessageDAO {
+public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements MessageDAO, MessageDAO_Query {
 
 	public MessageDAOImp(SQLDAO dao) {
 		super(dao);
@@ -24,13 +26,11 @@ public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements
 
 		MessageTable messageTable = null;
 		// If exist
-		if (dataTable.isEmpty() == false) {
-			for (HashMap<String, Object> row : dataTable) {
-				messageTableList.add(new MessageTable(row));
-			}
+		if (dataTable != null) {
+			messageTable = new MessageTable(dataTable.get(0));
 		}
 
-		return messageTableList;
+		return messageTable;
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements
 
 		List<MessageTable> messageTableList = new ArrayList<MessageTable>();
 		// If exist
-		if (dataTable.isEmpty() == false) {
+		if (dataTable != null) {
 			for (HashMap<String, Object> row : dataTable) {
 				messageTableList.add(new MessageTable(row));
 			}
@@ -54,8 +54,8 @@ public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements
 
 	@Override
 	public boolean add(MessageTable message) {
-		int rows = dao.executeNonQuery(addQuery(),
-				new Object[] { message.getId_person(), message.getId_room(), message.getMessagecontent() });
+		int rows = dao.executeNonQuery(addQuery(), new Object[] { message.getId_person(), message.getId_room(),
+				message.getIsFile(), message.getMessagecontent(), message.getSendtime() });
 		return rows > 0;
 	}
 
@@ -66,7 +66,7 @@ public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements
 	@Override
 	public boolean update(MessageTable message) {
 		int rows = dao.executeNonQuery(updateQuery(),
-				new Object[] { message.getId_person(), message.getId_room(), message.getMessagecontent() });
+				new Object[] { message.getId(), message.getIsFile(), message.getMessagecontent() });
 		return rows > 0;
 	}
 

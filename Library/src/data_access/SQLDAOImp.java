@@ -19,7 +19,7 @@ public class SQLDAOImp implements SQLDAO {
 	@Override
 	public List<HashMap<String, Object>> convertResultSetToList(ResultSet resultSet) {
 
-		List<HashMap<String, Object>> tableData = new ArrayList<HashMap<String, Object>>();
+		List<HashMap<String, Object>> dataTable = new ArrayList<HashMap<String, Object>>();
 
 		try {
 			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
@@ -38,14 +38,14 @@ public class SQLDAOImp implements SQLDAO {
 				}
 
 				// Add row to list
-				tableData.add(row);
+				dataTable.add(row);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return tableData;
+		return dataTable;
 
 	}
 
@@ -76,7 +76,7 @@ public class SQLDAOImp implements SQLDAO {
 	@Override
 	public List<HashMap<String, Object>> executeQuery(String query, Object[] parameters) {
 
-		List<HashMap<String, Object>> tableData = null;
+		List<HashMap<String, Object>> dataTable = null;
 		try {
 			// Try connect to database
 			Connection connection = DriverManager.getConnection(connectionString.getUrl(),
@@ -85,7 +85,12 @@ public class SQLDAOImp implements SQLDAO {
 			// Get callableSatement
 			CallableStatement callableStatement = createCallableStatement(connection, query, parameters);
 			ResultSet resultSet = callableStatement.executeQuery();
-			tableData = convertResultSetToList(resultSet);
+			
+			// If have value
+			if(resultSet.isBeforeFirst())
+			{
+				dataTable = convertResultSetToList(resultSet);
+			}
 
 			resultSet.close();
 			callableStatement.close();
@@ -94,7 +99,7 @@ public class SQLDAOImp implements SQLDAO {
 			e.printStackTrace();
 		}
 
-		return tableData;
+		return dataTable;
 	}
 
 	@Override
