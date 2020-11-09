@@ -39,7 +39,7 @@ END; $$
 
 -- CALL spPerson_GetPerson_ByAccountAndPassword('0000000001');
 
--- Lấy ra theo id phòng
+-- Lấy ra danh sách theo id phòng
 DELIMITER $$
 DROP PROCEDURE IF EXISTS spPerson_GetPersonList_ByID_Room $$
 CREATE PROCEDURE spPerson_GetPersonList_ByID_Room(id_room INT)
@@ -51,7 +51,7 @@ END; $$
 
 -- CALL spPerson_GetPersonList_ByID_Room('1');
 
--- Lấy ra theo id bạn
+-- Lấy ra danh sách theo id bạn
 DELIMITER $$
 DROP PROCEDURE IF EXISTS spPerson_GetPersonList_ByID_Friend $$
 CREATE PROCEDURE spPerson_GetPersonList_ByID_Friend(id_friend INT)
@@ -116,7 +116,7 @@ END; $$
 
 -- CALL spPerson_Accept(3, 4);
 
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Update
 
 -- Thủ tục sửa người dùng trong CSDL theo tài khoản

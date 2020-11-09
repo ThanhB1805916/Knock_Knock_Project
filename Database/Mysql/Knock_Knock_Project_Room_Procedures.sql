@@ -2,7 +2,6 @@
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Bảng Room
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
-
 use knock_knock_project;
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -17,7 +16,7 @@ SELECT * from room where room.id=id;
 END//
 delimiter ;
 
-Call spRoom_GetRoom_ByID(5);
+ -- Call spRoom_GetRoom_ByID(1);
 
 -- Lấy ra danh sách phòng theo id người dùng truyền vào
 DROP PROCEDURE IF EXISTS spRoom_GetRoomList_ByID_Person;
@@ -31,8 +30,7 @@ where p.id_person=id_person;
 END//
 delimiter ;
 
-call spRoom_GetRoomList_ByID_Person(1);
-Select * from room;
+-- call spRoom_GetRoomList_ByID_Person(1);
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Insert
 
@@ -41,21 +39,13 @@ Select * from room;
 use knock_knock_project;
 
 DROP PROCEDURE IF EXISTS spRoom_InsertRoom;
-
 delimiter //
-
 CREATE PROCEDURE spRoom_InsertRoom(in `name` varchar(20), in avatar varchar(128))
-
 begin
-
 insert into room (`name`, avatar) values (`name`, avatar);
-
 end//
-
 delimiter ;
-call spRoom_InsertRoom('hello' , 'a');
-
--- select * from room;
+-- call spRoom_InsertRoom('hello' , 'a');
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Update
@@ -64,20 +54,17 @@ call spRoom_InsertRoom('hello' , 'a');
 -- Sửa tên phòng, avatar theo id phòng truyền vào
 
 use knock_knock_project;
-
 DROP PROCEDURE IF EXISTS spRoom_UpdateRoom;
-
 delimiter //
-
 CREATE PROCEDURE spRoom_UpdateRoom(in id int, in `name` varchar(20), in avatar varchar(128))
-
 begin
-
-update room set room.name = `name` where room.id=id;
-
+update room 
+set room.name = `name`,
+	room.avatar = avatar
+where room.id=id;
 end//
-
 delimiter ;
+-- CALL spRoom_UpdateRoom(11, 'Phòng 11', 'avatar');
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Delete
@@ -85,15 +72,11 @@ delimiter ;
 -- Xóa phòng theo id phòng
 
 DROP PROCEDURE IF EXISTS spRoom_DeleteRoom;
-
 delimiter //
-
 CREATE PROCEDURE spRoom_DeleteRoom(in id int)
-
 begin
-
 delete from room where room.id = id;
-
 end//
-
 delimiter ;
+
+-- CALL spRoom_DeleteRoom(12);

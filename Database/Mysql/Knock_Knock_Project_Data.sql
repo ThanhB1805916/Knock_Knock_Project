@@ -90,8 +90,8 @@ SELECT * FROM Person;
 -- --------------------------------------- Giá trị cho bảng phòng
 -- ----------------------------------------------------------------------------------------------
 
-INSERT INTO Room(`name`)
-VALUES('Phòng 1');
+INSERT INTO Room(`name`, datecreate)
+VALUES('Phong 1', '2020-11-09 09:00:00');
 
 INSERT INTO Room(`name`)
 VALUES('Phòng 2');
@@ -129,19 +129,11 @@ SELECT * FROM Room;
 -- --------------------------------------- Giá trị cho thành viên trong phòng
 -- ----------------------------------------------------------------------------------------------
 
-
--- Phòng 3 có user 1, 2, 3, 4, 5
+-- Phòng 1 có user 1, 2
 INSERT INTO Person_Room(id_room, id_person)
 VALUES('1', '1');
 INSERT INTO Person_Room(id_room, id_person)
 VALUES('1', '2');
-INSERT INTO Person_Room(id_room, id_person)
-VALUES('1', '3');
-INSERT INTO Person_Room(id_room, id_person)
-VALUES('1', '4');
-INSERT INTO Person_Room(id_room, id_person)
-VALUES('1', '5');
-
 
 -- Phòng 2 có user 2, 3, 4, 5, 6
 INSERT INTO Person_Room(id_room, id_person)
@@ -155,9 +147,7 @@ VALUES('2', '5');
 INSERT INTO Person_Room(id_room, id_person)
 VALUES('2', '6');
 
--- Phòng 3 có user 1, 3, 5, 7, 9
-INSERT INTO Person_Room(id_room, id_person)
-VALUES('3', '1');
+-- Phòng 3 có user 3, 5, 7, 9
 INSERT INTO Person_Room(id_room, id_person)
 VALUES('3', '3');
 INSERT INTO Person_Room(id_room, id_person)
@@ -265,8 +255,8 @@ SELECT * FROM Friend;
 -- Phòng 1
 
 -- User 1 gửi hello vào phòng 1
-INSERT INTO Message(id_room, id_person, messagecontent)
-VALUES('1', '1', 'Hello');
+INSERT INTO Message(id_room, id_person, messagecontent, sendtime)
+VALUES('1', '1', 'Hello', '2020-09-11 09:01:00');
 -- User 2 gửi hallo vào phòng 1
 INSERT INTO Message(id_room, id_person, messagecontent)
 VALUES('1', '2', 'Hallo');
