@@ -27,7 +27,7 @@ public class RoomDAO_MySQL extends RoomDAOImp {
 	@Override
 	public String addQuery() {
 		// TODO Auto-generated method stub
-		return null;
+		return "CALL spRoom_UpdateRoom(?, ?, ?, ?);";
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,6 +36,6 @@ public class RoomDAO_MySQL extends RoomDAOImp {
 	@Override
 	public String updateQuery() {
 		// TODO Auto-generated method stub
-		return null;
+		return "CALL spRoom_InsertRoom(?, ?, ?, ?, ?, ?);";
 	}
 }

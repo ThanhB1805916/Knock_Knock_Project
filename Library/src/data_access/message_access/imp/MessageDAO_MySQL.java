@@ -19,7 +19,7 @@ public class MessageDAO_MySQL extends MessageDAOImp {
 	@Override
 	public String getListQuery() {
 		// TODO Auto-generated method stub
-		return null;
+		return "call spMessage_GetMessageList_ByID_Room(?);";
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ public class MessageDAO_MySQL extends MessageDAOImp {
 	@Override
 	public String addQuery() {
 		// TODO Auto-generated method stub
-		return null;
+		return "CALL spMessage_InsertMessage(?, ?, ?, ?, ?);";
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ public class MessageDAO_MySQL extends MessageDAOImp {
 	@Override
 	public String updateQuery() {
 		// TODO Auto-generated method stub
-		return null;
+		return "CALL spMessage_UpdateMessage(?, ?, ?, ?, ?);";
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ public class MessageDAO_MySQL extends MessageDAOImp {
 	@Override
 	public String deleteQuery() {
 		// TODO Auto-generated method stub
-		return null;
+		return "call spMessage_DeleteMessage(?);";
 	}
 
 }
