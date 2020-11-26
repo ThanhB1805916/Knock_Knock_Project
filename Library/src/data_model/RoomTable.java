@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 //Class represent for table in database
 
-public class RoomTable {
+public class RoomTable implements ValidModel {
 	// Attributes
 	private int id;
 	private String name;
@@ -35,7 +35,17 @@ public class RoomTable {
 		this.datecreate = datecreate;
 		this.avatar = avatar;
 	}
-	
+
+	@Override
+	public boolean isValid() {
+		boolean isValid = false;
+		try {
+			isValid = id >= 0 && name.isEmpty() == false && datecreate != null && avatar.isEmpty() == false;
+		} catch (Exception e) {
+		}
+		return isValid;
+	}
+
 	// ---------------------------------------------------------------------------
 	// -------------------------------
 	// ------------------------------- Setters - Getters

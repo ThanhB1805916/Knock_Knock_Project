@@ -37,9 +37,11 @@ public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements
 	public List<MessageTable> getList(int id_room) {
 		List<HashMap<String, Object>> dataTable = dao.executeQuery(getListQuery(), new Object[] { id_room });
 
-		List<MessageTable> messageTableList = new ArrayList<MessageTable>();
+		List<MessageTable> messageTableList = null;
 		// If exist
 		if (dataTable != null) {
+			messageTableList = new ArrayList<MessageTable>();
+			
 			for (HashMap<String, Object> row : dataTable) {
 				messageTableList.add(new MessageTable(row));
 			}
@@ -54,8 +56,13 @@ public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements
 
 	@Override
 	public boolean add(MessageTable message) {
-		int rows = dao.executeNonQuery(addQuery(), new Object[] { message.getId_person(), message.getId_room(),
-				message.getIsFile(), message.getMessagecontent(), message.getSendtime() });
+		int rows = 0;
+		if (message.isValid()) {
+			int isFile = booleanToBit(message.getIsFile());
+
+			rows = dao.executeNonQuery(addQuery(), new Object[] { message.getId_room(), message.getId_person(),
+					message.getMessagecontent(), isFile, message.getSendtime() });
+		}
 		return rows > 0;
 	}
 
@@ -65,8 +72,13 @@ public abstract class MessageDAOImp extends ModelDAOImp<MessageTable> implements
 
 	@Override
 	public boolean update(MessageTable message) {
-		int rows = dao.executeNonQuery(updateQuery(),
-				new Object[] { message.getId(), message.getIsFile(), message.getMessagecontent() });
+		int rows = 0;
+		if (message.isValid()) {
+			int isFile = booleanToBit(message.getIsFile());
+
+			rows = dao.executeNonQuery(updateQuery(),
+					new Object[] { message.getId(), message.getMessagecontent(), isFile });
+		}
 		return rows > 0;
 	}
 

@@ -1,3 +1,4 @@
+
 package data_model;
 
 import java.time.LocalDate;
@@ -6,7 +7,7 @@ import java.util.HashMap;
 
 //Class represent for table in database
 
-public class PersonTable {
+public class PersonTable implements ValidModel {
 	// Attributes
 	private int id;
 	private String username;
@@ -48,7 +49,21 @@ public class PersonTable {
 		this.dateofbirth = dateofbirth;
 		this.avatar = avatar;
 	}
-	
+
+	@Override
+	public boolean isValid() {
+
+		boolean isValid = false;
+		try {
+			isValid = id >= 0 && username.isEmpty() == false && username.contains(" ") == false
+					&& password.isEmpty() == false && name.isEmpty() == false && phonenumber.isEmpty() == false
+					&& dateofbirth != null && avatar.isEmpty() == false;
+		} catch (Exception e) {
+		}
+
+		return isValid;
+	}
+
 	// ---------------------------------------------------------------------------
 	// -------------------------------
 	// ------------------------------- Setters - Getters

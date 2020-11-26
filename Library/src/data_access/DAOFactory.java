@@ -1,34 +1,46 @@
 package data_access;
 
+import connection.ConnectionString;
 import data_access.message_access.*;
-import data_access.message_access.imp.MessageDAO_MySQL;
+import data_access.message_access.imp.*;
 import data_access.person_access.*;
-import data_access.person_access.imp.PersonDAO_MySQL;
+import data_access.person_access.imp.*;
 import data_access.room_access.*;
-import data_access.room_access.imp.RoomDAO_MySQL;
+import data_access.room_access.imp.*;
 
 // Get DAO from this
 
-public class DAOFactory {
-	public static DAOFactory Instance = new DAOFactory();
+public final class DAOFactory {
+	private static final DAOFactory Instance = new DAOFactory();
+
+	private SQLDAO dao = new SQLDAOImp(new ConnectionString());
 
 	private DAOFactory() {
 	}
 
-	public static SQLDAO getSQLDAO() {
-		return new SQLDAOImp();
+	public static DAOFactory getInstance() {
+		return Instance;
 	}
 
-	public static PersonDAO getPersonDAO() {
+	public DAOFactory setSQLDAO(ConnectionString connection) {
+		dao = new SQLDAOImp(connection);
+		return this;
+	}
+
+	public SQLDAO getSQLDAO() {
+		return dao;
+	}
+
+	public PersonDAO getPersonDAO() {
 		return new PersonDAO_MySQL(getSQLDAO());
 //		return new PersonDAO_SQLServer(getSQLDAO());
 	}
 
-	public static RoomDAO getRoomDAO() {
+	public RoomDAO getRoomDAO() {
 		return new RoomDAO_MySQL(getSQLDAO());
 	}
 
-	public static MessageDAO getMessageDAO() {
+	public MessageDAO getMessageDAO() {
 		return new MessageDAO_MySQL(getSQLDAO());
 	}
 }

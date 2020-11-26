@@ -54,7 +54,10 @@ public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomD
 
 	@Override
 	public boolean add(RoomTable roomTable) {
-		int rows = dao.executeNonQuery(addQuery(), new Object[] { roomTable.getName(), roomTable.getAvatar() });
+		int rows = 0;
+		if (roomTable.isValid()) {
+			rows = dao.executeNonQuery(addQuery(), new Object[] { roomTable.getName(), roomTable.getAvatar() });
+		}
 		return rows > 0;
 	}
 
@@ -64,7 +67,11 @@ public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomD
 
 	@Override
 	public boolean update(RoomTable roomTable) {
-		int rows = dao.executeNonQuery(updateQuery(), new Object[] { roomTable.getName(), roomTable.getAvatar() });
+		int rows = 0;
+		if (roomTable.isValid()) {
+			rows = dao.executeNonQuery(updateQuery(),
+					new Object[] { roomTable.getId(), roomTable.getName(), roomTable.getAvatar() });
+		}
 		return rows > 0;
 	}
 

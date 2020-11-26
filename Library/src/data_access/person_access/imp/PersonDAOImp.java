@@ -107,13 +107,13 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	// Create new person
 	@Override
 	public boolean add(PersonTable person) {
-		int rows = dao.executeNonQuery(addQuery(),
-				new Object[] { person.getUsername(), person.getPassword(), person.getName(),
-						person.getGender() == true ? 1 : 0, person.getPhonenumber(), person.getDateofbirth(),
-						person.getAvatar()
+		int rows = 0;
+		if (person.isValid()) {
+			int gender = booleanToBit(person.getGender());
 
-				});
-
+			rows = dao.executeNonQuery(addQuery(), new Object[] { person.getUsername(), person.getPassword(),
+					person.getName(), gender, person.getPhonenumber(), person.getDateofbirth(), person.getAvatar() });
+		}
 		return rows > 0;
 	}
 
@@ -140,10 +140,14 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 	// Update person
 	@Override
 	public boolean update(PersonTable person) {
-		int rows = dao.executeNonQuery(updateQuery(),
-				new Object[] { person.getUsername(), person.getPassword(), person.getName(),
-						person.getGender() == true ? 1 : 0, person.getPhonenumber(), person.getDateofbirth(),
-						person.getAvatar() });
+		int rows = 0;
+		if (person.isValid()) {
+			int gender = booleanToBit(person.getGender());
+
+			rows = dao.executeNonQuery(updateQuery(),
+					new Object[] { person.getId(), person.getUsername(), person.getPassword(), person.getName(), gender,
+							person.getPhonenumber(), person.getDateofbirth(), person.getAvatar() });
+		}
 
 		return rows > 0;
 	}

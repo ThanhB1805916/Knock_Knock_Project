@@ -14,7 +14,11 @@ import connection.ConnectionString;
 
 public class SQLDAOImp implements SQLDAO {
 
-	private ConnectionString connectionString = new ConnectionString();
+	private ConnectionString connectionString;
+
+	public SQLDAOImp(ConnectionString connectionString) {
+		this.connectionString = connectionString;
+	}
 
 	@Override
 	public List<HashMap<String, Object>> convertResultSetToList(ResultSet resultSet) {
@@ -85,10 +89,9 @@ public class SQLDAOImp implements SQLDAO {
 			// Get callableSatement
 			CallableStatement callableStatement = createCallableStatement(connection, query, parameters);
 			ResultSet resultSet = callableStatement.executeQuery();
-			
+
 			// If have value
-			if(resultSet.isBeforeFirst())
-			{
+			if (resultSet.isBeforeFirst()) {
 				dataTable = convertResultSetToList(resultSet);
 			}
 

@@ -10,4 +10,9 @@ public abstract class ModelDAOImp<T> {
 	protected ModelDAOImp(SQLDAO dao) {
 		this.dao = dao;
 	}
+	
+	public int booleanToBit(boolean value)
+	{
+		return value == true ? 1 : 0;
+	}
 }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 //Class represent for table in database
 
-public class MessageTable {
+public class MessageTable implements ValidModel {
 
 	// Attributes
 	private int id;
@@ -42,6 +42,19 @@ public class MessageTable {
 		this.messagecontent = messagecontent;
 		this.isFile = isFile;
 		this.sendtime = sendtime;
+	}
+
+	@Override
+	public boolean isValid() {
+
+		boolean isValid = false;
+		try {
+			isValid = id >= 0 && id_room >= 0 && id_person >= 0 && messagecontent.isEmpty() == false
+					&& sendtime != null;
+		} catch (Exception e) {
+		}
+
+		return isValid;
 	}
 
 	// ---------------------------------------------------------------------------
