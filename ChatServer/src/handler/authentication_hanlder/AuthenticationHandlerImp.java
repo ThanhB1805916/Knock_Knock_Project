@@ -15,14 +15,15 @@ import socket.Client;
 public class AuthenticationHandlerImp extends Handler implements AuthenticationHandler {
 
 	private PersonDAO dao;
-
+	private PersonConverter converter;
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public AuthenticationHandlerImp(Client client, PersonDAO dao) {
+	public AuthenticationHandlerImp(Client client, PersonDAO dao, PersonConverter converter) {
 		super(client);
 		this.dao = dao;
+		this.converter = converter;
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -90,7 +91,6 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 			if (existUsername(person.getUsername()) == false && existPhonenumber(person.getPhonenumber()) == false) {
 				// Set up new user
 				if (person.isValid()) {
-					PersonConverter converter = new PersonConverter();
 					// Add to database
 					if (dao.add(converter.revert(person))) {
 						success = true;
@@ -99,7 +99,6 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 						setupUserUndo(person);
 					}
 				}
-
 			}
 		}
 

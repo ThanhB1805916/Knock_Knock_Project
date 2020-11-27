@@ -11,14 +11,16 @@ import socket.Client;
 public class AccountHandlerImp extends Handler implements AccountHandler {
 
 	private PersonDAO dao;
+	private PersonConverter converter;
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public AccountHandlerImp(Client client, PersonDAO dao) {
+	public AccountHandlerImp(Client client, PersonDAO dao, PersonConverter converter) {
 		super(client);
 		this.dao = dao;
+		this.converter = converter;
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -74,10 +76,8 @@ public class AccountHandlerImp extends Handler implements AccountHandler {
 	public boolean update(Person person) {
 		boolean success = false;
 		if (person.isValid()) {
-
-			PersonConverter converter = new PersonConverter();
 			PersonTable personTable = converter.revert(person);
-
+			
 			if (dao.update(personTable)) {
 				authorizedClientList.remove(person.getId());
 				authorizedClientList.put(person.getId(), client);

@@ -23,6 +23,14 @@ public abstract class Handler {
 		}
 	}
 
+	public void sendTo(Client client, CPackage CPackage)
+	{
+		if(CPackage.isValid())
+		{
+			client.send(CPackage);
+		}
+	}
+	
 	public abstract void packAndSend(Request request);
 
 	public abstract void handleRequest(Request request);

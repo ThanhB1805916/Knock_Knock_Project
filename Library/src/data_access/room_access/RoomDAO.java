@@ -7,5 +7,10 @@ import data_model.RoomTable;
 
 public interface RoomDAO extends ModelDAO<RoomTable> {
 
+	//Add member into room
+	boolean add(int id_room, int id_person);
 	List<RoomTable> getList(int id_person);
+	
+	//Exit room
+	boolean exit(int id_person, int id_room);
 }

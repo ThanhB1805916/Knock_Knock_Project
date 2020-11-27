@@ -29,6 +29,11 @@ public class RoomDAO_MySQL extends RoomDAOImp {
 		return "CALL spRoom_InsertRoom(?, ?);";
 	}
 
+	@Override
+	public String addPersonQuery() {
+		return "CALL spRoom_InsertIntoRoomPerson(?, ?);";
+	}
+	
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Update
 
@@ -36,4 +41,11 @@ public class RoomDAO_MySQL extends RoomDAOImp {
 	public String updateQuery() {
 		return "CALL spRoom_UpdateRoom(?, ?, ?);";
 	}
+
+	@Override
+	public String exitRoomQuery() {
+		return "CALL spRoom_PersonExitRoom(?, ?);";
+	}
+
+
 }

@@ -61,6 +61,12 @@ public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomD
 		return rows > 0;
 	}
 
+	@Override
+	public boolean add(int id_room, int id_person) {
+		int rows = dao.executeNonQuery(addPersonQuery(), new Object[] { id_room, id_person});
+		return rows > 0;
+	}
+	
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Update
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -75,4 +81,10 @@ public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomD
 		return rows > 0;
 	}
 
+	@Override
+	public boolean exit(int id_person, int id_room)
+	{
+		int rows = dao.executeNonQuery(exitRoomQuery(), new Object[] { id_person, id_room});
+		return rows > 0;
+	}
 }

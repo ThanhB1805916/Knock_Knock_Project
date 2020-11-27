@@ -7,6 +7,9 @@ import handler.manage_friend_handler.FriendHandlerImp;
 import handler.manage_message_handler.MessageHandlerImp;
 import handler.manage_room_handler.RoomHandlerImp;
 import model.communication.CPackage;
+import model.converter.MessageConverter;
+import model.converter.PersonConverter;
+import model.converter.RoomConverter;
 import socket.Client;
 
 // Singleton
@@ -43,11 +46,11 @@ public class HandlerFactory {
 			switch (CPackage.getType()) {
 
 			case AUTHENTICATION:
-				Handler = new AuthenticationHandlerImp(client, factory.getPersonDAO());
+				Handler = new AuthenticationHandlerImp(client, factory.getPersonDAO(), new PersonConverter());
 				break;
 
 			case ACCOUNT:
-				Handler = new AccountHandlerImp(client, factory.getPersonDAO());
+				Handler = new AccountHandlerImp(client, factory.getPersonDAO(), new PersonConverter());
 				break;
 
 			case FRIEND:
@@ -55,11 +58,11 @@ public class HandlerFactory {
 				break;
 
 			case ROOM:
-				Handler = new RoomHandlerImp(client, factory.getRoomDAO());
+				Handler = new RoomHandlerImp(client, factory.getRoomDAO(), new RoomConverter());
 				break;
 
 			case MESSAGE:
-				Handler = new MessageHandlerImp(client, factory.getMessageDAO());
+				Handler = new MessageHandlerImp(client, factory.getMessageDAO(), new MessageConverter());
 				break;
 
 			default:

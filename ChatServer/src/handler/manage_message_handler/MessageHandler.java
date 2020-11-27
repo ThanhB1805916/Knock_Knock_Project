@@ -1,20 +1,15 @@
 package handler.manage_message_handler;
 
 import java.util.List;
-
-import model.communication.Request;
 import model.sendmodel.Message;
-import socket.Client;
 
 public interface MessageHandler {
 
-	List<Message> get();
+	List<Message> get(int id_room);
 	
 	boolean add(Message message);
 
 	void send(Message message);
-
-	void packAndSendTo(Client client, Request request);
 
 	/*
 	 * Remove a message from a room

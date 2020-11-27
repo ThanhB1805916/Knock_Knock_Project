@@ -10,7 +10,7 @@ public interface RoomHandler {
 	/*
 	 * Get room list of login user
 	 */
-	List<Room> get();
+	List<Room> get(int id_person);
 	
 	/*
 	 * Create new room
@@ -20,13 +20,17 @@ public interface RoomHandler {
 	/*
 	 * Add memeber into room
 	 * */
-	boolean add(Person person);
+	boolean add(Room room, Person person);
+	
+	boolean update(Room room);
 	
 	/*
 	 * */
 	boolean remove(Room room);
 	
 	/*
+	 * Person exit from a room
 	 * */
-	boolean exit(Room room);
+	boolean exit(Person person, Room room);
+
 }

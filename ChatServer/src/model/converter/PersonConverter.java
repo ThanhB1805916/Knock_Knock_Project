@@ -14,22 +14,17 @@ public class PersonConverter implements Converter<PersonTable, Person> {
 
 	@Override
 	public Person convert(PersonTable personTable) {
-		Person person = null;
-		
-		if(personTable != null)
-		{
-			// Get avatar
-			FileInfo avatar = new FileInfo(
-					"sources/users/" + personTable.getUsername() + "/avatars/" + personTable.getAvatar());
-			
-			// Date of birth if null will current date
-			LocalDate dateofbirth = personTable.getDateofbirth() == null ? LocalDate.now() : personTable.getDateofbirth();
+		// Get avatar
+		FileInfo avatar = new FileInfo(
+				"sources/users/" + personTable.getUsername() + "/avatars/" + personTable.getAvatar());
 
-			// Ctor for table in database
-			person = new Person(personTable.getId(), personTable.getUsername(), personTable.getPassword(),
-					personTable.getName(), personTable.getGender(), personTable.getPhonenumber(),
-					dateofbirth, avatar);
-		}
+		// Date of birth if null will current date
+		LocalDate dateofbirth = personTable.getDateofbirth() == null ? LocalDate.now() : personTable.getDateofbirth();
+
+		// Ctor for table in database
+		Person person = new Person(personTable.getId(), personTable.getUsername(), personTable.getPassword(),
+				personTable.getName(), personTable.getGender(), personTable.getPhonenumber(), dateofbirth, avatar);
+
 		return person;
 	}
 
@@ -52,10 +47,9 @@ public class PersonConverter implements Converter<PersonTable, Person> {
 		LocalDate dateofbirth = person.getDateofbirth() == null ? LocalDate.now() : person.getDateofbirth();
 		// Get avatar
 		person.getAvatar().getFile("sources/users/" + person.getUsername() + "/avatars/");
-		
+
 		PersonTable Person = new PersonTable(person.getId(), person.getUsername(), person.getPassword(),
-				person.getName(), person.getMale(), person.getPhonenumber(), dateofbirth,
-				person.getAvatar().getName());
+				person.getName(), person.getMale(), person.getPhonenumber(), dateofbirth, person.getAvatar().getName());
 
 		return Person;
 	}

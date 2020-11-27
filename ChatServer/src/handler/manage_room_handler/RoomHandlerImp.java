@@ -5,7 +5,6 @@ import java.util.List;
 
 import data_access.DAOFactory;
 import data_access.room_access.RoomDAO;
-import data_model.RoomTable;
 import handler.Handler;
 import model.communication.CPackage;
 import model.communication.Name;
@@ -20,14 +19,15 @@ import socket.Client;
 public class RoomHandlerImp extends Handler implements RoomHandler {
 
 	private RoomDAO dao;
-
+	private RoomConverter converter;
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public RoomHandlerImp(Client client, RoomDAO dao) {
+	public RoomHandlerImp(Client client, RoomDAO dao, RoomConverter converter) {
 		super(client);
 		this.dao = dao;
+		this.converter = converter;
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,13 +40,16 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 			Name command = request.getName();
 			switch (command) {
 			case GET:
-				responseCommandType = new Request(Name.GET, get());
+				responseCommandType = new Request(Name.GET, get(client.getPerson().getId()));
 				break;
 
 			case UPDATE:
-//				responseCommandType = new CommandType(ECommandType.UPDATE, update((Person) request.getContent()));
+				responseCommandType = new Request(Name.UPDATE, update((Room)request.getContent()));
 				break;
 
+			case EXIT:
+				responseCommandType = new Request(Name.EXIT, exit(client.getPerson(), (Room) request.getContent()));
+				break;
 			default:
 				responseCommandType = new Request(null, null);
 				break;
@@ -70,39 +73,28 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	// -------------------------------------------------------------- Get
 
 	@Override
-	public List<Room> get() {
-		int id_person = client.getPerson().getId();
+	public List<Room> get(int id_person) {
+		List<Room> roomList = converter.convert(dao.getList(id_person));
 
-		List<RoomTable> roomTableList = dao.getList(id_person);
+		// Get rooms' members
+		List<Thread> threadList = new ArrayList<>();
 
-		List<Room> roomList = new ArrayList<>();
+		// Create member for room
+		for (Room room : roomList) {
+			Thread build = new Thread(() -> {
+				List<Person> members = new PersonConverter()
+						.convert(DAOFactory.getInstance().getPersonDAO().getListByID_Room(room.getId()));
+				room.setMembers(members);
+			});
+			threadList.add(build);
+			build.start();
+		}
 
-		if (roomTableList.size() > 0) {
-
-			RoomConverter converter = new RoomConverter();
-
-			roomList = converter.convert(roomTableList);
-
-			// Get rooms' members
-			List<Thread> threadList = new ArrayList<>();
-
-			// Create memeber for room
-			for (Room room : roomList) {
-				Thread build = new Thread(() -> {
-					List<Person> members = new PersonConverter()
-							.convert(DAOFactory.getInstance().getPersonDAO().getListByID_Room(room.getId()));
-					room.setMembers(members);
-				});
-				threadList.add(build);
-				build.start();
-			}
-
-			for (Thread thread : threadList) {
-				try {
-					thread.join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+		for (Thread thread : threadList) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 		return roomList;
@@ -113,16 +105,38 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 
 	@Override
 	public boolean add(Room room) {
-		// TODO Auto-generated method stub
-		return false;
+
+		boolean success = false;
+		if (room.isValid()) {
+			success = dao.add(converter.revert(room));
+		}
+
+		return success;
 	}
 
 	@Override
-	public boolean add(Person person) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean add(Room room, Person person) {
+		boolean success = false;
+		if (person.isValid()) {
+			success = dao.add(room.getId(), person.getId());
+		}
 
+		return success;
+	}
+	
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// -------------------------------------------------------------- Update
+
+	@Override
+	public boolean update(Room room) {
+		boolean success = false;
+		if (room.isValid()) {
+			success = dao.update(converter.revert(room));
+		}
+		return success;
+	}
+	
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Remove
 
@@ -136,8 +150,30 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	// -------------------------------------------------------------- Exit
 
 	@Override
-	public boolean exit(Room room) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean exit(Person person, Room room) {
+		boolean success = false;
+		if (room.isValid()) {
+			// Update db
+			Thread update = new Thread(() -> {
+				dao.add(room.getId(), person.getId());
+			});
+			update.start();
+
+			// Notify member in room
+			Thread notify = new Thread(() -> {
+				for (Person member : room.getMembers()) {
+					// Get online memeber
+					Client clientMember = authorizedClientList.get(member.getId());
+					// Send message if not the sender
+					if (member.getId() != person.getId() && clientMember != null) {
+						Request request = new Request(Name.ADD, true);
+						sendTo(clientMember, new CPackage(Type.ROOM, request));
+					}
+				}
+			});
+			notify.start();
+			success = true;
+		}
+		return success;
 	}
 }

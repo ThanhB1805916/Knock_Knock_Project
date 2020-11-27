@@ -1,6 +1,4 @@
 package handler.manage_message_handler;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import data_access.message_access.MessageDAO;
@@ -18,14 +16,16 @@ import socket.Client;
 public class MessageHandlerImp extends Handler implements MessageHandler {
 
 	private MessageDAO dao;
-
+	private MessageConverter converter;
+	
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
-	public MessageHandlerImp(Client client, MessageDAO dao) {
+	public MessageHandlerImp(Client client, MessageDAO dao, MessageConverter converter) {
 		super(client);
 		this.dao = dao;
+		this.converter = converter;
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,51 +62,29 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 	}
 
 	@Override
-	public void packAndSendTo(Client client, Request request) {
-		if (request.isValid()) {
-			CPackage CPack = new CPackage(Type.MESSAGE, request);
-			client.send(CPack);
-		}
-	}
-
-	@Override
-	public List<Message> get() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Message> get(int id_room) {
+		List<Message> messageList = converter.convert(dao.getList(id_room));
+		return messageList;
 	}
 
 	@Override
 	public boolean add(Message message) {
-
-		System.out.println(message.getContent().getName());
 		boolean success = false;
 
 		if (message.isValid()) {
-			List<Thread> task = new ArrayList<>();
-
 			// Add to database
-			Thread addTask = new Thread(() -> {
-				MessageTable msg = new MessageConverter().revert(message);
+			Thread save = new Thread(() -> {
+				MessageTable msg = converter.revert(message);
 				dao.add(msg);
 			});
-			addTask.start();
-			task.add(addTask);
+			save.start();
 
 			// Send to other online clients
-			Thread sendTask = new Thread(() -> {
+			Thread send = new Thread(() -> {
 				send(message);
 			});
-			sendTask.start();
-			task.add(sendTask);
-
-			for (Thread thread : task) {
-				try {
-					thread.join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
+			send.start();
+			
 			success = true;
 		}
 
@@ -120,13 +98,11 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 		for (Person member : members) {
 			// Get online memeber
 			Client clientMember = authorizedClientList.get(member.getId());
-
 			// Send message if not the sender
 			if (member.getId() != message.getSender().getId() && clientMember != null) {
 				Request request = new Request(Name.ADD, message);
-				packAndSendTo(clientMember, request);
+				sendTo(clientMember, new CPackage(Type.MESSAGE, request));
 			}
-
 		}
 	}
 
