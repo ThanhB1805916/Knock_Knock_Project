@@ -31,6 +31,7 @@ public class Room implements ValidModel, Serializable {
 	public Room(int id, String name, FileInfo avatar, List<Person> members) {
 		this.id = id;
 		this.name = name;
+		this.avatar = avatar;
 		this.members = members;
 	}
 

@@ -2,8 +2,9 @@ package data_access.person_access.imp;
 
 import data_access.SQLDAO;
 
-public class PersonDAO_MySQL extends PersonDAOImp {
 
+public class PersonDAO_MySQL extends PersonDAOImp {
+	
 	public PersonDAO_MySQL(SQLDAO dao) {
 		super(dao);
 	}

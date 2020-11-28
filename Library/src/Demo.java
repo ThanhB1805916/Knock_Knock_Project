@@ -21,6 +21,7 @@ public class Demo {
 //		boolean a = dao.update(m);
 //
 //		System.out.println(a);
+		System.out.println(	DAOFactory.getInstance().getMessageDAO().get(1).getMessagecontent());
 	}
 
 }

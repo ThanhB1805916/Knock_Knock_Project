@@ -1,16 +1,13 @@
 package handler.manage_room_handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import data_access.DAOFactory;
 import data_access.room_access.RoomDAO;
 import handler.Handler;
 import model.communication.CPackage;
 import model.communication.Name;
 import model.communication.Request;
 import model.communication.Type;
-import model.converter.PersonConverter;
 import model.converter.RoomConverter;
 import model.sendmodel.Person;
 import model.sendmodel.Room;
@@ -44,7 +41,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 				break;
 
 			case UPDATE:
-				responseCommandType = new Request(Name.UPDATE, update((Room)request.getContent()));
+				responseCommandType = new Request(Name.UPDATE, update((Room) request.getContent()));
 				break;
 
 			case EXIT:
@@ -75,28 +72,6 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	@Override
 	public List<Room> get(int id_person) {
 		List<Room> roomList = converter.convert(dao.getList(id_person));
-
-		// Get rooms' members
-		List<Thread> threadList = new ArrayList<>();
-
-		// Create member for room
-		for (Room room : roomList) {
-			Thread build = new Thread(() -> {
-				List<Person> members = new PersonConverter()
-						.convert(DAOFactory.getInstance().getPersonDAO().getListByID_Room(room.getId()));
-				room.setMembers(members);
-			});
-			threadList.add(build);
-			build.start();
-		}
-
-		for (Thread thread : threadList) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 		return roomList;
 	}
 
@@ -123,8 +98,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 
 		return success;
 	}
-	
-	
+
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Update
 
@@ -136,16 +110,16 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 		}
 		return success;
 	}
-	
+
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Remove
-
+	
 	@Override
 	public boolean remove(Room room) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Exit
 
@@ -153,7 +127,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	public boolean exit(Person person, Room room) {
 		boolean success = false;
 		if (room.isValid()) {
-			// Update db
+			// Update database
 			Thread update = new Thread(() -> {
 				dao.add(room.getId(), person.getId());
 			});
@@ -162,7 +136,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 			// Notify member in room
 			Thread notify = new Thread(() -> {
 				for (Person member : room.getMembers()) {
-					// Get online memeber
+					// Get online member
 					Client clientMember = authorizedClientList.get(member.getId());
 					// Send message if not the sender
 					if (member.getId() != person.getId() && clientMember != null) {
@@ -172,6 +146,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 				}
 			});
 			notify.start();
+			
 			success = true;
 		}
 		return success;

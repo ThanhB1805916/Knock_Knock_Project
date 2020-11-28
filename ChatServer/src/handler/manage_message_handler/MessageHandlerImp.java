@@ -2,7 +2,6 @@ package handler.manage_message_handler;
 import java.util.List;
 
 import data_access.message_access.MessageDAO;
-import data_model.MessageTable;
 import handler.Handler;
 import model.communication.CPackage;
 import model.communication.Name;
@@ -37,6 +36,11 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 
 			Name command = request.getName();
 			switch (command) {
+			
+			case GET:
+				responseCommandType = new Request(Name.GET, get((int)request.getContent()));
+				break;
+			
 			case ADD:
 				responseCommandType = new Request(Name.ADD, add((Message) request.getContent()));
 				break;
@@ -74,8 +78,7 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 		if (message.isValid()) {
 			// Add to database
 			Thread save = new Thread(() -> {
-				MessageTable msg = converter.revert(message);
-				dao.add(msg);
+				dao.add(converter.revert(message));
 			});
 			save.start();
 
@@ -93,10 +96,10 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 
 	@Override
 	public void send(Message message) {
-		// Get all memeber in a room
+		// Get all member in a room
 		List<Person> members = message.getRoom().getMembers();
 		for (Person member : members) {
-			// Get online memeber
+			// Get online member
 			Client clientMember = authorizedClientList.get(member.getId());
 			// Send message if not the sender
 			if (member.getId() != message.getSender().getId() && clientMember != null) {

@@ -11,6 +11,7 @@ import data_access.room_access.imp.*;
 // Get DAO from this
 
 public final class DAOFactory {
+	
 	private static final DAOFactory Instance = new DAOFactory();
 
 	private SQLDAO dao = new SQLDAOImp(new ConnectionString());

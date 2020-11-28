@@ -13,7 +13,7 @@ import model.converter.RoomConverter;
 import socket.Client;
 
 // Singleton
-public class HandlerFactory {
+public final class HandlerFactory {
 
 	// Eager Initialization
 	private static final HandlerFactory Instance = new HandlerFactory();

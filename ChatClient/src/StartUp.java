@@ -10,150 +10,82 @@ public class StartUp {
 
 	public static void main(String[] args) {
 
-//		Thread A = new Thread(()->{
-//			send();
-//		});
-//		
-//		Thread B = new Thread(()->{
-//			receive();
-//		});
-//				
-//		A.start();
-//		B.start();
-//		
-//		try {
-//			A.join();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		Client client = new Client();
-//		LoginModel model = new LoginModel("admin", "1234");
-//		
-//		CPackage CPackage = new CPackage(Type.AUTHENTICATION, new Request(Name.LOGIN, model));
-//		client.send(CPackage);
-//		boolean success = (boolean)client.receive().getRequest().getContent();
-//		
-//		CPackage = new CPackage(Type.ACCOUNT, new Request(Name.GET, Name.GET));
-//		client.send(CPackage);
-//		Person person = (Person)client.receive().getRequest().getContent();
-//		System.out.println(person.getName());
-		
-		FileInfo file = new FileInfo("sources/anh-avatar-dep1.jpg");
-		Person person = new Person(0, "User253", "1234", "User 50", true, "3121126987", null, file);
-	
-		CPackage CPackage = new CPackage(Type.AUTHENTICATION, new Request(Name.SIGNUP, person));
-		client.send(CPackage);
-		
-		boolean success = (boolean)client.receive().getRequest().getContent();
-		
-		System.out.println(success);
-		
-		if(success)
-		{
-			LoginModel model = new LoginModel("User253", "1234");
-			 CPackage = new CPackage(Type.AUTHENTICATION, new Request(Name.LOGIN, model));
-			client.send(CPackage);
-			success = (boolean)client.receive().getRequest().getContent();
-			System.out.println(success);
-			
-			CPackage = new CPackage(Type.ACCOUNT, new Request(Name.GET, Name.GET));
-			client.send(CPackage);
-			Person person1 = (Person)client.receive().getRequest().getContent();
-			System.out.println(person1.getName());
+		Thread A = new Thread(() -> {
+			send();
+		});
+
+		Thread B = new Thread(() -> {
+			receive();
+		});
+
+		A.start();
+		B.start();
+
+		try {
+			A.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+
 	}
-	
-	
-	public static void send()
-	{
+
+	public static void send() {
 
 		Client client = new Client();
-//		LoginModel model = new LoginModel("admin", "1234");
-		LoginModel model = new LoginModel("user2", "1234");
+		LoginModel model = new LoginModel("nguyetnga", "1234");
 
 		CPackage CPackage = new CPackage(Type.AUTHENTICATION, new Request(Name.LOGIN, model));
 		client.send(CPackage);
-		boolean success = (boolean)client.receive().getRequest().getContent();
+		boolean success = (boolean) client.receive().getRequest().getContent();
 
 		if (success) {
 
 			System.out.println("Success");
 			CPackage = new CPackage(Type.ACCOUNT, new Request(Name.GET, Name.GET));
 			client.send(CPackage);
-			Person person = (Person)client.receive().getRequest().getContent();
+			Person person = (Person) client.receive().getRequest().getContent();
 			System.out.println(person.getName());
-//			
-//			System.out.println("\n\n");
-			
-//			CPackage = new CPackage(Type.FRIEND, new Request(Name.GET, Name.GET));
-//			client.send(CPackage);
-//			@SuppressWarnings("unchecked")
-//			List<Person> friends = (List<Person>)client.receive().getRequest().getContent();
-//			for (Person person2 : friends) {
-//				System.out.println(person2.getName());
-//			}
-			
-			CPackage = new CPackage(Type.ROOM, new Request(Name.GET, Name.GET));
-			client.send(CPackage);
-			System.out.println("\n Room \n");
-			@SuppressWarnings("unchecked")
-			List<Room> rooms = (List<Room>)client.receive().getRequest().getContent();
-			
-			for (Room room : rooms) {
-				System.out.println(room.getName());
-				for (Person mem : room.getMembers()) {
-					System.out.println(mem.getName());
-				}
-				
-				System.out.println("\n");
-			}
 			int i = 0;
-			while(true)
-			{
+			while (true) {
 				FileInfo file = new FileInfo();
-				file.setName("Hallo"+i++);
-				Message model1 = new Message(person, rooms.get(0), file, false, LocalDateTime.now());
-				
-				CPackage = new CPackage(Type.MESSAGE, new Request(Name.ADD, model1));
+				file.setName("Hallo" + i++);
+				Message msg = new Message(person, new Room(1, "P1", file, null), file, false, LocalDateTime.now());
+				System.out.println(msg.isValid());
+				CPackage = new CPackage(Type.MESSAGE, new Request(Name.ADD, msg));
 				client.send(CPackage);
-				
+
 				try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-			}
-			
-			
+
 		}
 	}
-	
-	public static void receive()
-	{
+
+	public static void receive() {
 		Client client = new Client();
 		LoginModel model = new LoginModel("admin", "1234");
 
 		CPackage CPackage = new CPackage(Type.AUTHENTICATION, new Request(Name.LOGIN, model));
 		client.send(CPackage);
-		boolean success = (boolean)client.receive().getRequest().getContent();
+		boolean success = (boolean) client.receive().getRequest().getContent();
 
 		if (success) {
 
 			System.out.println("Success");
 			CPackage = new CPackage(Type.ACCOUNT, new Request(Name.GET, Name.GET));
 			client.send(CPackage);
-			Person person = (Person)client.receive().getRequest().getContent();
+			Person person = (Person) client.receive().getRequest().getContent();
 			System.out.println(person.getName());
-			
-			System.out.println("\n\n");			
+
+			System.out.println("\n\n");
 			
 			while (true) {
-				Message msg = (Message)client.receive().getRequest().getContent();
-				
-				System.out.println("Receive "+msg.getContent().getName());
+				Message msg = (Message) client.receive().getRequest().getContent();
+
+				System.out.println("Receive " + msg.getContent().getName());
 			}
 		}
 	}
