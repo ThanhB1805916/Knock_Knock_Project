@@ -8,9 +8,6 @@ public interface MessageHandler {
 	List<Message> get(int id_room);
 	
 	boolean add(Message message);
-
-	void send(Message message);
-
 	/*
 	 * Remove a message from a room
 	 */

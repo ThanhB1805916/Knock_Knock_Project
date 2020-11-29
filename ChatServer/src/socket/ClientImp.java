@@ -59,8 +59,8 @@ public class ClientImp implements Client {
 		CPackage CPackage = receive();
 
 		while (CPackage != null) {
-			// Create Hanlder to handle client request
-			HandlerFactory.getInstance().createHanlder(this, CPackage);
+			// Create Handler to handle client request
+			HandlerFactory.getInstance().createHandler(this, CPackage);
 			// Receive new package
 			CPackage = receive();
 		}

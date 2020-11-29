@@ -73,12 +73,22 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 
 	@Override
 	public boolean existUsername(String username) {
-		return dao.getByUsername(username) != null;
+		boolean success = false;
+		if(username != null && username.isEmpty() == false)
+		{
+			success = dao.getByUsername(username) != null;
+		}
+		return success;
 	}
 
 	@Override
 	public boolean existPhonenumber(String phonenumber) {
-		return dao.getByPhonenumber(phonenumber) != null;
+		boolean success = false;
+		if(phonenumber != null && phonenumber.isEmpty() == false)
+		{
+			 success = dao.getByPhonenumber(phonenumber) != null;
+		}
+		return success;
 	}
 
 	@Override

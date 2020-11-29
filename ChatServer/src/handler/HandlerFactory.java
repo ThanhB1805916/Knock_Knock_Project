@@ -34,7 +34,7 @@ public final class HandlerFactory {
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
 	// Create handler
-	public void createHanlder(Client client, CPackage CPackage) {
+	public void createHandler(Client client, CPackage CPackage) {
 
 		if (CPackage.isValid()) {
 

@@ -10,9 +10,7 @@ import model.sendmodel.Message;
 
 public class MessageConverter implements Converter<MessageTable, Message> {
 
-	@Override
-	public Message convert(MessageTable messageTable) {
-
+	private FileInfo createContent(MessageTable messageTable) {
 		// Message content
 		FileInfo content = new FileInfo();
 
@@ -24,11 +22,24 @@ public class MessageConverter implements Converter<MessageTable, Message> {
 
 		content.setName(messageTable.getMessagecontent());
 
+		return content;
+	}
+
+	@Override
+	public Message convert(MessageTable messageTable) {
+
+		FileInfo content = createContent(messageTable);
+
 		Message message = new Message(messageTable.getId(), null, null, content, messageTable.getIsFile(),
 				messageTable.getSendtime());
 
-		List<Thread> taskList = new ArrayList<>();
+		createRoomAndSender(messageTable, message);
 
+		return message;
+	}
+
+	private void createRoomAndSender(MessageTable messageTable, Message message) {
+		List<Thread> taskList = new ArrayList<>();
 		// Create sender
 		Thread createSender = new Thread(() -> {
 			message.setSender(new PersonConverter()
@@ -52,8 +63,6 @@ public class MessageConverter implements Converter<MessageTable, Message> {
 				e.printStackTrace();
 			}
 		}
-
-		return message;
 	}
 
 	@Override
@@ -68,16 +77,20 @@ public class MessageConverter implements Converter<MessageTable, Message> {
 	@Override
 	public MessageTable revert(Message message) {
 
-		// Write avatar to file
+		// Write content to folder
 		if (message.getIsFile()) {
-			// Content stored in folder will have id__message's name format as name
-			message.getContent().setName(Integer.toString(message.getId()) + "__" + message.getContent().getName());
-			message.getContent().getFile("sources/rooms/" + message.getRoom().getId() + "/messages/");
+			writeContent(message);
 		}
 		MessageTable messageTable = new MessageTable(message.getId(), message.getRoom().getId(),
 				message.getSender().getId(), message.getContent().getName(), message.getIsFile(),
 				message.getSendTime());
 		return messageTable;
+	}
+
+	private void writeContent(Message message) {
+		// Content stored in folder will have id__message's name format as name
+		message.getContent().setName(Integer.toString(message.getId()) + "__" + message.getContent().getName());
+		message.getContent().getFile("sources/rooms/" + message.getRoom().getId() + "/messages/");
 	}
 
 	@Override

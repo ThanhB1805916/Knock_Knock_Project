@@ -113,15 +113,27 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Remove
-	
+
 	@Override
 	public boolean remove(Room room) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------- Exit
+
+	private void notify(Person person, Room room) {
+		for (Person member : room.getMembers()) {
+			// Get online member
+			Client clientMember = authorizedClientList.get(member.getId());
+			// Send message if not the sender
+			if (member.getId() != person.getId() && clientMember != null) {
+				Request request = new Request(Name.ADD, true);
+				sendTo(clientMember, new CPackage(Type.ROOM, request));
+			}
+		}
+	}
 
 	@Override
 	public boolean exit(Person person, Room room) {
@@ -134,19 +146,11 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 			update.start();
 
 			// Notify member in room
-			Thread notify = new Thread(() -> {
-				for (Person member : room.getMembers()) {
-					// Get online member
-					Client clientMember = authorizedClientList.get(member.getId());
-					// Send message if not the sender
-					if (member.getId() != person.getId() && clientMember != null) {
-						Request request = new Request(Name.ADD, true);
-						sendTo(clientMember, new CPackage(Type.ROOM, request));
-					}
-				}
+			Thread notifyMembers = new Thread(() -> {
+				notify(person, room);
 			});
-			notify.start();
-			
+			notifyMembers.start();
+
 			success = true;
 		}
 		return success;

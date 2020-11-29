@@ -9,6 +9,7 @@ import model.communication.Name;
 import model.communication.Request;
 import model.communication.Type;
 import model.converter.PersonConverter;
+import model.sendmodel.ConfirmFriendModel;
 import model.sendmodel.Person;
 import socket.Client;
 
@@ -43,11 +44,11 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 			case ADD:
 				responseCommandType = new Request(Name.ADD, add((int)request.getContent()));
 				break;
-			case ACCEPT:
-//				responseCommandType = new Request(Name.ACCEPT, get());
+			case CONFIRM:
+				responseCommandType = new Request(Name.CONFIRM, confirm((ConfirmFriendModel)request.getContent()));
 				break;
 			case REMOVE:
-//				responseCommandType = new Request(Name.REMOVE, get());
+				responseCommandType = new Request(Name.REMOVE, remove((Person)request.getContent()));
 				break;
 			default:
 				responseCommandType = new Request(null, null);
@@ -102,29 +103,13 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 	// ---------------------------------------------------------------- Add
 
 	@Override
-	public boolean add(Person person) {
-		boolean success = false;
-
-		if (person.isValid()) {
-			// Send request if online
-			Client clientFriend = authorizedClientList.get(person.getId());
-			if (clientFriend != null) {
-				packAndSendTo(clientFriend, new Request(Name.ADD, client.getPerson()));
-				success = true;
-			}
-		}
-
-		return success;
-	}
-	
 	public boolean add(int id) {
 		boolean success = false;
-
 		if (id > 0) {
 			// Send request if online
 			Client clientFriend = authorizedClientList.get(id);
 			if (id != client.getPerson().getId() && clientFriend != null) {
-				packAndSendTo(clientFriend, new Request(Name.CONFIRM, client.getPerson()));
+				packAndSendTo(clientFriend, new Request(Name.CONFIRM, new ConfirmFriendModel(client.getPerson())));
 				success = true;
 			}
 		}
@@ -133,18 +118,31 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 	}
 
 	@Override
-	public boolean accept(Person person) {
+	public boolean confirm(ConfirmFriendModel sender) {
 		boolean success = false;
-
-		if (person.isValid()) {
+		if (sender.isValid()) {
 			// Send request if online
-			Client clientFriend = authorizedClientList.get(person.getId());
-			if (clientFriend != null) {
-				packAndSendTo(clientFriend, new Request(Name.ACCEPT, client.getPerson()));
+			Client clientFriend = authorizedClientList.get(sender.getSender().getId());
+			if (sender.getSender().getId() != client.getPerson().getId() && clientFriend != null) {
+				
+				//Notify sender
+				Thread notify = new Thread(()->
+				{
+					packAndSendTo(clientFriend, new Request(Name.CONFIRM, sender));
+				});
+				notify.start();
+				
+				// Update database if accept friend request
+				if(sender.getIsFriend())
+				{
+					Thread update = new Thread(()->
+					{
+						dao.accept(client.getPerson().getId(), sender.getSender().getId());
+					});
+					update.start();
+				}
+				success = true;
 			}
-
-			// Update database
-			success = dao.accept(client.getPerson().getId(), person.getId());
 		}
 
 		return success;

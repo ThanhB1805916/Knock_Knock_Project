@@ -18,7 +18,7 @@ public interface RoomHandler {
 	boolean add(Room room);
 	
 	/*
-	 * Add memeber into room
+	 * Add member into room
 	 * */
 	boolean add(Room room, Person person);
 	

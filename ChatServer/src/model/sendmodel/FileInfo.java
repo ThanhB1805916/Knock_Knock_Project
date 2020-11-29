@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class FileInfo implements Serializable {
+import data_model.ValidModel;
+
+public class FileInfo implements Serializable, ValidModel {
 	/**
 	 * 
 	 */
@@ -34,6 +36,11 @@ public class FileInfo implements Serializable {
 	public FileInfo(FileInfo fileInfo) {
 		this.name = new String(fileInfo.name);
 		this.data = fileInfo.data;
+	}
+	
+	@Override
+	public boolean isValid() {
+		return data != null;
 	}
 	
 	//----------------------------------------------------------------------------------

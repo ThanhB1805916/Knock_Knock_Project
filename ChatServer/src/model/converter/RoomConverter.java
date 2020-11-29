@@ -15,12 +15,17 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 
 	@Override
 	public Room convert(RoomTable roomTable) {
-		FileInfo avatar = new FileInfo("sources/rooms/" + roomTable.getId() + "/avatars/" + roomTable.getAvatar());
+		FileInfo avatar = getAvatar(roomTable);
 
 		Room room = new Room(roomTable.getId(), roomTable.getName(), roomTable.getDatecreate(), avatar, null, null);
 
-		List<Thread> taskList = new ArrayList<>();
+		getMembersAndMessages(roomTable, room);
 
+		return room;
+	}
+
+	private void getMembersAndMessages(RoomTable roomTable, Room room) {
+		List<Thread> taskList = new ArrayList<>();
 		// Get rooms' members
 		Thread getMember = new Thread(() -> {
 			room.setMembers(new PersonConverter()
@@ -37,8 +42,8 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 		});
 		getMessage.start();
 		taskList.add(getMessage);
-		
-		//Wait for all tasks are finished
+
+		// Wait for all tasks are finished
 		for (Thread thread : taskList) {
 			try {
 				thread.join();
@@ -46,8 +51,13 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 				e.printStackTrace();
 			}
 		}
-		
-		return room;
+	}
+
+	private FileInfo getAvatar(RoomTable roomTable) {
+		FileInfo avatar = new FileInfo("sources/rooms/" + roomTable.getId() + "/avatars/" + roomTable.getAvatar());
+		if (avatar.isValid() == false)
+			avatar = new FileInfo("sources/default/avatars/default_room_avatar.jpg");
+		return avatar;
 	}
 
 	@Override
@@ -61,10 +71,14 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 
 	@Override
 	public RoomTable revert(Room room) {
-		room.getAvatar().getFile("sources/rooms/" + room.getId() + "/avatars/" + room.getAvatar().getName());
+		writeAvatar(room);
 		RoomTable roomTable = new RoomTable(room.getId(), room.getName(), room.getDateCreate(),
 				room.getAvatar().getName());
 		return roomTable;
+	}
+
+	private void writeAvatar(Room room) {
+		room.getAvatar().getFile("sources/rooms/" + room.getId() + "/avatars/" + room.getAvatar().getName());
 	}
 
 	@Override

@@ -57,6 +57,23 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ------------------------------------------------------------ Pack And Send
 
+	//Send message to all members in room
+	private void send(Message message) {
+		// Get all member in a room
+		List<Person> members = message.getRoom().getMembers();
+		
+		for (Person member : members) {
+			// Get online member
+			Client clientMember = authorizedClientList.get(member.getId());
+			
+			// Send message if not the sender
+			if (member.getId() != message.getSender().getId() && clientMember != null) {
+				Request request = new Request(Name.ADD, message);
+				sendTo(clientMember, new CPackage(Type.MESSAGE, request));
+			}
+		}
+	}
+	
 	@Override
 	public void packAndSend(Request request) {
 		if (request.isValid()) {
@@ -92,21 +109,6 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 		}
 
 		return success;
-	}
-
-	@Override
-	public void send(Message message) {
-		// Get all member in a room
-		List<Person> members = message.getRoom().getMembers();
-		for (Person member : members) {
-			// Get online member
-			Client clientMember = authorizedClientList.get(member.getId());
-			// Send message if not the sender
-			if (member.getId() != message.getSender().getId() && clientMember != null) {
-				Request request = new Request(Name.ADD, message);
-				sendTo(clientMember, new CPackage(Type.MESSAGE, request));
-			}
-		}
 	}
 
 	@Override

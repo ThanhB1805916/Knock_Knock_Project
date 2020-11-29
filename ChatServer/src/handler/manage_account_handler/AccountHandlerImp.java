@@ -1,7 +1,6 @@
 package handler.manage_account_handler;
 
 import data_access.person_access.PersonDAO;
-import data_model.PersonTable;
 import handler.Handler;
 import model.communication.*;
 import model.converter.PersonConverter;
@@ -76,9 +75,7 @@ public class AccountHandlerImp extends Handler implements AccountHandler {
 	public boolean update(Person person) {
 		boolean success = false;
 		if (person.isValid()) {
-			PersonTable personTable = converter.revert(person);
-			
-			if (dao.update(personTable)) {
+			if (dao.update(converter.revert(person))) {
 				authorizedClientList.remove(person.getId());
 				authorizedClientList.put(person.getId(), client);
 				success = true;

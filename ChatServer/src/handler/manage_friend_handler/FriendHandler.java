@@ -2,6 +2,7 @@ package handler.manage_friend_handler;
 
 import java.util.List;
 
+import model.sendmodel.ConfirmFriendModel;
 import model.sendmodel.Person;
 
 public interface FriendHandler {
@@ -13,9 +14,9 @@ public interface FriendHandler {
 
 	Person find(String phonenumber);
 
-	boolean add(Person person);
+	boolean add(int id);
 	
-	boolean accept(Person person);
+	boolean confirm(ConfirmFriendModel  person);
 	
 	/*
 	 * Remove a person from friend list
