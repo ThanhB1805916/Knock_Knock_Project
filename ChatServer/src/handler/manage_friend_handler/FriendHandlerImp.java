@@ -80,8 +80,8 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 	// ---------------------------------------------------------------- Get
 
 	@Override
-	public List<Person> get(int id_friend) {
-		List<Person> friendList = new PersonConverter().convert(dao.getListByID_Friend(client.getPerson().getId()));
+	public List<Person> get(int id) {
+		List<Person> friendList = new PersonConverter().convert(dao.getListByID_Friend(id));
 		return friendList;
 	}
 
@@ -90,7 +90,11 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 
 	@Override
 	public Person find(String phonenumber) {
-		Person person = new PersonConverter().convert(dao.getByPhonenumber(phonenumber));
+		Person person = null;
+		if(phonenumber != null && phonenumber.length() == 10)
+		{
+			person = new PersonConverter().convert(dao.getByPhonenumber(phonenumber));
+		}
 		return person;
 	}
 
@@ -119,7 +123,7 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 		if (id > 0) {
 			// Send request if online
 			Client clientFriend = authorizedClientList.get(id);
-			if (clientFriend != null) {
+			if (id != client.getPerson().getId() && clientFriend != null) {
 				packAndSendTo(clientFriend, new Request(Name.CONFIRM, client.getPerson()));
 				success = true;
 			}

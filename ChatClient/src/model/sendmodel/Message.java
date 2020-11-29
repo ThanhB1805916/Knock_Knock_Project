@@ -11,11 +11,12 @@ public class Message implements ValidModel, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private int id;
 	private Person sender;
 	private Room room;
 	private FileInfo content;
 	private boolean isFile;
-	private LocalDateTime sendDate;
+	private LocalDateTime sendTime;
 
 	// ---------------------------------------------------------------------------
 	// -------------------------------
@@ -24,17 +25,18 @@ public class Message implements ValidModel, Serializable {
 	// ---------------------------------------------------------------------------
 
 	// Ctor for create exist message
-	public Message(Person sender, Room room, FileInfo content, boolean isFile, LocalDateTime sendDate) {
+	public Message(int id, Person sender, Room room, FileInfo content, boolean isFile, LocalDateTime sendTime) {
+		this.setId(id);
 		this.sender = sender;
 		this.room = room;
 		this.content = content;
 		this.isFile = isFile;
-		this.sendDate = sendDate;
+		this.sendTime = sendTime;
 	}
 
 	@Override
 	public boolean isValid() {
-		return sender.isValid() && room.isValid() && content != null && sendDate != null;
+		return sender.isValid() && room.isValid() && content != null && sendTime != null;
 	}
 
 	// ---------------------------------------------------------------------------
@@ -42,6 +44,14 @@ public class Message implements ValidModel, Serializable {
 	// ------------------------------- Setters - Getters
 	// -------------------------------
 	// ---------------------------------------------------------------------------
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public Person getSender() {
 		return sender;
@@ -75,13 +85,12 @@ public class Message implements ValidModel, Serializable {
 		this.isFile = isFile;
 	}
 
-	public LocalDateTime getSendDate() {
-		return sendDate;
+	public LocalDateTime getSendTime() {
+		return sendTime;
 	}
 
-	public void setSendDate(LocalDateTime sendDate) {
-		this.sendDate = sendDate;
+	public void setSendTime(LocalDateTime sendTime) {
+		this.sendTime = sendTime;
 	}
 
 }
-

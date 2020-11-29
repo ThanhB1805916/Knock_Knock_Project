@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="parentbackgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@backgroundstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.subcontroller.BackgroundController">
+   <children>
+      <AnchorPane fx:id="roomRightSubBackground" prefHeight="900.0" prefWidth="800.0" style="-fx-background-color: #2ecc71; -fx-border-color: #3498db; -fx-border-width: 2 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="listLeftSubBackground" prefHeight="900.0" prefWidth="315.0" style="-fx-background-color: white; -fx-border-color: #3498db; -fx-border-width: 0 2 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="listSubPaneTop" prefHeight="100.0" prefWidth="315.0" style="-fx-border-width: 2 0 2 0; -fx-border-color: #3498db;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button id="listButton" fx:id="listtop_addFriendButton" layoutX="5.0" layoutY="49.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0">
+                     <graphic>
+                        <ImageView fx:id="searchButton" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/list_addfriend_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="listtop_bannerUsername" layoutX="10.0" layoutY="9.0" prefHeight="35.0" style="-fx-padding: 0;" text="Knock knock user">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <Button id="listButton" fx:id="listtop_addRoomButton" layoutX="51.0" layoutY="49.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/list_addroom_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <TextField id="searchTextfield" fx:id="listtop_searchTextfield" layoutX="97.0" layoutY="54.0" prefHeight="35.0" prefWidth="210.0" promptText="Tìm bạn bè" />
+               </children>
+            </AnchorPane>
+            <ScrollPane fx:id="listbot_message" hbarPolicy="NEVER" pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" styleClass="list" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+               <content>
+                  <FlowPane fx:id="messageFlowpane" prefHeight="622.0" prefWidth="313.0" style="-fx-background-color: violet;" />
+               </content>
+            </ScrollPane>
+            <ScrollPane fx:id="listbot_room" hbarPolicy="NEVER" layoutX="30.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="list" vbarPolicy="NEVER" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+               <content>
+                  <FlowPane fx:id="roomFlowpane" prefHeight="590.0" prefWidth="313.0" style="-fx-background-color: green;" />
+               </content>
+            </ScrollPane>
+            <ScrollPane fx:id="listbot_friend" hbarPolicy="NEVER" layoutX="20.0" layoutY="190.0" prefHeight="624.0" prefWidth="313.0" styleClass="list" vbarPolicy="NEVER" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+               <content>
+                  <FlowPane fx:id="friendFlowpane" prefHeight="690.0" prefWidth="313.0" style="-fx-background-color: red;" />
+               </content>
+            </ScrollPane>
+            <ScrollPane fx:id="listbot_search" hbarPolicy="NEVER" layoutX="30.0" layoutY="200.0" pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" styleClass="list" vbarPolicy="NEVER" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+               <content>
+                  <FlowPane fx:id="searchFlowpane" prefHeight="604.0" prefWidth="313.0" style="-fx-background-color: blue;" />
+               </content>
+            </ScrollPane>
+         </children></AnchorPane>
+      <AnchorPane id="navigationSubBackground" fx:id="navigationSubBackground" prefHeight="200.0" prefWidth="85.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button id="navigationButton" fx:id="nav_messageButton" layoutY="182.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/navigation_message_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="navigationButton" fx:id="userButton" layoutX="8.0" layoutY="31.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/user_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="navigationButton" fx:id="nav_roomButton" layoutX="10.0" layoutY="192.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="235.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/navigation_room_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="navigationButton" fx:id="nav_friendButton" layoutX="20.0" layoutY="202.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="320.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/navigation_friend_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="navigationButton" fx:id="nav_logoutButton" layoutX="30.0" layoutY="212.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="405.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/navigation_logout_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

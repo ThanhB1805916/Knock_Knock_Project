@@ -27,7 +27,12 @@ public final class Request implements ValidModel, Serializable {
 
 	@Override
 	public boolean isValid() {
-		return name != null && content != null;
+		return name != null;
+	}
+	
+	public Object unpack()
+	{
+		return content;
 	}
 
 	// ---------------------------------------------------------------------------

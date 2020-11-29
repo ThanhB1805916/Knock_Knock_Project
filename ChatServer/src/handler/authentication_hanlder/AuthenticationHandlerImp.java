@@ -181,8 +181,6 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 		if (model.isValid()) {
 
 			// Get person from database
-			PersonConverter converter = new PersonConverter();
-
 			Person person = converter.convert(dao.getByUsername(model.getUsername()));
 			// Match password
 			if (person != null && model.getPassword().equals(person.getPassword())) {

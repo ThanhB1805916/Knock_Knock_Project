@@ -28,7 +28,7 @@ public class Room implements ValidModel, Serializable {
 	// ---------------------------------------------------------------------------
 
 	// Ctor for create new room
-	public Room(int id, String name, FileInfo avatar, List<Person> members) {
+	public Room(int id, String name, LocalDateTime dateCreate, FileInfo avatar, List<Person> members) {
 		this.id = id;
 		this.name = name;
 		this.avatar = avatar;
@@ -50,7 +50,7 @@ public class Room implements ValidModel, Serializable {
 	@Override
 	public boolean isValid() {
 		try {
-			return name.isEmpty() == false && dateCreate != null;
+			return id >= 0 && name.isEmpty() == false && dateCreate != null;
 		} catch (Exception e) {
 			return false;
 		}

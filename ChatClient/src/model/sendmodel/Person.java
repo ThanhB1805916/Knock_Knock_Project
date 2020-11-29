@@ -19,7 +19,6 @@ public class Person implements ValidModel, Serializable {
 	private boolean male;
 	private String phonenumber;
 	private LocalDate dateofbirth;
-
 	private FileInfo avatar;
 
 	// ---------------------------------------------------------------------------
@@ -54,8 +53,13 @@ public class Person implements ValidModel, Serializable {
 
 	@Override
 	public boolean isValid() {
-		return username.isEmpty() == false && password.isEmpty() == false && name.isEmpty() == false
-				&& phonenumber.isEmpty() == false;
+		try {
+			return id >= 0 && username.isEmpty() == false && username.contains(" ") == false
+					&& password.isEmpty() == false && name.isEmpty() == false && phonenumber.isEmpty() == false
+					&& dateofbirth != null && avatar != null;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	// ---------------------------------------------------------------------------

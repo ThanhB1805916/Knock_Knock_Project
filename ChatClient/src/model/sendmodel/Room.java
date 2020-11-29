@@ -16,10 +16,10 @@ public class Room implements ValidModel, Serializable {
 	private int id;
 	private String name;
 	private LocalDateTime dateCreate;
-
+	private FileInfo avatar;
+	
 	private List<Message> messages;
 	private List<Person> members;
-	private FileInfo avatar;
 
 	// ---------------------------------------------------------------------------
 	// -------------------------------
@@ -28,36 +28,33 @@ public class Room implements ValidModel, Serializable {
 	// ---------------------------------------------------------------------------
 
 	// Ctor for create new room
-	public Room(int id, String name, FileInfo avatar, List<Person> members) {
+	public Room(int id, String name, LocalDateTime dateCreate, FileInfo avatar, List<Person> members) {
 		this.id = id;
 		this.name = name;
+		this.dateCreate = dateCreate;
 		this.avatar = avatar;
-		this.members = members;
-	}
-
-	// Ctor for exist room
-	public Room(int id, String name, List<Message> messages, List<Person> members) {
-		this.id = id;
-		this.name = name;
-		this.messages = messages;
 		this.members = members;
 	}
 
 	// Ctor full para
-	public Room(int id, String name, LocalDateTime dateCreate, List<Message> messages, List<Person> members,
-			FileInfo avatar) {
+	public Room(int id, String name, LocalDateTime dateCreate, FileInfo avatar, List<Message> messages,
+			List<Person> members) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.dateCreate = dateCreate;
+		this.avatar = avatar;
 		this.messages = messages;
 		this.members = members;
-		this.avatar = avatar;
 	}
 
 	@Override
 	public boolean isValid() {
-		return name.isEmpty() == false;
+		try {
+			return name.isEmpty() == false && dateCreate != null;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	// ---------------------------------------------------------------------------
@@ -90,6 +87,14 @@ public class Room implements ValidModel, Serializable {
 		this.dateCreate = dateCreate;
 	}
 
+	public FileInfo getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(FileInfo avatar) {
+		this.avatar = avatar;
+	}
+
 	public List<Message> getMessages() {
 		return messages;
 	}
@@ -104,13 +109,5 @@ public class Room implements ValidModel, Serializable {
 
 	public void setMembers(List<Person> members) {
 		this.members = members;
-	}
-
-	public FileInfo getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(FileInfo avatar) {
-		this.avatar = avatar;
 	}
 }
