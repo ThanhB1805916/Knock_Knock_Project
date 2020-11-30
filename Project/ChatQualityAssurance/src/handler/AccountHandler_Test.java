@@ -7,6 +7,7 @@ import org.junit.Test;
 import communicationTest.AccountHanlder;
 import handler.manage_account_handler.AccountHandler;
 import handler.manage_account_handler.AccountHandlerImp;
+import model.converter.PersonConverter;
 import model.sendmodel.Person;
 
 public class AccountHandler_Test extends AuthenticationHanlder_Test{
@@ -17,7 +18,7 @@ public class AccountHandler_Test extends AuthenticationHanlder_Test{
 	public void setUp()
 	{
 		super.setUp();
-		Achandler = new AccountHandlerImp(clientValid, dao);
+		Achandler = new AccountHandlerImp(clientValid, dao, new PersonConverter());
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------------

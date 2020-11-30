@@ -17,11 +17,6 @@ public interface PersonDAO extends ModelDAO<PersonTable> {
 
 	boolean addFriend(int id_person, int id_friend);
 
-	/*
-	 * Accept addFriend request
-	 */
-	boolean accept(int id_person, int id_friend);
-
 	boolean removeFriend(int id_person, int id_friend);
 
 }

@@ -109,7 +109,7 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 			// Send request if online
 			Client clientFriend = authorizedClientList.get(id);
 			if (id != client.getPerson().getId() && clientFriend != null) {
-				packAndSendTo(clientFriend, new Request(Name.CONFIRM, new ConfirmFriendModel(client.getPerson())));
+				packAndSendTo(clientFriend, new Request(Name.CONFIRM, new ConfirmFriendModel(client.getPerson(), clientFriend.getPerson())));
 				success = true;
 			}
 		}
@@ -118,26 +118,26 @@ public class FriendHandlerImp extends Handler implements FriendHandler {
 	}
 
 	@Override
-	public boolean confirm(ConfirmFriendModel sender) {
+	public boolean confirm(ConfirmFriendModel confirmFriend) {
 		boolean success = false;
-		if (sender.isValid()) {
+		if (confirmFriend.isValid()) {
 			// Send request if online
-			Client clientFriend = authorizedClientList.get(sender.getSender().getId());
-			if (sender.getSender().getId() != client.getPerson().getId() && clientFriend != null) {
+			Client clientFriend = authorizedClientList.get(confirmFriend.getSender().getId());
+			if (confirmFriend.getSender().getId() != client.getPerson().getId() && clientFriend != null) {
 				
 				//Notify sender
 				Thread notify = new Thread(()->
 				{
-					packAndSendTo(clientFriend, new Request(Name.CONFIRM, sender));
+					packAndSendTo(clientFriend, new Request(Name.CONFIRM, confirmFriend));
 				});
 				notify.start();
 				
 				// Update database if accept friend request
-				if(sender.getIsFriend())
+				if(confirmFriend.getIsFriend())
 				{
 					Thread update = new Thread(()->
 					{
-						dao.accept(client.getPerson().getId(), sender.getSender().getId());
+						dao.addFriend(client.getPerson().getId(), confirmFriend.getSender().getId());
 					});
 					update.start();
 				}

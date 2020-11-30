@@ -15,7 +15,5 @@ public interface PersonDAO_Query extends ModelDAO_Query {
 
 	String addFriendQuery();
 
-	String acceptQuery();
-
 	String removeFriendQuery();
 }

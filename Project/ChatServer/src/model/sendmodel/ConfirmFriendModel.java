@@ -10,10 +10,12 @@ public class ConfirmFriendModel implements ValidModel, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Person sender;
+	private Person friend;
 	private boolean isFriend = false;
 	
-	public ConfirmFriendModel(Person sender) {
+	public ConfirmFriendModel(Person sender, Person friend) {
 		this.sender = sender;
+		this.friend = friend;
 	}
 	
 	@Override
@@ -26,6 +28,14 @@ public class ConfirmFriendModel implements ValidModel, Serializable {
 	}
 	public void setSender(Person sender) {
 		this.sender = sender;
+	}
+
+	public Person getFriend() {
+		return friend;
+	}
+
+	public void setFriend(Person friend) {
+		this.friend = friend;
 	}
 
 	public boolean getIsFriend() {

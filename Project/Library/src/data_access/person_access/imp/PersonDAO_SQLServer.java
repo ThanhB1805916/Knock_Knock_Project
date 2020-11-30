@@ -54,10 +54,4 @@ public class PersonDAO_SQLServer extends PersonDAOImp {
 		return null;
 	}
 
-	@Override
-	public String acceptQuery() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

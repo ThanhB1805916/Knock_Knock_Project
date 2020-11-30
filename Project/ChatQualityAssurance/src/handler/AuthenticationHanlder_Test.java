@@ -12,6 +12,7 @@ import data_access.DAOFactory;
 import data_access.person_access.PersonDAO;
 import handler.authentication_hanlder.AuthenticationHandler;
 import handler.authentication_hanlder.AuthenticationHandlerImp;
+import model.converter.PersonConverter;
 import model.sendmodel.FileInfo;
 import model.sendmodel.LoginModel;
 import model.sendmodel.Person;
@@ -35,7 +36,7 @@ public class AuthenticationHanlder_Test {
 				.getPersonDAO();
 
 		clientValid = new ClientImp();
-		Auhandler = new AuthenticationHandlerImp(clientValid, dao);
+		Auhandler = new AuthenticationHandlerImp(clientValid, dao, new PersonConverter());
 		personValid = new Person(1, "admin", "1234", "Administrator", true, "0000000000", LocalDate.of(2020, 10, 04),
 				new FileInfo("sources/default/avatars/default_avatar.png"));
 		modelValid = new LoginModel(personValid.getUsername(), personValid.getPassword());

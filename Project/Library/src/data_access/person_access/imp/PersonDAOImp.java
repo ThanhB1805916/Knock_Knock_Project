@@ -125,14 +125,6 @@ public abstract class PersonDAOImp extends ModelDAOImp<PersonTable> implements P
 		return rows > 0;
 	}
 
-	// Accept add friend
-	@Override
-	public boolean accept(int id_person, int id_friend) {
-		int rows = dao.executeNonQuery(acceptQuery(), new Object[] { id_person, id_friend });
-
-		return rows > 0;
-	}
-
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Update
 	// --------------------------------------------------------------------------------------------------------------------------------------------

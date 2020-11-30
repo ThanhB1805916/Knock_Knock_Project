@@ -2,9 +2,8 @@ package data_access.person_access.imp;
 
 import data_access.SQLDAO;
 
-
 public class PersonDAO_MySQL extends PersonDAOImp {
-	
+
 	public PersonDAO_MySQL(SQLDAO dao) {
 		super(dao);
 	}
@@ -48,11 +47,6 @@ public class PersonDAO_MySQL extends PersonDAOImp {
 	@Override
 	public String addFriendQuery() {
 		return "CALL spPerson_AddFriend(?, ?);";
-	}
-
-	@Override
-	public String acceptQuery() {
-		return "CALL spPerson_Accept(?, ?);";
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
