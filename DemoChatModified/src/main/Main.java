@@ -15,7 +15,7 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.setTitle("Knock Knock");
 			stage.setResizable(false);
-/*		
+/*			Ay
 			Person person = new Person(123,"firefly","password","Tâm", true,"0987070422",LocalDate.of(2000, 7, 9), new FileInfo("E:/demo/anh3.jpg"));
 			Controller.getInstance().inputUserFromDatabase(person);
 	
