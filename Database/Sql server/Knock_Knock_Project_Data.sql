@@ -10,36 +10,6 @@ INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirt
 VALUES('admin', '1234', 'Administrator', '1', '0000000000', '2020-10-04', 'anh-avatar-supreme-dep-lam-dai-dien-facebook.jpg');
 
 INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user1', '1234', 'User1', '1', '0000000001', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user2', '1234', 'User2', '0', '0000000002', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user3', '1234', 'User3', '0', '0000000003', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user4', '1234', 'User4', '0', '0000000004', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user5', '1234', 'User5', '0', '0000000005', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user6', '1234', 'User6', '0', '0000000006', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user7', '1234', 'User7', '0', '0000000007', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user8', '1234', 'User8', '0', '0000000008', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user9', '1234', 'User9', '0', '0000000009', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
-VALUES('user10', '1234', 'User10 WTF', '0', '0000000010', '2020-10-04', 'default_avatar.png');
-
-INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
 VALUES('legiao', '1234', 'Lê Giao', '0', '0987072222', '2000-11-05', 'default_avatar.png');
 
 INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
@@ -84,9 +54,9 @@ VALUES('minhanh', '1234', 'Minh Ánh', '0', '0908070533', '2000-04-12', 'default
 INSERT INTO Person(username, [password], [name], gender, phonenumber, dateofbirth, avatar)
 VALUES('nguyetnga', '1234', 'Nguyệt Nga', '0', '573722222', '2000-01-15', 'default_avatar.png');
 
-
+GO
 SELECT * FROM Person;
-
+GO
 -- ----------------------------------------------------------------------------------------------
 -- --------------------------------------- Giá trị cho bảng phòng
 -- ----------------------------------------------------------------------------------------------
@@ -121,11 +91,11 @@ VALUES('Phòng 9');
 INSERT INTO Room([name])
 VALUES('Phòng 10');
 
-UPDATE Room SET avatar = 'sources/default/avatars/default_room_avatar.jpg' 
+UPDATE Room SET avatar = 'default_room_avatar.jpg' 
 WHERE id < 11;
-
+GO
 SELECT * FROM Room;
-
+GO
 -- ----------------------------------------------------------------------------------------------
 -- --------------------------------------- Giá trị cho thành viên trong phòng
 -- ----------------------------------------------------------------------------------------------

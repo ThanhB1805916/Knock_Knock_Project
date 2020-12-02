@@ -21,6 +21,13 @@ public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomD
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 
 	@Override
+	public int getRoomSize()
+	{
+		long size = (long)dao.executeScalar("call spRoom_GetRoomSize();", null);
+		return (int)size;
+	}
+	
+	@Override
 	public RoomTable get(int id) {
 		List<HashMap<String, Object>> dataTable = dao.executeQuery(getQuery(), new Object[] { id });
 

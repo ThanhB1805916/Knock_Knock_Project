@@ -17,6 +17,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 
 	private RoomDAO dao;
 	private RoomConverter converter;
+	public static int roomSize;
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Constructor
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,6 +26,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 		super(client);
 		this.dao = dao;
 		this.converter = converter;
+		roomSize = dao.getRoomSize();
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
@@ -39,7 +41,9 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 			case GET:
 				responseCommandType = new Request(Name.GET, get(client.getPerson().getId()));
 				break;
-
+			case ADD:
+				responseCommandType = new Request(Name.ADD, add((Room) request.getContent()) ? roomSize : -1);
+				break;
 			case UPDATE:
 				responseCommandType = new Request(Name.UPDATE, update((Room) request.getContent()));
 				break;
@@ -60,7 +64,7 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	// ------------------------------------------------------------ Pack And Send
 	@Override
 	public void packAndSend(Request request) {
-		if (request.isValid()) {
+		if (request != null && request.isValid()) {
 			CPackage CPackage = new CPackage(Type.ROOM, request);
 			send(CPackage);
 		}
@@ -84,9 +88,24 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 		boolean success = false;
 		if (room.isValid()) {
 			success = dao.add(converter.revert(room));
+			if (success) {
+				roomSize++;
+				Thread sendToMembers = new Thread(() -> {
+					sendToMember(room);
+				});
+
+				sendToMembers.start();
+			}
 		}
 
 		return success;
+	}
+
+	private void sendToMember(Room room) {
+		for (Person member : room.getMembers()) {
+			Client client = authorizedClientList.get(member.getId());
+			sendTo(client, new CPackage(Type.ROOM, new Request(Name.ADD, room)));
+		}
 	}
 
 	@Override
@@ -106,7 +125,16 @@ public class RoomHandlerImp extends Handler implements RoomHandler {
 	public boolean update(Room room) {
 		boolean success = false;
 		if (room.isValid()) {
-			success = dao.update(converter.revert(room));
+			Thread update = new Thread(() -> {
+				dao.update(converter.revert(room));
+			});
+			update.start();
+
+			Thread sendToMembers = new Thread(() -> {
+				// TODO
+			});
+			sendToMembers.start();
+			success = true;
 		}
 		return success;
 	}

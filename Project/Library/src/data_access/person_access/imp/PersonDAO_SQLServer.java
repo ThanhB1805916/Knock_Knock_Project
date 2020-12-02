@@ -8,19 +8,12 @@ public class PersonDAO_SQLServer extends PersonDAOImp {
 		super(dao);
 	}
 
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------- Get
+
 	@Override
 	public String getQuery() {
 		return "EXEC spPerson_GetPerson_Byid ?;";
-	}
-
-	@Override
-	public String addQuery() {
-		return "EXEC spPerson_InsertPerson ?, ?, ?, ?, ?, ?, ?;";
-	}
-
-	@Override
-	public String updateQuery() {
-		return "EXEC spPerson_UpdatePerson ?, ?, ?, ?, ?, ?, ?;";
 	}
 
 	@Override
@@ -43,15 +36,33 @@ public class PersonDAO_SQLServer extends PersonDAOImp {
 		return "EXEC  spPerson_GetPersonList_ByID_Friend ?;";
 	}
 
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------- Add
+
 	@Override
-	public String removeFriendQuery() {
-		return "EXEC spPerson_RemoveFriend ?, ?;";
+	public String addQuery() {
+		return "EXEC spPerson_InsertPerson ?, ?, ?, ?, ?, ?, ?;";
 	}
 
 	@Override
 	public String addFriendQuery() {
-		// TODO Auto-generated method stub
-		return null;
+		return "EXEC spPerson_AddFriend ?, ?;";
+	}
+
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------- Update
+
+	@Override
+	public String updateQuery() {
+		return "EXEC spPerson_UpdatePerson ?, ?, ?, ?, ?, ?, ?;";
+	}
+
+	// --------------------------------------------------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------- Remove
+
+	@Override
+	public String removeFriendQuery() {
+		return "EXEC spPerson_RemoveFriend ?, ?;";
 	}
 
 }

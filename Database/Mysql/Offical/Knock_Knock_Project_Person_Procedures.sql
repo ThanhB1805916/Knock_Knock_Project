@@ -87,7 +87,7 @@ END; $$
 
 -- CALL spPerson_InsertPerson('user45', '1234', 'User15', '100', '20', null, null);
 
--- Thêm lời mời kết bạn
+-- Thêm bạn
 DELIMITER $$
 DROP PROCEDURE IF EXISTS spPerson_AddFriend $$
 CREATE PROCEDURE spPerson_AddFriend(
@@ -100,21 +100,6 @@ BEGIN
 END; $$
 
 -- CALL spPerson_AddFriend(3, 4);
-
--- Chấp nhận kết bạn
-DELIMITER $$
-DROP PROCEDURE IF EXISTS spPerson_Accept $$
-CREATE PROCEDURE spPerson_Accept(
-   id_person INT,
-   id_friend INT
-)
-BEGIN
-	UPDATE Friend AS f SET isFriend = true
-    WHERE f.id_person = id_person AND f.id_friend = id_friend
-    OR f.id_person = id_friend AND f.id_friend = id_person;
-END; $$
-
--- CALL spPerson_Accept(3, 4);
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Update

@@ -45,7 +45,7 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 				break;
 
 			case LOGOUT:
-				responseCommandType = new Request(Name.LOGOUT, (Person) request.getContent());
+				responseCommandType = new Request(Name.LOGOUT, logout());
 				break;
 
 			default:
@@ -74,8 +74,7 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 	@Override
 	public boolean existUsername(String username) {
 		boolean success = false;
-		if(username != null && username.isEmpty() == false)
-		{
+		if (username != null && username.isEmpty() == false) {
 			success = dao.getByUsername(username) != null;
 		}
 		return success;
@@ -84,9 +83,8 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 	@Override
 	public boolean existPhonenumber(String phonenumber) {
 		boolean success = false;
-		if(phonenumber != null && phonenumber.isEmpty() == false)
-		{
-			 success = dao.getByPhonenumber(phonenumber) != null;
+		if (phonenumber != null && phonenumber.isEmpty() == false) {
+			success = dao.getByPhonenumber(phonenumber) != null;
 		}
 		return success;
 	}
@@ -95,20 +93,15 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 	public boolean signup(Person person) {
 
 		boolean success = false;
-
 		if (setupUser(person)) {
 			// If user name and phone number not exist
-			if (existUsername(person.getUsername()) == false && existPhonenumber(person.getPhonenumber()) == false) {
-				// Set up new user
-				if (person.isValid()) {
-					// Add to database
-					if (dao.add(converter.revert(person))) {
-						success = true;
-					} else {
-						// Remove directory
-						setupUserUndo(person);
-					}
-				}
+			if (person.isValid() && existUsername(person.getUsername()) == false
+					&& existPhonenumber(person.getPhonenumber()) == false && dao.add(converter.revert(person))) {
+				// Add to database
+				success = true;
+			} else {
+				// Remove directory
+				setupUserUndo(person);
 			}
 		}
 
@@ -124,13 +117,13 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 				String folderName = person.getUsername();
 
 				// If don't have date of birth
-				if (person.getDateofbirth() != null)
+				if (person.getDateofbirth() == null)
 					person.setDateofbirth(LocalDate.now());
 
 				// Create folder for user and avatar
 				File userDir = new File("sources/users/" + folderName + "/avatars");
 				userDir.mkdirs();
-				
+
 				FileInfo avatar = person.getAvatar();
 				if (avatar == null) {
 					// Avatar will be default
@@ -193,7 +186,8 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 			// Get person from database
 			Person person = converter.convert(dao.getByUsername(model.getUsername()));
 			// Match password
-			if (person != null && model.getPassword().equals(person.getPassword())) {
+			if (person != null && model.getPassword().equals(person.getPassword())
+					&& authorizedClientList.containsKey(person.getId()) == false) {
 				// Save login user
 				client.setPerson(person);
 				authorizedClientList.put(person.getId(), client);

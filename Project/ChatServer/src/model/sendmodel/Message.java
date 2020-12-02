@@ -13,7 +13,7 @@ public class Message implements ValidModel, Serializable {
 
 	private int id;
 	private Person sender;
-	private Room room;
+	private int roomID;
 	private FileInfo content;
 	private boolean isFile;
 	private LocalDateTime sendTime;
@@ -25,10 +25,10 @@ public class Message implements ValidModel, Serializable {
 	// ---------------------------------------------------------------------------
 
 	// Ctor for create exist message
-	public Message(int id, Person sender, Room room, FileInfo content, boolean isFile, LocalDateTime sendTime) {
+	public Message(int id, Person sender, int room, FileInfo content, boolean isFile, LocalDateTime sendTime) {
 		this.setId(id);
 		this.sender = sender;
-		this.room = room;
+		this.roomID = room;
 		this.content = content;
 		this.isFile = isFile;
 		this.sendTime = sendTime;
@@ -36,7 +36,7 @@ public class Message implements ValidModel, Serializable {
 
 	@Override
 	public boolean isValid() {
-		return sender.isValid() && room.isValid() && content != null && sendTime != null;
+		return sender.isValid() && roomID >= 0 && sendTime != null && content != null;
 	}
 
 	// ---------------------------------------------------------------------------
@@ -61,12 +61,12 @@ public class Message implements ValidModel, Serializable {
 		this.sender = sender;
 	}
 
-	public Room getRoom() {
-		return room;
+	public int getRoomID() {
+		return roomID;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoomID(int roomID) {
+		this.roomID = roomID;
 	}
 
 	public FileInfo getContent() {

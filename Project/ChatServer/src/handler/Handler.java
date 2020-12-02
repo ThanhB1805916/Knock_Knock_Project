@@ -18,7 +18,7 @@ public abstract class Handler {
 	}
 
 	public void send(CPackage CPackage) {
-		if (CPackage.isValid()) {
+		if (CPackage != null && CPackage.isValid()) {
 			client.send(CPackage);
 		}
 	}

@@ -28,9 +28,12 @@ public class PersonDAO_Test {
 	@Before
 	public void setUp() {
 		dao = DAOFactory.getInstance()
+//				.setSQLDAO(new ConnectionString(
+//						"jdbc:mysql://localhost:3306/Knock_Knock_Project_Test?noAccessToProcedureBodies=true",
+//						"stdUser", "std1234"))
 				.setSQLDAO(new ConnectionString(
-						"jdbc:mysql://localhost:3306/Knock_Knock_Project_Test?noAccessToProcedureBodies=true",
-						"stdUser", "std1234"))
+						"jdbc:sqlserver://localhost:1433; databaseName=Knock_Knock_Project;",
+						"sa", "159357"))
 				.getPersonDAO();
 		
 		personValid = new PersonTable(1, "admin", "1234", "Administrator", true, "0000000000",
@@ -160,14 +163,14 @@ public class PersonDAO_Test {
 		Assert.assertNull(memebers);
 	}
 
-	@Test
-	public void getListById_RoomEqualsTrueValue() {
-		List<PersonTable> memebers = dao.getListByID_Room(personValid.getId());
-		int i = 0;
-		for (PersonTable personTable : memebers) {
-			Assert.assertTrue(isEqual(personTable, membersValid.get(i++)));
-		}
-	}
+//	@Test
+//	public void getListById_RoomEqualsTrueValue() {
+//		List<PersonTable> memebers = dao.getListByID_Room(personValid.getId());
+//		int i = 0;
+//		for (PersonTable personTable : memebers) {
+//			Assert.assertTrue(isEqual(personTable, membersValid.get(i++)));
+//		}
+//	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------- Get List Id_Friend

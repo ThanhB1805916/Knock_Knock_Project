@@ -15,11 +15,14 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 
 	@Override
 	public Room convert(RoomTable roomTable) {
-		FileInfo avatar = getAvatar(roomTable);
+		Room room = null;
+		if (roomTable != null && roomTable.isValid()) {
+			FileInfo avatar = getAvatar(roomTable);
 
-		Room room = new Room(roomTable.getId(), roomTable.getName(), roomTable.getDatecreate(), avatar, null, null);
+			room = new Room(roomTable.getId(), roomTable.getName(), roomTable.getDatecreate(), avatar, null, null);
 
-		getMembersAndMessages(roomTable, room);
+			getMembersAndMessages(roomTable, room);
+		}
 
 		return room;
 	}
@@ -63,17 +66,20 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 	@Override
 	public List<Room> convert(List<RoomTable> roomTableList) {
 		List<Room> roomList = new ArrayList<>();
-		for (RoomTable roomTable : roomTableList) {
-			roomList.add(convert(roomTable));
-		}
+		if (roomTableList != null)
+			for (RoomTable roomTable : roomTableList) {
+				roomList.add(convert(roomTable));
+			}
 		return roomList;
 	}
 
 	@Override
 	public RoomTable revert(Room room) {
-		writeAvatar(room);
-		RoomTable roomTable = new RoomTable(room.getId(), room.getName(), room.getDateCreate(),
-				room.getAvatar().getName());
+		RoomTable roomTable = null;
+		if (room != null && room.isValid()) {
+			writeAvatar(room);
+			roomTable = new RoomTable(room.getId(), room.getName(), room.getDateCreate(), room.getAvatar().getName());
+		}
 		return roomTable;
 	}
 
@@ -84,9 +90,10 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 	@Override
 	public List<RoomTable> revert(List<Room> roomList) {
 		List<RoomTable> roomTableList = new ArrayList<>();
-		for (Room room : roomList) {
-			roomTableList.add(revert(room));
-		}
+		if (roomList != null)
+			for (Room room : roomList) {
+				roomTableList.add(revert(room));
+			}
 		return roomTableList;
 	}
 

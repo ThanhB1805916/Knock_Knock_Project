@@ -1,6 +1,8 @@
 package handler.manage_message_handler;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import data_access.DAOFactory;
 import data_access.message_access.MessageDAO;
 import handler.Handler;
 import model.communication.CPackage;
@@ -8,6 +10,7 @@ import model.communication.Name;
 import model.communication.Request;
 import model.communication.Type;
 import model.converter.MessageConverter;
+import model.converter.PersonConverter;
 import model.sendmodel.Message;
 import model.sendmodel.Person;
 import socket.Client;
@@ -42,14 +45,15 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 				break;
 			
 			case ADD:
-				responseCommandType = new Request(Name.ADD, add((Message) request.getContent()));
+				responseCommandType = new Request(null, null);
+				 add((Message) request.getContent());
 				break;
 
 			default:
 				responseCommandType = new Request(null, null);
 				break;
 			}
-
+			
 			packAndSend(responseCommandType);
 		}
 	}
@@ -60,7 +64,7 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 	//Send message to all members in room
 	private void send(Message message) {
 		// Get all member in a room
-		List<Person> members = message.getRoom().getMembers();
+		List<Person> members = new PersonConverter().convert(DAOFactory.getInstance().getPersonDAO().getListByID_Room(message.getRoomID()));
 		
 		for (Person member : members) {
 			// Get online member
@@ -92,13 +96,16 @@ public class MessageHandlerImp extends Handler implements MessageHandler {
 	public boolean add(Message message) {
 		boolean success = false;
 
+		//Create default message sendtime
+		if(message.getSendTime() == null)
+			message.setSendTime(LocalDateTime.now());
+
 		if (message.isValid()) {
 			// Add to database
 			Thread save = new Thread(() -> {
 				dao.add(converter.revert(message));
 			});
 			save.start();
-
 			// Send to other online clients
 			Thread send = new Thread(() -> {
 				send(message);

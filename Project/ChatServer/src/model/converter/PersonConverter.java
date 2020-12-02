@@ -14,12 +14,15 @@ public class PersonConverter implements Converter<PersonTable, Person> {
 
 	@Override
 	public Person convert(PersonTable personTable) {
-		FileInfo avatar = getAvatar(personTable);
-		LocalDate dateofbirth = getDateOfBirth(personTable);
+		Person person = null;
+		if (personTable != null && personTable.isValid()) {
+			FileInfo avatar = getAvatar(personTable);
+			LocalDate dateofbirth = getDateOfBirth(personTable);
 
-		// Ctor for table in database
-		Person person = new Person(personTable.getId(), personTable.getUsername(), personTable.getPassword(),
-				personTable.getName(), personTable.getGender(), personTable.getPhonenumber(), dateofbirth, avatar);
+			// Ctor for table in database
+			person = new Person(personTable.getId(), personTable.getUsername(), personTable.getPassword(),
+					personTable.getName(), personTable.getGender(), personTable.getPhonenumber(), dateofbirth, avatar);
+		}
 
 		return person;
 	}
@@ -42,26 +45,27 @@ public class PersonConverter implements Converter<PersonTable, Person> {
 
 	@Override
 	public List<Person> convert(List<PersonTable> personTableList) {
-
 		List<Person> personList = new ArrayList<>();
-
-		for (PersonTable personTable : personTableList) {
-			personList.add(convert(personTable));
-		}
+		if(personTableList != null)
+			for (PersonTable personTable : personTableList) {
+				personList.add(convert(personTable));
+			}
 
 		return personList;
 	}
 
 	@Override
 	public PersonTable revert(Person person) {
+		PersonTable personTable = null;
+		if (person != null && person.isValid()) {
+			LocalDate dateofbirth = checkDateOfBirth(person);
+			writeAvatar(person);
 
-		LocalDate dateofbirth = checkDateOfBirth(person);
-		writeAvatar(person);
+			personTable = new PersonTable(person.getId(), person.getUsername(), person.getPassword(), person.getName(),
+					person.getMale(), person.getPhonenumber(), dateofbirth, person.getAvatar().getName());
+		}
 
-		PersonTable Person = new PersonTable(person.getId(), person.getUsername(), person.getPassword(),
-				person.getName(), person.getMale(), person.getPhonenumber(), dateofbirth, person.getAvatar().getName());
-
-		return Person;
+		return personTable;
 	}
 
 	private LocalDate checkDateOfBirth(Person person) {
@@ -77,9 +81,8 @@ public class PersonConverter implements Converter<PersonTable, Person> {
 
 	@Override
 	public List<PersonTable> revert(List<Person> personList) {
-
 		List<PersonTable> personTableList = new ArrayList<>();
-
+		if(personList != null)
 		for (Person person : personList) {
 			personTableList.add(revert(person));
 		}
