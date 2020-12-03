@@ -27,7 +27,7 @@ BEGIN
 select r.* from room as r 
 join person_room as p 
 on r.id = p.id_room 
-where p.id_person=id_person;
+where p.id_person=id_person AND p.outtime<=p.intime;
 END//
 delimiter ;
 
@@ -62,8 +62,6 @@ END; $$
 
 
 -- Sửa tên phòng, avatar theo id phòng truyền vào
-
-use knock_knock_project;
 DROP PROCEDURE IF EXISTS spRoom_UpdateRoom;
 delimiter //
 CREATE PROCEDURE spRoom_UpdateRoom(in id int, in `name` varchar(20), in avatar varchar(128))
