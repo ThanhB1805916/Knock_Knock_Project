@@ -17,8 +17,8 @@ public class MessageConverter implements Converter<MessageTable, Message> {
 			content = new FileInfo();
 			if (messageTable.getIsFile()) {
 				// File name is message id
-				content = new FileInfo("sources/rooms/" + messageTable.getId_room() + "/messages/"
-						+ messageTable.getId() + "__" + messageTable.getMessagecontent());
+				content = new FileInfo(
+						"sources/rooms/" + messageTable.getId_room() + "/messages/" + messageTable.getMessagecontent());
 			}
 
 			content.setName(messageTable.getMessagecontent());
@@ -83,8 +83,7 @@ public class MessageConverter implements Converter<MessageTable, Message> {
 
 	private void writeContent(Message message) {
 		// Content stored in folder will have id__message's name format as name
-		message.getContent().setName(Integer.toString(message.getId()) + "__" + message.getContent().getName());
-		message.getContent().getFile("sources/rooms/" + message.getId() + "/messages/");
+		message.getContent().getFile("sources/rooms/" + message.getRoomID() + "/messages/");
 	}
 
 	@Override
