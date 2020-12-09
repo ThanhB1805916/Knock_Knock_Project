@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="315.0" style="-fx-background-color: white;" stylesheets="@friendtagstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.subcontroller.FriendTagController">
+   <children>
+      <ImageView fx:id="friendImage" fitHeight="80.0" fitWidth="80.0" layoutX="3.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../../../../../images.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="-7.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../img/frame_picture.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="friendName" layoutX="99.0" layoutY="14.0" prefHeight="35.0" prefWidth="198.0" text="Friend acount">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="friendBrith" layoutX="99.0" layoutY="46.0" prefHeight="29.0" prefWidth="118.0" text="2000.12.12">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="friendSex" layoutX="198.0" layoutY="46.0" prefHeight="29.0" prefWidth="50.0" text="Nam">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button id="fillButton" fx:id="fillButton" layoutX="110.0" layoutY="50.0" mnemonicParsing="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button id="moreButton" fx:id="moreButton" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="71.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="9.0">
+         <graphic>
+            <ImageView fx:id="moreImage" fitHeight="47.0" fitWidth="46.0" opacity="0.74" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../img/kick.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+   </children>
+</AnchorPane>

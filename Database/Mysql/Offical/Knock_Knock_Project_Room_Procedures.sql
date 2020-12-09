@@ -7,6 +7,16 @@ use knock_knock_project;
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Get
 
+-- Lấy số phòng
+DROP PROCEDURE IF EXISTS spRoom_GetRoomSize;
+delimiter //
+CREATE PROCEDURE spRoom_GetRoomSize()
+BEGIN
+SELECT COUNT(*) from room;
+END//
+delimiter;
+
+-- CALL spRoom_GetRoomSize();
 
 -- Lấy ra phòng theo id phòng
 DROP PROCEDURE IF EXISTS spRoom_GetRoom_ByID;
@@ -53,13 +63,13 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS spRoom_InsertIntoRoomPerson $$
 CREATE PROCEDURE spRoom_InsertIntoRoomPerson(id_room INT, id_person INT)
 BEGIN
-	INSERT INTO Person_Room(id_room, id_person)
-	VALUES(id_room, id_person);
+	INSERT INTO Person_Room(id_room, id_person) 
+	VALUES(id_room, id_person)
+ON DUPLICATE KEY UPDATE intime=NOW(),outtime=NOW();
 END; $$
 -- CALL spRoom_InsertIntoRoomPerson('10', '1');
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------- Update
-
 
 -- Sửa tên phòng, avatar theo id phòng truyền vào
 DROP PROCEDURE IF EXISTS spRoom_UpdateRoom;

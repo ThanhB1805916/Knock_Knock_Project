@@ -29,8 +29,8 @@ public interface RoomHandler {
 	boolean remove(Room room);
 	
 	/*
-	 * Person exit from a room
+	 * Remove a member from a room
 	 * */
-	boolean exit(Person person, Room room);
+	boolean exitRoom(Person person, Room room);
 
 }

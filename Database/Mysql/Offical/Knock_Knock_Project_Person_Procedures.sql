@@ -46,10 +46,9 @@ CREATE PROCEDURE spPerson_GetPersonList_ByID_Room(id_room INT)
 BEGIN
 	SELECT p.* FROM Person AS p, Person_Room AS pr
     WHERE p.id = pr.id_person
-    AND pr.id_room = id_room;
+    AND pr.id_room = id_room AND pr.intime >= pr.outtime;
 END; $$
-
--- CALL spPerson_GetPersonList_ByID_Room('1');
+--  CALL spPerson_GetPersonList_ByID_Room('2');
 
 -- Lấy ra danh sách theo id bạn
 DELIMITER $$

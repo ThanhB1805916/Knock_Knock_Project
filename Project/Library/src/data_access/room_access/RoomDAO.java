@@ -13,5 +13,5 @@ public interface RoomDAO extends ModelDAO<RoomTable> {
 	List<RoomTable> getList(int id_person);
 	
 	//Exit room
-	boolean exit(int id_person, int id_room);
+	boolean exitRoom(int id_person, int id_room);
 }

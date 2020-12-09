@@ -23,7 +23,7 @@ public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomD
 	@Override
 	public int getRoomSize()
 	{
-		long size = (long)dao.executeScalar("call spRoom_GetRoomSize();", null);
+		long size = (long)dao.executeScalar(getRoomSizeQuery(), null);
 		return (int)size;
 	}
 	
@@ -89,7 +89,7 @@ public abstract class RoomDAOImp extends ModelDAOImp<RoomTable> implements RoomD
 	}
 
 	@Override
-	public boolean exit(int id_person, int id_room)
+	public boolean exitRoom(int id_person, int id_room)
 	{
 		int rows = dao.executeNonQuery(exitRoomQuery(), new Object[] { id_person, id_room});
 		return rows > 0;

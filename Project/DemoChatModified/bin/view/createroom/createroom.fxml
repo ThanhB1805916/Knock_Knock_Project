@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane stylesheets="@createroomstyle.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="468.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.subcontroller.createroom.CreateRoomController">
+   <children>
+      <Button fx:id="create" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #3498db; -fx-background-radius: 100;" text="Tạo" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="avatar" fitHeight="190.0" fitWidth="190.0" layoutX="192.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="139.0" AnchorPane.topAnchor="20.0">
+         <image>
+            <Image url="@../img/user_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="134.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="134.0" AnchorPane.topAnchor="15.0">
+         <image>
+            <Image url="@../img/large.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="name" alignment="CENTER" layoutX="40.0" layoutY="215.0" prefHeight="50.0" prefWidth="388.0" promptText="Nhập tên phòng" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-radius: 50; -fx-border-width: 2; -fx-border-color: #3498db;">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </TextField>
+      <ScrollPane id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="14.0" layoutY="279.0" prefHeight="334.0" prefWidth="443.0" vbarPolicy="NEVER">
+         <content>
+            <FlowPane fx:id="friend" hgap="4.0" prefHeight="200.0" prefWidth="440.0" vgap="4.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="change" layoutX="139.0" layoutY="17.0" mnemonicParsing="false" prefHeight="190.0" prefWidth="190.0" style="-fx-background-radius: 100; -fx-background-color: transparent;" />
+   </children>
+</AnchorPane>

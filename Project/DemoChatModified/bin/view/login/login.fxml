@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #34495e;" stylesheets="@loginstyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.subcontroller.LoginController">
+   <children>
+      <BorderPane layoutX="217.0" layoutY="106.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 20;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <AnchorPane maxHeight="450.0" maxWidth="450.0" minHeight="450.0" minWidth="450.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane fx:id="signinPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="51.0" layoutY="28.0" prefHeight="64.0" prefWidth="206.0" text="ĐĂNG KÝ" AnchorPane.topAnchor="28.0">
+                           <font>
+                              <Font name="System Bold" size="43.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="signinButton" layoutX="136.0" layoutY="388.0" mnemonicParsing="false" onMousePressed="#signinButton_Pressed" prefHeight="48.0" prefWidth="179.0" styleClass="signBtn" text="Đăng ký">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="usernameSignin" alignment="CENTER" depthTest="ENABLE" layoutX="36.0" layoutY="188.0" prefHeight="48.0" prefWidth="390.0" promptText="Tên tài khoản" styleClass="textfill">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField fx:id="passwordSignin" alignment="CENTER" layoutX="36.0" layoutY="256.0" prefHeight="48.0" prefWidth="390.0" promptText="Mật khẩu" styleClass="textfill">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </PasswordField>
+                        <PasswordField fx:id="confirmPasswordSiginin" alignment="CENTER" layoutX="36.0" layoutY="323.0" prefHeight="48.0" prefWidth="390.0" promptText="Nhập lại mật khẩu" styleClass="textfill">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </PasswordField>
+                        <TextField fx:id="nameSignin" alignment="CENTER" depthTest="ENABLE" layoutX="41.0" layoutY="116.0" prefHeight="36.0" prefWidth="190.0" promptText="Họ và tên" styleClass="textfill">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="phoneSignin" alignment="CENTER" depthTest="ENABLE" layoutX="236.0" layoutY="116.0" prefHeight="48.0" prefWidth="190.0" promptText="Số điện thoại" styleClass="textfill">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="returnButton" layoutX="315.0" layoutY="34.0" mnemonicParsing="false" onMousePressed="#returnButton_Pressed" prefHeight="40.0" prefWidth="108.0" styleClass="signBtn" text="Trở lại" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="loginPane" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="91.0" layoutY="8.0" prefHeight="64.0" prefWidth="269.0" text="ĐĂNG NHẬP" AnchorPane.topAnchor="8.0">
+                           <font>
+                              <Font name="System Bold" size="43.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="loginButton" layoutX="136.0" layoutY="279.0" mnemonicParsing="false" onMousePressed="#loginButton_Pressed" prefHeight="48.0" prefWidth="179.0" styleClass="signBtn" text="Đăng nhập">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="usernameLogin" alignment="CENTER" depthTest="ENABLE" layoutX="61.0" layoutY="91.0" prefHeight="48.0" prefWidth="329.0" promptText="Tên tài khoản" styleClass="textfill">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField fx:id="passwordLogin" alignment="CENTER" layoutX="61.0" layoutY="166.0" prefHeight="48.0" prefWidth="329.0" promptText="Mật khẩu" styleClass="textfill">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </PasswordField>
+                        <CheckBox layoutX="138.0" layoutY="233.0" mnemonicParsing="false" text="Ghi nhớ tài khoản">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </CheckBox>
+                        <Label layoutX="109.0" layoutY="394.0" text="Chưa có tài khoản?">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="changeToSigninButton" layoutX="251.0" layoutY="388.0" mnemonicParsing="false" onMousePressed="#changeToSigninButton_Pressed" style="-fx-background-color: transparent; -fx-text-fill: blue;" text="Đăng ký" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children></AnchorPane>
+                  <AnchorPane fx:id="firstPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="banner" layoutX="68.0" layoutY="14.0" prefHeight="74.0" prefWidth="316.0" text="Knock Knock" textFill="#34495e">
+                           <font>
+                              <Font name="System Bold" size="51.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="startButton" layoutX="179.0" layoutY="394.0" mnemonicParsing="false" onMousePressed="#startButton_Pressed" style="-fx-background-color: #34495e33;" text="Bắt đầu" textFill="#34495e">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

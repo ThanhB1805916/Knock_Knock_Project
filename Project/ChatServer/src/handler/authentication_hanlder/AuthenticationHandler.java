@@ -25,5 +25,5 @@ public interface AuthenticationHandler {
 	 */
 	boolean login(LoginModel model);
 
-	boolean logout();
+	boolean logout(Person person);
 }

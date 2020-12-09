@@ -8,5 +8,5 @@ public enum Name {
 	REMOVE,
 	EXIT,
 	FIND, 
-	CONFIRM
+	CONFIRM, ADDMEMBER
 }

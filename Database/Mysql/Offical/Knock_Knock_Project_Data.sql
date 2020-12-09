@@ -51,7 +51,7 @@ INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirt
 VALUES('minhanh', '1234', 'Minh Ánh', '0', '0908070533', '2000-04-12', 'default_avatar.png');
 
 INSERT INTO Person(username, `password`, `name`, gender, phonenumber, dateofbirth, avatar)
-VALUES('nguyetnga', '1234', 'Nguyệt Nga', '0', '573722222', '2000-01-15', 'default_avatar.png');
+VALUES('nguyetnga', '1234', 'Nguyệt Nga', '0', '0573722222', '2000-01-15', 'default_avatar.png');
 
 
 SELECT * FROM Person;

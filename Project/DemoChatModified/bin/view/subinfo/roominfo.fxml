@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="723.0" prefWidth="466.0" style="-fx-background-color: white;" stylesheets="@roominfostyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.subcontroller.info.RoomInfoController">
+   <children>
+      <ImageView fx:id="roomAvatar" fitHeight="140.0" fitWidth="140.0" layoutX="175.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="19.0">
+         <image>
+            <Image url="@../../../../images.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="168.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="168.0" AnchorPane.topAnchor="14.0">
+         <image>
+            <Image url="@../img/large.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="roomName" alignment="CENTER" editable="false" layoutX="83.0" layoutY="177.0" prefHeight="46.0" prefWidth="320.0" promptText="Input room name" style="-fx-padding: 0; -fx-background-color: #3498db; -fx-background-radius: 50; -fx-text-fill: white;" text="Room's name">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </TextField>
+      <Button fx:id="roomChangeAvatar" layoutX="281.0" layoutY="117.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="37.0" style="-fx-padding: 0; -fx-background-radius: 50; -fx-background-color: #3498dbBF;">
+         <font>
+            <Font size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/exchange.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ScrollPane id="scrollMember" fitToWidth="true" hbarPolicy="NEVER" layoutX="14.0" layoutY="239.0" prefHeight="211.0" prefWidth="486.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: black;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <content>
+            <FlowPane fx:id="flowMember" hgap="7.0" prefHeight="145.0" prefWidth="486.0" style="-fx-padding: 5 5 5 5;" vgap="7.0" />
+         </content></ScrollPane>
+      <ScrollPane id="scrollMember" fitToWidth="true" hbarPolicy="NEVER" layoutX="24.0" layoutY="249.0" prefHeight="280.0" prefWidth="486.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <content>
+            <FlowPane fx:id="flowCanAdd" hgap="5.0" prefHeight="200.0" prefWidth="200.0" style="-fx-padding: 5 5 5 5;" vgap="5.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="changeName" layoutX="351.0" layoutY="184.0" mnemonicParsing="false" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: white;" text="Sửa" />
+      <Button fx:id="completeName" layoutX="307.0" layoutY="184.0" mnemonicParsing="false" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: white;" text="Xong" visible="false" />
+   </children>
+</AnchorPane>

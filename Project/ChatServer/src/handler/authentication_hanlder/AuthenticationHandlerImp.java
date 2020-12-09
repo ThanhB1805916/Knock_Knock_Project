@@ -45,7 +45,7 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 				break;
 
 			case LOGOUT:
-				responseCommandType = new Request(Name.LOGOUT, logout());
+				responseCommandType = new Request(Name.LOGOUT, logout((Person)request.getContent()));
 				break;
 
 			default:
@@ -202,14 +202,14 @@ public class AuthenticationHandlerImp extends Handler implements AuthenticationH
 	// ---------------------------------------------------------------- Logout
 
 	@Override
-	public boolean logout() {
-		// Keep connection
-		// Remove person
-		try {
+	public boolean logout(Person person) {
+		if(person != null &&  person.getId() == client.getPerson().getId())
+		{
+			// Keep connection
+			// Remove person
 			authorizedClientList.remove(client.getPerson().getId());
 			client.setPerson(null);
 			return true;
-		} catch (Exception e) {
 		}
 		return false;
 	}

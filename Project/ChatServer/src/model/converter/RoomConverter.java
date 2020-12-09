@@ -84,7 +84,7 @@ public class RoomConverter implements Converter<RoomTable, Room> {
 	}
 
 	private void writeAvatar(Room room) {
-		room.getAvatar().getFile("sources/rooms/" + room.getId() + "/avatars/" + room.getAvatar().getName());
+		room.getAvatar().getFile("sources/rooms/" + room.getId() + "/avatars/");
 	}
 
 	@Override

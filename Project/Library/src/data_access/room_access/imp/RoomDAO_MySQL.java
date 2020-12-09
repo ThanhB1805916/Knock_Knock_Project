@@ -12,6 +12,11 @@ public class RoomDAO_MySQL extends RoomDAOImp {
 	// ---------------------------------------------------------------- Get
 
 	@Override
+	public String getRoomSizeQuery() {
+		return "call spRoom_GetRoomSize();";
+	}
+
+	@Override
 	public String getQuery() {
 		return "Call spRoom_GetRoom_ByID(?)";
 	}
@@ -33,7 +38,7 @@ public class RoomDAO_MySQL extends RoomDAOImp {
 	public String addPersonQuery() {
 		return "CALL spRoom_InsertIntoRoomPerson(?, ?);";
 	}
-	
+
 	// --------------------------------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------- Update
 
@@ -46,6 +51,5 @@ public class RoomDAO_MySQL extends RoomDAOImp {
 	public String exitRoomQuery() {
 		return "CALL spRoom_PersonExitRoom(?, ?);";
 	}
-
 
 }
