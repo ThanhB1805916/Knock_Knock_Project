@@ -1,0 +1,23 @@
+.textfill{
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: #34495e33;
+    -fx-background-radius: 30;
+}
+
+.textfill:focused{
+	-fx-text-fill: white;
+	-fx-background-color: #34495e;
+}
+
+.signBtn{
+	-fx-background-color:#34495e33;
+	-fx-background-radius: 30;
+	
+}
+
+.signBtn:hover{
+	-fx-text-fill: white;
+	-fx-background-color:#34495e;
+	-fx-background-radius: 30;
+}

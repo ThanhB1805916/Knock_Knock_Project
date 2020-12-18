@@ -82,6 +82,7 @@ public class ClientImp implements Client {
 	@Override
 	public void send(CPackage CPackage) {
 		try {
+			output.reset();
 			output.writeObject(CPackage);
 			output.flush();
 		} catch (IOException e) {

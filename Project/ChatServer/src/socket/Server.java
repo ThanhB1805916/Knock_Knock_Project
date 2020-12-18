@@ -15,7 +15,7 @@ public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
 
-	private HashMap<Integer, Client> authorizedClientList;
+	private HashMap<Integer, Client> authorizedClientList = new HashMap<>();
 
 	// The only Instance
 	private static Server Instance = new Server();
@@ -37,12 +37,7 @@ public class Server implements Runnable {
 			// Get port to create socket
 			ServerConnection serverConenction = new ServerConnection();
 			serverSocket = new ServerSocket(serverConenction.getPort());
-
-			// Initialize hashmap
-			authorizedClientList = new HashMap<>();
-
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

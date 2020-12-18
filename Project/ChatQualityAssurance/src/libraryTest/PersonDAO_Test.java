@@ -28,12 +28,12 @@ public class PersonDAO_Test {
 	@Before
 	public void setUp() {
 		dao = DAOFactory.getInstance()
-//				.setSQLDAO(new ConnectionString(
-//						"jdbc:mysql://localhost:3306/Knock_Knock_Project_Test?noAccessToProcedureBodies=true",
-//						"stdUser", "std1234"))
 				.setSQLDAO(new ConnectionString(
-						"jdbc:sqlserver://localhost:1433; databaseName=Knock_Knock_Project;",
-						"sa", "159357"))
+						"jdbc:mysql://localhost:3306/Knock_Knock_Project_Test?noAccessToProcedureBodies=true",
+						"stdUser", "std1234"))
+//				.setSQLDAO(new ConnectionString(
+//						"jdbc:sqlserver://localhost:1433; databaseName=Knock_Knock_Project;",
+//						"sa", "159357"))
 				.getPersonDAO();
 		
 		personValid = new PersonTable(1, "admin", "1234", "Administrator", true, "0000000000",
@@ -55,8 +55,8 @@ public class PersonDAO_Test {
 		return personA.getId() == personB.getId() && personA.getUsername().equals(personB.getUsername())
 				&& personA.getPassword().equals(personB.getPassword()) && personA.getName().equals(personB.getName())
 				&& personA.getGender() == personB.getGender()
-				&& personA.getDateofbirth().equals(personB.getDateofbirth())
-				&& personA.getAvatar().equals(personB.getAvatar());
+				&& personA.getDateofbirth().equals(personB.getDateofbirth());
+//				&& personA.getAvatar().equals(personB.getAvatar());
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------------------

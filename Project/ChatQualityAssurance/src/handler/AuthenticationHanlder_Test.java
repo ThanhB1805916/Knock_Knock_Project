@@ -46,8 +46,9 @@ public class AuthenticationHanlder_Test {
 
 		try {
 			return personA.getId() == personB.getId() && personA.getUsername().equals(personB.getUsername())
-					&& personA.getPassword().equals(personB.getPassword()) && personA.getName().equals(personB.getName())
-					&& personA.getMale() == personB.getMale() && personA.getDateofbirth().equals(personB.getDateofbirth())
+					&& personA.getPassword().equals(personB.getPassword())
+					&& personA.getName().equals(personB.getName()) && personA.getMale() == personB.getMale()
+					&& personA.getDateofbirth().equals(personB.getDateofbirth())
 //					&& personA.getAvatar().equals(personB.getAvatar())
 			;
 		} catch (Exception e) {
@@ -267,15 +268,14 @@ public class AuthenticationHanlder_Test {
 	public void logout() {
 		boolean success = false;
 		if (Auhandler.login(modelValid)) {
-			success = Auhandler.logout();
+			success = Auhandler.logout(personValid);
 		}
 
 		Assert.assertTrue(success);
 	}
 
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void notLogin_but_logout() {
-		boolean success = Auhandler.logout();
-		Assert.assertFalse(success);
+		Auhandler.logout(personValid);
 	}
 }

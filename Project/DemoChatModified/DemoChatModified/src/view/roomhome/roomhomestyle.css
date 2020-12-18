@@ -1,0 +1,67 @@
+#roomInfoButton{
+	-fx-padding:0;
+	-fx-background-color: transparent;
+	-fx-background-radius:0;
+	-fx-border-radius:0;
+}
+
+#roomInfoButton:hover{
+	-fx-background-color:#3498db33;
+}
+
+#menuLibButton{
+	-fx-padding:0;
+	-fx-background-color: transparent;
+}
+
+#menuLibButton:hover{
+	-fx-background-color:#3498db33;
+}
+
+#sendTextfield{
+	-fx-background-radius:0;
+	-fx-border-radius: 0;
+	-fx-border-color:transparent;
+	-fx-background-color:transparent;
+}
+
+#sendButton{
+	-fx-padding:0;
+	-fx-background-color: transparent;
+}
+
+#sendButton:hover{
+	-fx-background-color:#3498db33;
+}
+
+#scrollMessage{
+	-fx-padding:0 0 0 0;
+	-fx-background-color:transparent;
+}
+
+#scrollMessage > .viewport{
+	-fx-background-color:transparent;
+}
+
+#scrollMessage  .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+ 
+#scrollMessage .increment-button , .list .decrement-button {
+    -fx-background-color:transparent;
+	 -fx-border-color:transparent;
+}
+ 
+#scrollMessage .scroll-bar:vertical .track{
+     -fx-background-color: transparent;
+	 -fx-border-color:transparent;
+}
+
+#scrollMessage .thumb{
+	-fx-background-color:#3498db33;
+	-fx-background-radius:20;
+}
+
+#scrollMessage .scrollbar{
+	-fx-background-color:transparent;
+}

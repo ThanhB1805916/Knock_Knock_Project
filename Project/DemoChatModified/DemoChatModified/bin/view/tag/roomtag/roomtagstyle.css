@@ -1,0 +1,18 @@
+#roomFill{
+	-fx-background-color:transparent;
+}
+
+#roomFill:hover{
+	-fx-background-color: #3498db33;
+
+}
+
+#moreButton{
+	-fx-background-radius:100;
+	-fx-border-radius:100;
+	-fx-background-color:transparent;
+}
+
+#moreButton:hover{
+	-fx-background-color:#3498db33
+}

@@ -1,4 +1,0 @@
-boolean confirm kiểm tra xác nhận bạn bè - false hiện messagebox hiện thông báo kết bạn
-Person sender				 - true thêm người muốn kết bạn vào danh sách bạn bè
-
-if sender = currentUser không làm gì cả

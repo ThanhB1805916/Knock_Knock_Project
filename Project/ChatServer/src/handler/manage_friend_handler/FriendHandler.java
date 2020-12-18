@@ -21,5 +21,5 @@ public interface FriendHandler {
 	/*
 	 * Remove a person from friend list
 	 */
-	boolean remove(Person person);
+	boolean remove(int id);
 }

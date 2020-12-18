@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import communicationTest.AccountHanlder;
 import handler.manage_account_handler.AccountHandler;
 import handler.manage_account_handler.AccountHandlerImp;
 import model.converter.PersonConverter;

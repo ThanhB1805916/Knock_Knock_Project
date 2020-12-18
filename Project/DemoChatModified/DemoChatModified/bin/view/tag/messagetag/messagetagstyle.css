@@ -1,0 +1,17 @@
+#tagButton{
+	-fx-background-color: transparent;
+}
+
+#tagButton:hover{
+	-fx-background-color: #3498db33;
+}
+
+#moreButton{
+	-fx-background-color: transparent;
+	-fx-background-radius:100;
+	-fx-border-radius:100;
+}
+
+#moreButton:hover{
+	-fx-background-color: #3498db33;
+}
